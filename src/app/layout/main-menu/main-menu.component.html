@@ -1,0 +1,63 @@
+<dx-toolbar
+class="dx-theme-background-color"
+>
+    <dxi-item
+    [location]="isSmall ? 'after' : 'before'"
+    >
+    <img src="../../../assets/logo1.png" height="60px" alt="" id="logo">
+    </dxi-item>
+    <dxi-item
+    *ngIf="!isSmall"
+    location="after"
+    >
+    <p class="menuItem" (click)="goto($event)">პროდუქტები</p>
+    </dxi-item>
+    <dxi-item
+    *ngIf="!isSmall"
+    location="after">
+    <p class="menuItem" (click)="goto($event)">შოურუმი</p>
+    </dxi-item>
+    <dxi-item
+    *ngIf="!isSmall"
+    location="after">
+    <p class="menuItem" (click)="goto($event)">ჩვენს შესახებ</p>
+    </dxi-item>
+    <dxi-item
+    *ngIf="isSmall"
+    location="before"
+    widget="dxButton"
+    [options]="opt"
+    >
+        <dx-drawer
+        *ngIf="isSmall"
+        [openedStateMode]="'shrink'"
+        [position]="'top'"
+        [revealMode]="'slide'"
+        template="template"
+        [opened]="false"
+        height="100%"
+        [closeOnOutsideClick]="true"
+        >
+            <div *dxTemplate="let data of 'template'">
+                <dx-list
+                class="panel-list dx-theme-typography-background-color"
+                [hoverStateEnabled]="false"
+                [activeStateEnabled]="false"
+                [focusStateEnabled]="false"
+                [dataSource]="navigation"
+                >
+                </dx-list>
+            </div>
+        </dx-drawer>
+    </dxi-item>
+</dx-toolbar>
+
+
+
+<dx-drawer
+*ngIf="!isSmall"
+>
+    <div class="mainContent">
+        <ng-content></ng-content>
+    </div>
+</dx-drawer>
