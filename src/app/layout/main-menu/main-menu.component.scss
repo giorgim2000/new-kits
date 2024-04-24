@@ -27,5 +27,112 @@ dxi-item:hover{
 }
 
 .mainContent{
-    height: calc(100vh - 80px);
+    min-height: calc(100vh - 222px);
+}
+
+.footer{
+    padding-inline: 10px;
+    margin-inline: auto;
+    width: 90%;
+    border-top: 0.1px #666 solid;
+
+    .row{
+        margin-inline:0;
+        display: flex;
+        justify-content: space-between;
+
+        .first{
+            padding: 20px 0;
+            width: 25% !important;
+
+            h2{
+                text-transform: uppercase;
+                font-family: "Nobel-Regular", arial, helvetica, san-serif;
+                color: #000;
+                font-size: 14px;
+                margin-right: 80px;
+            }
+
+            ul{
+                margin: 0;
+                margin-right: 40px;
+                padding-left: 0;
+                list-style: none;   
+
+                li{
+                    display: list-item;
+                    text-align: -webkit-match-parent;
+                    list-style: none;
+
+                    a{
+                        color: #000;
+                        font-size: 12px;
+                        font-family: "Nobel-Regular", arial, helvetica, san-serif;
+                        text-decoration: none !important;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+
+        .social{
+            width: 25%;
+            padding: 40px 0;
+            float: right;
+
+            ul{
+                display: flex;
+                margin: 0;
+                justify-content: flex-end;
+                list-style: none;
+
+                li{
+                    a{
+                        background-repeat: no-repeat !important;
+                        background-size: contain !important;
+                        background-position: center !important;
+                        width: 30px;
+                        height: 30px;
+                        display: inline-block;
+                        margin-left: 20px;
+                        color: #666;
+                        text-decoration: none;
+                        background-color: transparent;
+                    }
+
+                    .fb{
+                        background: url(../../../../../../LexusImages/fb.png);
+                    }
+
+                    .fb:hover{
+                        background: url(../../../../../../LexusImages/fbhov.png);
+                    }
+                    
+                    .youtube{
+                        background: url(../../../../../../LexusImages/youtube.png);
+                    }
+
+                    .youtube:hover{
+                        background: url(../../../../../../LexusImages/youtubehov.png);
+                    }
+
+                    .instagram{
+                        background: url(../../../../../../LexusImages/insta.png);
+                    }
+
+                    .instagram:hover{
+                        background: url(../../../../../../LexusImages/instahov.png);
+                    }
+
+                    .twitter{
+                        background: url(../../../../../../LexusImages/twitter.png);
+                    }
+
+                    .twitter:hover{
+                        background: url(../../../../../../LexusImages/twitterhov.png);
+                    }
+                }
+            }
+        }
+    }
 }

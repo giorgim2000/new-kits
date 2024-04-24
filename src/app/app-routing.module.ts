@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ScreenManagerService } from './services/screen-manager.service';
-import { DxGalleryModule, DxTreeViewModule } from 'devextreme-angular';
+import { DxGalleryModule, DxTreeListModule, DxTreeViewModule } from 'devextreme-angular';
 
 const routes: Routes = [
   {
@@ -16,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), DxGalleryModule, DxTreeViewModule],
+  imports: [RouterModule.forRoot(routes), DxGalleryModule, DxTreeViewModule, DxTreeListModule],
   exports: [RouterModule],
   declarations: [HomeComponent]
 })
