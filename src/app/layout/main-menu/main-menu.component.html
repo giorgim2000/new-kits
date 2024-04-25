@@ -23,6 +23,39 @@ class="dx-theme-background-color"
     <p class="menuItem" (click)="goto($event)">ჩვენს შესახებ</p>
     </dxi-item>
     <dxi-item
+    *ngIf="!isSmall && loggedIn"
+    location="after"
+    menuItemTemplate="menuItem"
+    >
+        <div *dxTemplate="let data of 'item'">
+            <dx-button
+            class="user-button authorization"
+            width="210px"
+            height="100%"
+            stylingMode="text">
+            <div *dxTemplate="let data of 'content'">
+                <app-user-panel [username]="user.username" menuMode="context"></app-user-panel>
+            </div>
+            </dx-button>
+        </div>
+        
+    </dxi-item>
+    <div *dxTemplate="let data of 'menuItem'">
+        <app-user-panel [username]="user.username" menuMode="list"></app-user-panel>
+    </div>
+    <dxi-item 
+    *ngIf="!isSmall && !loggedIn"
+    location="after"
+    >
+      <p class="menuItem" (click)="logIn()">შესვლა</p>
+    </dxi-item>
+    <dxi-item 
+    *ngIf="!isSmall && !loggedIn"
+    location="after"
+    >
+      <p class="menuItem" (click)="register()">რეგისტრაცია</p>
+    </dxi-item>
+    <dxi-item
     *ngIf="isSmall"
     location="before"
     widget="dxButton"

@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { DxDrawerComponent, DxDrawerModule, DxListModule, DxMenuModule, DxToolbarModule } from 'devextreme-angular';
+import { DxButtonModule, DxDrawerComponent, DxDrawerModule, DxListModule, DxMenuModule, DxToolbarModule } from 'devextreme-angular';
+import { UserPanelComponent } from 'src/app/components/user-panel/user-panel.component';
+import { AuthService } from 'src/app/services/auth.service';
 import { ScreenManagerService } from 'src/app/services/screen-manager.service';
 
 @Component({
@@ -11,6 +13,8 @@ import { ScreenManagerService } from 'src/app/services/screen-manager.service';
 })
 export class MainMenuComponent implements OnInit {
   @ViewChild(DxDrawerComponent, { static: false }) drawer?: DxDrawerComponent;
+  loggedIn:boolean = false;
+  user:any;
   toolbarContent : any[] = [{
     widget: 'dxButton',
     location: 'before',
@@ -39,10 +43,13 @@ export class MainMenuComponent implements OnInit {
     { id: 5, text: 'Reports' },
   ];
 
-  constructor(private router:Router, private screen:ScreenManagerService) { }
+  constructor(private router:Router, private screen:ScreenManagerService, private authService:AuthService) { }
 
   ngOnInit(): void {
     this.screen.changed.subscribe(() => this.updateDrawer());
+    this.loggedIn = this.authService.loggedIn;
+    if(this.loggedIn)
+      this.user = this.authService.User;
   }
 
   updateDrawer() {
@@ -51,6 +58,15 @@ export class MainMenuComponent implements OnInit {
 
     this.isSmall = isXSmall;
     this.islarge = isLarge;
+  }
+
+  logIn(){
+    // this.router.navigate(['auth', 'login']);
+    this.router.navigate(['auth']);
+  }
+
+  register(){
+    this.router.navigate(['auth', 'register']);
   }
 
   goto(e:any){
@@ -64,7 +80,7 @@ export class MainMenuComponent implements OnInit {
 }
 
 @NgModule({
-  imports:[CommonModule, DxToolbarModule, DxDrawerModule, DxMenuModule, DxListModule],
+  imports:[CommonModule, DxToolbarModule, DxDrawerModule, DxMenuModule, DxListModule,UserPanelComponent, DxButtonModule],
   exports:[MainMenuComponent],
   declarations:[MainMenuComponent],
   providers:[ScreenManagerService]

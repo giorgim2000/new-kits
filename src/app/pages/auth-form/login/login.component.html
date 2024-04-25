@@ -1,1 +1,50 @@
-<p>login works!</p>
+<form class="login-form" (submit)="onSubmit($event)">
+    <dx-form [formData]="formData" [disabled]="loading">
+  
+      <dxi-item dataField="email" editorType="dxTextBox"
+        [editorOptions]="{ stylingMode: 'filled', placeholder: 'მომხმარებელი', mode: 'text' }">
+        <dxi-validation-rule type="required" message="ჩაწერე მომხმარებელი"></dxi-validation-rule>
+        <!-- <dxi-validation-rule type="email" message="Email is invalid"></dxi-validation-rule> -->
+        <dxo-label [visible]="false"></dxo-label>
+      </dxi-item>
+  
+      <dxi-item dataField="password" editorType="dxTextBox"
+        [editorOptions]="{ stylingMode: 'filled', placeholder: 'პაროლი', mode: 'password' }">
+        <dxi-validation-rule type="required" message="ჩაწერე პაროლი"></dxi-validation-rule>
+        <dxo-label [visible]="false"></dxo-label>
+      </dxi-item>
+  
+      <dxi-item dataField="rememberMe" editorType="dxCheckBox"
+        [editorOptions]="{ text: 'დამახსოვრება', elementAttr: { class: 'form-text' } }">
+        <dxo-label [visible]="false"></dxo-label>
+      </dxi-item>
+  
+      <dxi-item itemType="button">
+        <dxo-button-options width="100%" type="default" [useSubmitBehavior]="true" [template]="'signInTemplate'">
+        </dxo-button-options>
+      </dxi-item>
+  
+      <dxi-item>
+        <div class="link">
+          <a routerLink="/reset-password">დაგავიწყდა პაროლი?</a>
+        </div>
+      </dxi-item>
+  
+      <dxi-item itemType="button">
+        <dxo-button-options text="შექმენი ანგარიში" width="100%" [onClick]="onCreateAccountClick"></dxo-button-options>
+      </dxi-item>
+  
+      <ng-container *dxTemplate="let item of 'signInTemplate'">
+        <div>
+          <span class="dx-button-text">
+            <ng-container *ngIf="loading; else notLoading">
+              <dx-load-indicator width="24px" height="24px" [visible]="true"></dx-load-indicator>
+            </ng-container>
+            <ng-template #notLoading>შესვლა</ng-template>
+          </span>
+        </div>
+      </ng-container>
+  
+    </dx-form>
+  </form>
+  
