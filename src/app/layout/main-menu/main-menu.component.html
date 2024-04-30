@@ -3,24 +3,25 @@ class="dx-theme-background-color"
 >
     <dxi-item
     [location]="isSmall ? 'after' : 'before'"
+    id="logoItem"
     >
-    <img src="../../../assets/logo1.png" height="60px" alt="" id="logo">
+        <img src="../../../assets/logo1.png" (click)="goToHome()" height="52px" alt="" id="logo">
     </dxi-item>
     <dxi-item
     *ngIf="!isSmall"
     location="after"
     >
-    <p class="menuItem" (click)="goto($event)">პროდუქტები</p>
+        <p class="menuItem" (click)="goToProducts()">პროდუქტები</p>
     </dxi-item>
     <dxi-item
     *ngIf="!isSmall"
     location="after">
-    <p class="menuItem" (click)="goto($event)">შოურუმი</p>
+        <p class="menuItem" (click)="goToShowroom()">შოურუმი</p>
     </dxi-item>
     <dxi-item
     *ngIf="!isSmall"
     location="after">
-    <p class="menuItem" (click)="goto($event)">ჩვენს შესახებ</p>
+        <p class="menuItem" (click)="goToAbout()">ჩვენს შესახებ</p>
     </dxi-item>
     <dxi-item
     *ngIf="!isSmall && loggedIn"
@@ -30,18 +31,18 @@ class="dx-theme-background-color"
         <div *dxTemplate="let data of 'item'">
             <dx-button
             class="user-button authorization"
-            width="210px"
+            width="190px"
             height="100%"
             stylingMode="text">
             <div *dxTemplate="let data of 'content'">
-                <app-user-panel [username]="user.username" menuMode="context"></app-user-panel>
+                <app-user-panel [username]="user" menuMode="context"></app-user-panel>
             </div>
             </dx-button>
         </div>
         
     </dxi-item>
     <div *dxTemplate="let data of 'menuItem'">
-        <app-user-panel [username]="user.username" menuMode="list"></app-user-panel>
+        <app-user-panel [username]="user" menuMode="list"></app-user-panel>
     </div>
     <dxi-item 
     *ngIf="!isSmall && !loggedIn"

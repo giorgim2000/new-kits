@@ -226,11 +226,12 @@
                         display: flex;
                         justify-content: center;
                         align-items: end;
-                        transition: all 0.3s ease-in-out;
+                        transition: all .1s ease-in;
                     }
 
                     div:hover{
                         font-weight: bolder;
+                        cursor: pointer;
                     }
                 }
             }

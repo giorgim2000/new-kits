@@ -8,6 +8,9 @@ import { ScreenManagerService } from './services/screen-manager.service';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DxContextMenuModule } from 'devextreme-angular';
 import { CreateAccountComponent } from './pages/auth-form/create-account/create-account.component';
+import { AuthService } from './services/auth.service';
+import { ModelService } from './services/model.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,9 +22,10 @@ import { CreateAccountComponent } from './pages/auth-form/create-account/create-
     HttpClientModule,
     MainMenuModule,
     LayoutModule,
-    DxContextMenuModule
+    DxContextMenuModule,
+    BrowserAnimationsModule
   ],
-  providers: [ScreenManagerService],
+  providers: [ScreenManagerService, AuthService, ModelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

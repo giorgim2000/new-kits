@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DxFormModule, DxLoadIndicatorModule } from 'devextreme-angular';
+import notify from 'devextreme/ui/notify';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,26 +19,23 @@ export class LoginComponent {
   onSubmit(e: Event) {
     e.preventDefault();
     const { email, password } = this.formData;
-    //this.loading = true;
+    this.loading = true;
 
-    // this.authService.logIn(email, password).subscribe({
-    //   next: (res) => {
-    //     if(res.isOk){
-    //       this.router.navigate(['/home']);
-    //     }
-    //   },
-    //   error: (err) => {
-    //     console.log("CHUCHLIKA");
-    //   }
-    // });
-    
-    // if (!result.isOk) {
-    //   this.loading = false;
-    //   notify(result.message, 'error', 2000);
-    // }
+    this.authService.logIn(email, password).subscribe({
+      next: (res) => {
+        if(res.isOk){
+          this.loading = false;
+          this.router.navigate(['home']);
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        console.log("CHUCHLIKA");
+      }
+    });
   }
 
   onCreateAccountClick = () => {
-    this.router.navigate(['/create-account']);
+    this.router.navigate(['auth', 'register']);
   }
 }

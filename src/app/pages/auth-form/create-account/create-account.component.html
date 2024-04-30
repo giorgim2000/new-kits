@@ -1,1 +1,90 @@
-<p>create-account works!</p>
+<!-- <dxi-validation-rule
+              type="async"
+              message="Email is already registered"
+              [validationCallback]="asyncValidation"
+            ></dxi-validation-rule> -->
+
+            <form class="create-account-form" (submit)="onSubmit($event)">
+                <dx-form [formData]="formData" [disabled]="loading">
+              
+                  <dxi-item dataField="FirstName" editorType="dxTextBox"
+                    [editorOptions]="{ stylingMode: 'filled', placeholder: 'სახელი', mode: 'text' }">
+                    <dxi-validation-rule type="required" message="შეიყვანეთ თქვენი სახელი"></dxi-validation-rule>
+                    <dxo-label [visible]="false"></dxo-label>
+                  </dxi-item>
+              
+                  <dxi-item dataField="LastName" editorType="dxTextBox"
+                    [editorOptions]="{ stylingMode: 'filled', placeholder: 'გვარი', mode: 'text' }">
+                    <dxi-validation-rule type="required" message="შეიყვანეთ თქვენი გვარი"></dxi-validation-rule>
+                    <dxo-label [visible]="false"></dxo-label>
+                  </dxi-item>
+              
+                  <dxi-item dataField="UserIdNumber" editorType="dxTextBox"
+                    [editorOptions]="{ stylingMode: 'filled', placeholder: 'პირადი ნომერი', mode: 'numeric' }">
+                    <dxi-validation-rule type="required" message="შეიყვანეთ პირადი ნომერი"></dxi-validation-rule>
+                    <dxi-validation-rule type="numeric" message="შეიყვანეთ მხოლოდ ციფრები"></dxi-validation-rule>
+                    <dxo-label [visible]="false"></dxo-label>
+                  </dxi-item>
+              
+                  <dxi-item dataField="PhoneNumber" editorType="dxTextBox"
+                    [editorOptions]="{ stylingMode: 'filled', placeholder: 'ტელეფონი', mode: 'numeric' }">
+                    <dxi-validation-rule type="required" message="შეიყვანეთ ტელეფონის ნომერი"></dxi-validation-rule>
+                    <dxi-validation-rule type="numeric" message="შეიყვანეთ მხოლოდ ციფრები"></dxi-validation-rule>
+                    <dxo-label [visible]="false"></dxo-label>
+                  </dxi-item>
+              
+                  <dxi-item dataField="Email" editorType="dxTextBox"
+                    [editorOptions]="{ stylingMode: 'filled', placeholder: 'ელფოსტა', mode: 'email' }">
+                    <dxi-validation-rule type="required" message="შეიყვანეთ ელფოსტა"></dxi-validation-rule>
+                    <dxi-validation-rule type="email" message="ელფოსტა არასწორია"></dxi-validation-rule>
+                    <dxo-label [visible]="false"></dxo-label>
+                  </dxi-item>
+              
+                  <dxi-item dataField="UserName" editorType="dxTextBox"
+                    [editorOptions]="{ stylingMode: 'filled', placeholder: 'მომხმარებელი', mode: 'text' }">
+                    <dxi-validation-rule type="required" message="შეიყვანეთ მომხმარებლის სახელი"></dxi-validation-rule>
+                    <dxo-label [visible]="false"></dxo-label>
+                  </dxi-item>
+              
+                  <dxi-item dataField="Password" editorType="dxTextBox"
+                    [editorOptions]="{ stylingMode: 'filled', placeholder: 'პაროლი', mode: 'password' }">
+                    <dxi-validation-rule type="required" message="შეიყვანეთ პაროლი"></dxi-validation-rule>
+                    <dxo-label [visible]="false"></dxo-label>
+                  </dxi-item>
+              
+                  <!-- <dxi-item dataField="confirmedPassword" editorType="dxTextBox"
+                    [editorOptions]="{ stylingMode: 'filled', placeholder: 'გაიმეორე პაროლი', mode: 'password' }">
+                    <dxi-validation-rule type="required" message="შეიყვანეთ პაროლი"></dxi-validation-rule>
+                    <dxi-validation-rule type="custom" message="პაროლები ერთმანეთს არ ემთხვევა" [validationCallback]="confirmPassword">
+                    </dxi-validation-rule>
+                    <dxo-label [visible]="false"></dxo-label>
+                  </dxi-item> -->
+              
+                  
+              
+                  <dxi-item itemType="button">
+                    <dxo-button-options width="100%" type="default" [useSubmitBehavior]="true" [template]="'createAccountTemplate'">
+                    </dxo-button-options>
+                  </dxi-item>
+              
+                  <dxi-item>
+                    <div class="login-link">
+                      უკვე გაქვთ ექაუნთი? <a routerLink="/auth/login">შესვლა</a>
+                    </div>
+                  </dxi-item>
+              
+                  <ng-container *dxTemplate="let item of 'createAccountTemplate'">
+                    <div>
+                      <span class="dx-button-text">
+                        <ng-container *ngIf="loading; else notLoading">
+                          <dx-load-indicator width="24px" height="24px" [visible]="true"></dx-load-indicator>
+                        </ng-container>
+                
+                        <ng-template #notLoading>შექმენით ახალი ექაუნთი</ng-template>
+                      </span>
+                    </div>
+                  </ng-container>
+              
+                </dx-form>
+              </form>
+              

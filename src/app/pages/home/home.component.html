@@ -46,6 +46,10 @@
                     <li>
                         <a href="#">ლექსუსი</a>
                     </li>
+                    <li *ngIf="modelVisible">
+                        &nbsp;/&nbsp;
+                        <a href="#">{{modelString}}</a>
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -55,38 +59,39 @@
             <div class="panelHeading">
                 <h2>რა მოდელია შენი ლექსუსი?</h2>
             </div>
-            <ul>
-                <li>
-                    <a href="#">
-                        <img src="../../../assets/GSMain.png" alt="">
-                        <div>GS</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="../../../assets/GXMain.png" alt="">
-                        <div>GX</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="../../../assets/ISMain.png" alt="">
-                        <div>IS</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="../../../assets/LXMain.png" alt="">
-                        <div>LX</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="../../../assets/NXMain.png" alt="">
-                        <div>NX</div>
+            <ul [@fadeInList]>
+                <li *ngFor="let product of modelsDataSource">
+                    <a (click)="product.modelName != null ? modelClick(product.id!, product.modelName) : modelByYearClick(product.id)">
+                        <img src="{{product.imageUrl}}" alt="{{product.modelName ?? product.modelByYearName}}">
+                        <div>{{product.modelName ?? product.modelByYearName}}</div>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+
+<!-- <li>
+    <a href="#">
+        <img src="../../../assets/GXMain.png" alt="">
+        <div>GX</div>
+    </a>
+</li>
+<li>
+    <a href="#">
+        <img src="../../../assets/ISMain.png" alt="">
+        <div>IS</div>
+    </a>
+</li>
+<li>
+    <a href="#">
+        <img src="../../../assets/LXMain.png" alt="">
+        <div>LX</div>
+    </a>
+</li>
+<li>
+    <a href="#">
+        <img src="../../../assets/NXMain.png" alt="">
+        <div>NX</div>
+    </a>
+</li> -->

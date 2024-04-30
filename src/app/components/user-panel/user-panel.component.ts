@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { DxContextMenuModule, DxListModule } from 'devextreme-angular';
@@ -6,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-user-panel',
   standalone: true,
-  imports: [DxContextMenuModule, DxListModule],
+  imports: [DxContextMenuModule, DxListModule,CommonModule],
   templateUrl: './user-panel.component.html',
   styleUrl: './user-panel.component.scss'
 })

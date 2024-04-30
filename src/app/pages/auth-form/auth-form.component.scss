@@ -1,10 +1,16 @@
 :host {
     width: 100%;
-    height: 100%;
+    height: 100% !important;
+    min-height: calc(100vh - 222px) !important;
   }
   
-  .dx-scrollview-content{
-    background: linear-gradient(to right,#917359, rgba(81, 101, 226, 0.9)) !important;
+  dx-scroll-view{
+    min-height: calc(100vh - 222px) !important;
+    display: flex;
+    align-items: center;
+    // max-height: 737px !important;
+    // padding: calc((100vh - 685px) / 2) 0;
+    background: #d3cbb5;
   }
   
   .single-card {
@@ -13,6 +19,7 @@
       margin: auto auto;
       padding: 40px;
       flex-grow: 0;
+      background: #e8e8e8;
   
       :host-context(.screen-x-small) & {
         width: 100%;
@@ -25,7 +32,9 @@
       }
   
       .header {
-        margin-bottom: 30px;
+        margin-bottom: 70px;
+        display: flex;
+        justify-content: center;
   
         .title {
           color: black;

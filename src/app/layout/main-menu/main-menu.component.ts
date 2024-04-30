@@ -6,6 +6,7 @@ import { UserPanelComponent } from 'src/app/components/user-panel/user-panel.com
 import { AuthService } from 'src/app/services/auth.service';
 import { ScreenManagerService } from 'src/app/services/screen-manager.service';
 
+
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
@@ -47,6 +48,12 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.screen.changed.subscribe(() => this.updateDrawer());
+    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
+      this.loggedIn = isLoggedIn;
+      if(isLoggedIn)
+        this.user = this.authService.getUsername();
+    });
+
     this.loggedIn = this.authService.loggedIn;
     if(this.loggedIn)
       this.user = this.authService.User;
@@ -61,17 +68,27 @@ export class MainMenuComponent implements OnInit {
   }
 
   logIn(){
-    // this.router.navigate(['auth', 'login']);
-    this.router.navigate(['auth']);
+    this.router.navigate(['auth', 'login']);
   }
 
   register(){
     this.router.navigate(['auth', 'register']);
   }
 
-  goto(e:any){
-    console.log(e);
+  goToHome(){
     this.router.navigate(['home']);
+  }
+
+  goToProducts(){
+    this.router.navigate(['products']);
+  }
+
+  goToShowroom(){
+    this.router.navigate(['showroom']);
+  }
+
+  goToAbout(){
+    this.router.navigate(['about']);
   }
 
   hamburgerClick(){

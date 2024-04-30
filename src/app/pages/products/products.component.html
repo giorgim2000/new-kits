@@ -1,1 +1,125 @@
-<p>products works!</p>
+<!-- 
+<div class="prods" *ngIf="allproducts">
+    <div class="cart-icon"  (click)="goToCart()">
+        <dx-button icon="cart"></dx-button>
+        <span id="cart-count">{{cartProdNumber}}</span>
+    </div>
+    <div class="searchDiv">
+        <div class="filterDiv">
+          <dx-text-box 
+          placeholder="სიტყვით ძიება" 
+          width="100%"
+          [(value)]="searchWord"
+          valueChangeEvent="keyup"
+          [showClearButton]="true"
+          >
+
+          </dx-text-box>
+          <dx-select-box 
+          placeholder="მარკა" 
+          width="100%"
+          [(value)]="selectedMake"
+          [items]="makes"
+          displayExpr="makeName"
+          valueExpr="id"
+          [showClearButton]="true"
+          (onValueChanged)="makeSelected($event)"
+          >
+          </dx-select-box>
+          <dx-select-box 
+          placeholder="მოდელი" 
+          width="100%" 
+          label="მოდელი" 
+          labelMode="static"
+          [(value)]="selectedModel"
+          [items]="models"
+          displayExpr="modelName"
+          valueExpr="id"
+          [showClearButton]="true"
+          [disabled]="modelSelectBoxDisabled"
+          (onValueChanged)="modelSelected($event)"
+          >
+          </dx-select-box>
+          <dx-select-box 
+          placeholder="წელი" 
+          width="100%"
+          [(value)]="selectedmodelByYear"
+          [items]="modelsByYear"
+          displayExpr="modelByYearName"
+          valueExpr="id"
+          [showClearButton]="true"
+          [disabled]="yearsSelectBoxDisabled"
+          (onValueChanged)="yearSelected($event)"
+          >
+          </dx-select-box>
+          <dx-button text="ძიება" type="default" width="100%" (onClick)="search()"></dx-button>
+        </div>
+    </div>
+    <div class="product-grid" [@fadeInList]>
+        <div class="card" *ngFor="let product of displayProducts">
+            <dx-gallery
+            [dataSource]="product.imageUrl!"
+            height="100%"
+            width="100%"
+            [showNavButtons]="true"
+            >
+            </dx-gallery>
+            <div class="card_content">
+                <h2 class="card_title" (click)="getProduct(product)">{{product.name}}</h2>
+                <p class="card_descritpion" (click)="getProduct(product)">{{product.modelByYear.model?.make?.makeName + ' ' + product.modelByYear.model?.modelName}}</p>
+                
+                <div class="prCs">
+                    <p class="card_price" *ngIf="product.discountedPrice" (click)="getProduct(product)"><del>{{product.price}}₾</del>  {{product.discountedPrice +'₾'}}</p>
+                    <p class="card_price" *ngIf="!product.discountedPrice" (click)="getProduct(product)">{{product.price}}₾</p>
+                    <p class="coming" *ngIf="!product.inStock && product.comingSoon">გზაშია</p>
+                    <dx-number-box
+                    [visible]="product.isInCart! || product.inStock ? true : false"
+                    [showSpinButtons]="true"
+                    width="6rem"
+                    height="2.5rem"
+                    [(value)]="product.quantityInCart!"
+                    [min]="0"
+                    (onValueChanged)="quantityChange($event, product)"
+                    >
+                    </dx-number-box>
+                </div>
+                <dx-button
+                  [text]="product.isInCart ? 'კალათის ნახვა' : product.inStock ? 'კალათში დამატება' : 'შემატყობინე'"
+                  [type]="product.inStock ? 'success' : 'default'"
+                  [stylingMode]="product.isInCart ? 'outlined' : product.inStock ? 'contained' : 'outlined'"
+                  [className]="product.inStock ? 'blackBtn' : 'whiteBtn'"
+                  (onClick)="product.isInCart ? goToCart() : product.inStock ? addToBasket(product) : notifyMe(product)"
+                  height="48"
+                  >
+                  </dx-button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<dx-popup
+height="200px"
+width="min(60%, 400px)"
+title="შემატყობინე"
+[visible]="notifyPopupVisible"
+[showCloseButton]="true"
+(onHidden)="closePopup()"
+>
+<div class="popupDiv">
+    <dx-text-box
+    width="225"
+    height="3rem"
+    placeholder="შეიყვანე ტელ. ნომერი"
+    >
+    </dx-text-box>
+    <dx-button
+    text="შენახვა"
+    type="normal"
+    height="3rem"
+    (onClick)="notifyConfirmation()"
+    ></dx-button>
+</div>
+</dx-popup>
+
+<app-about [product]="selectedProduct" (allproductsChange)="onAllProductsChanged($event)" *ngIf="!allproducts"></app-about> -->
