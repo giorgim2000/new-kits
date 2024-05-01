@@ -1,7 +1,7 @@
 <div style="width: 100%; display: flex; justify-content: center;">
     <dx-data-grid
-    #modelGrid
-    [dataSource]="modelDataSource"
+    #modelByYearGrid
+    [dataSource]="modelByYearDataSource"
     [wordWrapEnabled]="true"
     [showBorders]="true"
     [showColumnLines]="true"
@@ -10,7 +10,7 @@
     keyExpr="id"
     [repaintChangesOnly]="true"
     (onSaved)="onChangesSaved($event)"
-    (onRowRemoving)="removeModel($event)"
+    (onRowRemoving)="removeModelByYear($event)"
     (onEditorPreparing)="onEditorPrep($event)"
     >
 
@@ -23,15 +23,20 @@
     </dxo-editing>
     <dxo-selection mode="single"></dxo-selection>
 
-    <dxi-column dataType="string" dataField="modelName" caption="მარკა" [allowEditing]="true">
-      <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxi-column dataType="string" dataField="name" caption="დასახელება" [allowEditing]="true"></dxi-column>
+    <!-- <dxi-column dataType="string" dataField="modelByYearName" caption="წლები" [allowEditing]="false"></dxi-column> -->
+    <dxi-column dataType="year" dataField="startYear" caption="საწყისი წელი" [allowEditing]="true">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataType="year" dataField="endYear" caption="ბოლო წელი" [allowEditing]="true">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
     <dxi-column dataField="imageUrl" cellTemplate="cellTemplate" editCellTemplate="editCellTemplate" [allowEditing]="true" width="12%" caption="სურათი">
     </dxi-column>
     <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true" width="15%">
       <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataField="makeId" caption="მარკა" allowEditing="true" cellTemplate="makeTemplate" editCellTemplate="editMakeTemplate">
+    <dxi-column dataField="modelId" caption="მოდელი" allowEditing="true" cellTemplate="modelTemplate" editCellTemplate="editModelTemplate">
       <!-- <dxi-validation-rule type="required"></dxi-validation-rule> -->
     </dxi-column>
     <!-- <dxi-column dataField="image" [visible]="false" editCellTemplate="editCellTemplate"></dxi-column> -->
@@ -53,25 +58,24 @@
         <!-- <dx-button class="retryButton" text="Retry" (onClick)="clic($event)"></dx-button> -->
     </div>
 
-    <div *dxTemplate="let data of 'editMakeTemplate'">
+    <div *dxTemplate="let data of 'editModelTemplate'">
         <dx-select-box
-        [dataSource]="makes"
-        [(value)]="selectedMake"
-        displayExpr="makeName"
+        [dataSource]="models"
+        [(value)]="selectedModel"
+        displayExpr="modelName"
         valueExpr="id"
-        (onValueChanged)="makeValChanged($event)"
+        (onValueChanged)="editModelValChanged($event)"
         ></dx-select-box>
     </div>
-    <div *dxTemplate="let data of 'makeTemplate'">
+    <div *dxTemplate="let data of 'modelTemplate'">
         <dx-select-box
         [readOnly]="true"
-        [dataSource]="makes"
+        [dataSource]="models"
         [(value)]="data.value"
-        displayExpr="makeName"
+        displayExpr="modelName"
         valueExpr="id"
         ></dx-select-box>
     </div>
     </dx-data-grid>
 </div>
-
 

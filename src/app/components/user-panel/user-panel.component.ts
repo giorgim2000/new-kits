@@ -33,6 +33,13 @@ export class UserPanelComponent {
     }
   },
   {
+    text: 'ადმინ პანელი',
+    icon: 'folder',
+    onClick: () => {
+      this.router.navigate(['/admin-panel']);
+    }
+  },
+  {
     text: 'გამოსვლა',
     icon: 'runner',
     onClick: () => {

@@ -5,7 +5,7 @@ import { Subject, map, takeUntil, catchError, of, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ModelsByyearService {
+export class ModelByYearService {
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }

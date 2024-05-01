@@ -1,1 +1,19 @@
-<p>admin-panel works!</p>
+<div class="adminPanelMenuDiv">
+    <dx-menu
+            #menu
+            [dataSource]="menuItems"
+            displayExpr="name"
+            orientation="horizontal"
+            [hideSubmenuOnMouseLeave]="false"
+            (onItemClick)="menuItemClick($event)"
+            [selectedItem]="currentMenuItem"
+            [selectionMode]="'single'"
+            cssClass="menu"
+            >
+                <!-- <div *ngIf="currentMenuItem" [ngClass]="{'selectedMenuItem': currentMenuItem.selected}">
+                    <div class="name">{{ currentMenuItem.name }}</div>
+                </div> -->
+    </dx-menu>
+</div>
+
+<router-outlet></router-outlet>

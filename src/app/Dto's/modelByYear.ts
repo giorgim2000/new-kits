@@ -2,6 +2,7 @@ import { Model } from "./model";
 
 export class ModelByYear{
     id?:number;
+    Name!:string;
     modelId?:number;
     modelByYearName?: string;
     model?: Model;
@@ -9,9 +10,4 @@ export class ModelByYear{
     endYear!: number;
     imageUrl?: string;
     active?:boolean;
-    displayName?:string;
-
-    constructor(){
-        this.displayName = this.model?.modelName + ' ' + this.modelByYearName;
-    }
 }

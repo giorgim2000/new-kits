@@ -5,7 +5,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 import { Model } from 'src/app/Dto\'s/model';
 import { ModelService } from 'src/app/services/model.service';
 import { ModelByYear } from 'src/app/Dto\'s/modelByYear';
-import { ModelsByyearService } from 'src/app/services/models-byyear.service';
+import { ModelByYearService } from 'src/app/services/model-by-year.service';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   modelString = "";
   modelVisible = false;
 
-  constructor(private _sanitizer: DomSanitizer, private _client: HttpClient, private modelService:ModelService, private modelByYearService:ModelsByyearService) { }
+  constructor(private _sanitizer: DomSanitizer, private _client: HttpClient, private modelService:ModelService, private modelByYearService:ModelByYearService) { }
 
   ngOnDestroy(): void {
     this.modelService.ngOnDestroy();
