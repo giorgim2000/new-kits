@@ -8,7 +8,7 @@ import { LoginComponent } from './pages/auth-form/login/login.component';
 import { CreateAccountComponent } from './pages/auth-form/create-account/create-account.component';
 import { ChangePasswordComponent } from './pages/auth-form/change-password/change-password.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { ModelService } from './services/model.service';
 import { ProductsComponent } from './pages/products/products.component';
@@ -21,6 +21,8 @@ import { ModelsByYearComponent } from './pages/admin-panel/models-by-year/models
 import { ProductPanelComponent } from './pages/admin-panel/product-panel/product-panel.component';
 import { OrdersComponent } from './pages/admin-panel/orders/orders.component';
 import { UsersPanelComponent } from './pages/admin-panel/users-panel/users-panel.component';
+import { ProductComponent } from './pages/product/product.component';
+import { AuthComponent } from './pages/auth-form/auth/auth.component';
 
 const routes: Routes = [
   {
@@ -29,7 +31,13 @@ const routes: Routes = [
   },
   {
     path:'products',
-    component: ProductsComponent
+    component: ProductsComponent,
+    children:[
+      {
+        path: ':id',
+        component:ProductComponent
+      }
+    ]
   },
   {
     path:'about',
@@ -50,6 +58,10 @@ const routes: Routes = [
       {
         path: 'change-password',
         component: ChangePasswordComponent
+      },
+      {
+        path: 'signin',
+        component: AuthComponent
       }
     ]
   },
@@ -93,10 +105,10 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), DxGalleryModule, DxTreeViewModule, DxTreeListModule,
     DxContextMenuModule,DxScrollViewModule,DxFormModule, DxLoadIndicatorModule, CommonModule,
     FormsModule, DxSelectBoxModule, DxTextBoxModule,DxButtonModule,DxNumberBoxModule,DxPopupModule, BrowserAnimationsModule, DxMenuModule,
-    DxFileUploaderModule, DxDataGridModule],
+    DxFileUploaderModule, DxDataGridModule, ReactiveFormsModule],
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
-    MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent
+    MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent
   ],
   providers:[AuthService, ScreenManagerService, ModelService]
 })

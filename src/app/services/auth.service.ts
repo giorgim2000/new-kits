@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, catchError, of, BehaviorSubject } from 'rxjs';
+import { map, catchError, of, BehaviorSubject, Subject } from 'rxjs';
+import { AuthResponseDto, UserForAuthenticationDto } from '../Dto\'s/User';
 
 @Injectable({
   providedIn: 'root'
@@ -10,41 +11,59 @@ export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   User: any | null;
+  private authChangeSub = new Subject<boolean>()
+  public authChanged = this.authChangeSub.asObservable();
   get loggedIn():boolean{
-    return document.cookie.length > 0;
+    return localStorage.getItem('token') != null && localStorage.getItem('username') != null;
   }
 
-  constructor(private router:Router,private http:HttpClient) { }
-
-  logIn(email: string, password: string){
-    let result = {isOk: false, data: ''};
+  constructor(private router:Router,private http:HttpClient) {
     
-    return this.http.post<any>("https://localhost:7210/login", {UserName: email, Password: password}, { withCredentials: true })
-        .pipe(
-          map(resp => {
-            if(resp){
-              result.isOk = true;
-              this.User = {UserName: resp.username};
-              this.isLoggedInSubject.next(true);
-              return result;
-            }
+  }    
+  
+  //private envUrl: EnvironmentUrlService
 
-            return {isOk:false,data:''};
-          }),
-          catchError(error => {
-            if(error.status === 401)
-              result.data = 'სახელი ან პაროლი არასწორია!';
-            else
-              result.data = 'სერვისთან დაკავშირება ვერ მოხერხდა!';
+  // logIn(email: string, password: string){
+  //   let result = {isOk: false, data: ''};
+    
+  //   return this.http.post<any>("https://localhost:7210/login", {UserName: email, Password: password}, { withCredentials: true })
+  //       .pipe(
+  //         map(resp => {
+  //           if(resp){
+  //             result.isOk = true;
+  //             this.User = {UserName: resp.username};
+  //             this.isLoggedInSubject.next(true);
+  //             return result;
+  //           }
+
+  //           return {isOk:false,data:''};
+  //         }),
+  //         catchError(error => {
+  //           if(error.status === 401)
+  //             result.data = 'სახელი ან პაროლი არასწორია!';
+  //           else
+  //             result.data = 'სერვისთან დაკავშირება ვერ მოხერხდა!';
             
-            result.isOk = false;
-            return of(result);
-          })
-        );
+  //           result.isOk = false;
+  //           return of(result);
+  //         })
+  //       );
+  // }
+
+  public loginUser = (route: string, body: UserForAuthenticationDto) => {
+    return this.http.post<AuthResponseDto>("https://localhost:7210/login", body);
+  }
+
+  private createCompleteRoute = (route: string, envAddress: string) => {
+    return `${envAddress}/${route}`;
+  }
+
+  public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {
+    this.authChangeSub.next(isAuthenticated);
   }
 
   getUsername(){
-    return this.User.UserName;
+    return localStorage.getItem('username');
   }
 
   async createAccount(user:any) {
@@ -95,12 +114,18 @@ export class AuthService {
     }
   }
 
-  async logOut() {
-    return this.http.post("https://localhost:7210/logOut", null, {withCredentials: true}).subscribe({
-      next: (res) =>{
-        this.isLoggedInSubject.next(false);
-      }
-    });
+  // async logOut() {
+  //   return this.http.post("https://localhost:7210/logOut", null, {withCredentials: true}).subscribe({
+  //     next: (res) =>{
+  //       this.isLoggedInSubject.next(false);
+  //     }
+  //   });
   
+  // }
+
+  public logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem('username');
+    this.sendAuthStateChangeNotification(false);
   }
 }

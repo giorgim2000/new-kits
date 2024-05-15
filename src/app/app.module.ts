@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainMenuComponent, MainMenuModule } from './layout/main-menu/main-menu.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ScreenManagerService } from './services/screen-manager.service';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DxContextMenuModule } from 'devextreme-angular';
@@ -11,6 +11,7 @@ import { CreateAccountComponent } from './pages/auth-form/create-account/create-
 import { AuthService } from './services/auth.service';
 import { ModelService } from './services/model.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { authInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DxContextMenuModule,
     BrowserAnimationsModule
   ],
-  providers: [ScreenManagerService, AuthService, ModelService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: authInterceptor,
+      multi: true
+    },
+    ScreenManagerService, 
+    AuthService, 
+    ModelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

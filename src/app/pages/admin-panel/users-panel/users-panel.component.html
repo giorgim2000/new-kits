@@ -1,1 +1,84 @@
-<p>users-panel works!</p>
+<div style="width: 100%; display: flex; justify-content: center;">
+    <dx-data-grid
+    #modelGrid
+    [dataSource]="usersDataSource"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="80%"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    (onSaved)="onChangesSaved($event)"
+    (onRowRemoving)="removeUser($event)"
+    (onEditorPreparing)="onEditorPrep($event)"
+    >
+
+    <dxo-editing
+    mode="popup"
+    [allowAdding]="false"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    >
+    <dxo-popup
+        title="რედაქტირება"
+        [showTitle]="true"
+        [width]="700"
+        [height]="525"
+      >
+      </dxo-popup>
+      <dxo-form>
+        <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+            <dxi-item dataField="firstName">
+            </dxi-item>
+            <dxi-item dataField="lastName">
+            </dxi-item>
+          <dxi-item dataField="username">
+          </dxi-item>
+          <dxi-item dataField="userIdNumber">
+          </dxi-item>
+          <dxi-item dataField="phoneNumber">
+        </dxi-item>
+        <dxi-item dataField="email">
+        </dxi-item>
+        <dxi-item dataField="userPriceType">
+        </dxi-item>
+          <dxi-item dataField="active">
+          </dxi-item>
+        </dxi-item>
+      </dxo-form>
+    </dxo-editing>
+    <dxo-selection mode="single"></dxo-selection>
+
+    <dxi-column dataType="string" dataField="username" [allowEditing]="true" width="15%" caption="მომხმარებელი">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataType="string" dataField="userIdNumber" caption="პირადი N" [allowEditing]="true" width="15%">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataType="string" dataField="firstName" [allowEditing]="true" width="13%" caption="სახელი">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataType="string" dataField="lastName" [allowEditing]="true" width="13%" caption="გვარი">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataType="string" dataField="phoneNumber" [allowEditing]="true" width="10%" caption="ნომერი">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataType="string" dataField="email" [allowEditing]="true" width="15%" caption="ფოსტა">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataType="string" dataField="userPriceType" [allowEditing]="true" width="10%" caption="მომხმარებლის ტიპი">
+        <dxo-lookup
+        [dataSource]="userPriceTypeDataSource"
+        displayExpr="name"
+        valueExpr="id"
+        ></dxo-lookup>
+    </dxi-column>
+    <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true" width="10%">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+
+    
+    </dx-data-grid>
+</div>

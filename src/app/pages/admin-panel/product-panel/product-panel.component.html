@@ -1,1 +1,154 @@
-<p>product-panel works!</p>
+<div style="width: 100%; display: flex; justify-content: center;">
+    <dx-data-grid
+    #productsGrid
+    [dataSource]="products"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="80%"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    (onSaved)="onChangesSaved($event)"
+    (onRowRemoving)="removeProduct($event)"
+    (onEditorPreparing)="onEditorPrep($event)"
+    (onCellPrepared)="addPercentToNum($event)"
+    >
+
+    <dxo-editing
+    mode="popup"
+    [allowAdding]="true"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    >
+      <dxo-popup
+        title="რედაქტირება"
+        [showTitle]="true"
+        width="80%"
+        height="80%"
+      >
+      </dxo-popup>
+      <dxo-form>
+        <dxi-item dataField="description"></dxi-item>
+        <dxi-item dataField="imageUrls" type="required">
+            <div *dxTemplate="let data of 'editCellTemplate'">
+              <dx-gallery
+              [dataSource]="selectedProductImages"
+              ></dx-gallery>
+              <dx-file-uploader
+                #fileUploader
+                [multiple]="true"
+                accept="image/*"
+                [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
+                uploadMode="useForm"
+                (onValueChanged)="fileChanged($event)"
+              >
+              </dx-file-uploader>
+            </div>
+        </dxi-item>
+        <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+          <dxi-item dataField="productName">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="active">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="retailPrice"></dxi-item>
+          <dxi-item dataField="retailDiscount"></dxi-item>
+          <dxi-item dataField="semiWholeSalePrice"></dxi-item>
+          <dxi-item dataField="semiWholeSaleDiscount"></dxi-item>
+          <dxi-item dataField="wholeSalePrice"></dxi-item>
+          <dxi-item dataField="wholeSaleDiscount"></dxi-item>
+          <dxi-item dataField="inStockNumber"></dxi-item>
+          <dxi-item dataField="warrantyMonths"></dxi-item>
+          <dxi-item dataField="comingSoon"></dxi-item>
+          
+        </dxi-item>
+
+        <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+          <dxi-item dataField="modelsByYearIds">
+            <dx-data-grid
+            [dataSource]="productModels"
+            [wordWrapEnabled]="true"
+            [showBorders]="true"
+            [showColumnLines]="true"
+            [showRowLines]="true"
+            keyExpr="id"
+            (onSaved)="saveModels($event)"
+            >
+              <dxo-editing
+              mode="popup"
+              [allowAdding]="true"
+              [allowUpdating]="false"
+              [allowDeleting]="true"
+              >
+                <dxo-popup
+                title="რედაქტირება"
+                [showTitle]="true"
+                width="375"
+                height="225"
+                >
+                </dxo-popup>
+                <dxo-form>
+                  <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                    <dxi-item>
+                      <dx-select-box [dataSource]="modelByYearDataSource" displayExpr="name" (onValueChanged)="modelValueChange($event)"></dx-select-box>
+                    </dxi-item>
+                    <dxi-item>
+                      <dx-button (onClick)="addModelToProduct()" text="დამატება"></dx-button>
+                    </dxi-item>
+                  </dxi-item>
+                </dxo-form>
+              </dxo-editing>
+
+              <dxi-column dataType="string" dataField="name" caption="დასახელება"></dxi-column>
+              <dxi-column dataType="number" dataField="startYear" caption="საწყისი წელი"></dxi-column>
+              <dxi-column dataType="number" dataField="endYear" caption="ბოლო წელი"></dxi-column>
+              <dxi-column dataType="boolean" dataField="active" caption="აქტიური"></dxi-column>
+
+            </dx-data-grid>
+          </dxi-item>
+        </dxi-item>
+        
+      </dxo-form>
+    </dxo-editing>
+
+    <dxo-selection mode="single"></dxo-selection>
+
+    <dxi-column dataType="string" dataField="productName" caption="დასახელება" [allowEditing]="true">
+    </dxi-column>
+    <dxi-column dataType="string" dataField="description" caption="აღწერა" [allowEditing]="true">
+    </dxi-column>
+    <dxi-column dataType="number" dataField="retailPrice" caption="საცალო ფასი" [allowEditing]="true">
+    </dxi-column>
+    <dxi-column dataType="number" dataField="retailDiscount" caption="საცალო ფასდაკლება" [allowEditing]="true">
+    </dxi-column>
+    <dxi-column dataType="number" dataField="semiWholeSalePrice" caption="ნახ-საბ. ფასი" [allowEditing]="true">
+    </dxi-column>
+    <dxi-column dataType="number" dataField="semiWholeSaleDiscount" caption="ნახ-საბ. ფასდ." [allowEditing]="true">
+    </dxi-column>
+    <dxi-column dataType="number" dataField="wholeSalePrice" caption="საბ. ფასი" [allowEditing]="true">
+    </dxi-column>
+    <dxi-column dataType="number" dataField="wholeSaleDiscount" caption="საბ. ფასდაკ." [allowEditing]="true">
+    </dxi-column>
+    <dxi-column dataType="string" dataField="inStockNumber" caption="ნაშთი" [allowEditing]="false">
+    </dxi-column>
+    <dxi-column dataType="number" dataField="warrantyMonths" caption="გარანტია" [allowEditing]="true">
+    </dxi-column>
+    <dxi-column dataType="boolean" dataField="comingSoon" caption="გზაშია" [allowEditing]="true" [visible]="false">
+    </dxi-column>
+    <dxi-column dataType="string" dataField="comingSoon" caption="გზაშია" [allowEditing]="true" [visible]="false"></dxi-column>
+    <dxi-column dataType="number[]" dataField="modelsByYearIds" caption="მოდელები" [allowEditing]="true" [visible]="false"></dxi-column>
+    <dxi-column dataType="string[]" dataField="imageUrls" cellTemplate="cellTemplate"  [allowEditing]="true" caption="სურათი"></dxi-column>
+    <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true" width="15%"></dxi-column>
+
+    <div *dxTemplate="let data of 'cellTemplate'">
+        <dx-gallery
+        [dataSource]="data.value"
+        [showIndicator]="true"
+        [showNavButtons]="true"
+        height="60"
+        ></dx-gallery>
+    </div>
+    </dx-data-grid>
+</div>

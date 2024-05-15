@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Make } from 'src/app/Dto\'s/make';
 import { Model } from 'src/app/Dto\'s/model';
 import { MakeService } from 'src/app/services/make.service';
@@ -9,12 +9,10 @@ import { ModelService } from 'src/app/services/model.service';
   templateUrl: './models.component.html',
   styleUrl: './models.component.scss'
 })
-export class ModelsComponent implements OnInit {
+export class ModelsComponent implements OnInit, OnDestroy {
   modelDataSource: Model[] = [];
   makes:Make[]=[];
   selectedFile!: File | null;
-  modelName!:string | undefined;
-  selectedMake:number | undefined;
   @ViewChild('fileUploader', { static: false }) DxFileUploader!: any;
   @ViewChild('modelGrid') modelGrid!: any;
 
@@ -54,15 +52,13 @@ export class ModelsComponent implements OnInit {
     })
   }
 
-  createModels(file: File, isActive:boolean = true): void {
+  createModels(file: File, isActive:boolean, name:string,makeId:number): void {
     let formData = new FormData();
-    formData.append('ModelName', this.modelName!);
-    formData.append('Active', 'true');
-    formData.append('MakeId', this.selectedMake!.toString());
-
-    if(file != null)
-      formData.append('Image', file, file.name);
-    
+    formData.append('ModelName', name);
+    formData.append('Active', String(isActive));
+    formData.append('MakeId', String(makeId));
+    formData.append('Image', file, file.name);
+      
     this.modelService.postModel(formData).subscribe({
       next:(res)=>{
         this.getModels();
@@ -74,41 +70,26 @@ export class ModelsComponent implements OnInit {
   }
 
   onChangesSaved(e: any) {
-    console.log(e);
+    if(e.changes.length > 0 && e.changes[0].type === 'insert')
+      this.createModels(this.selectedFile!,e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId);
+
+    if(e.changes.length > 0 && e.changes[0].type === 'update' && e.changes[0].data != undefined)
+      this.updateModel(e.changes[0].data.id, this.selectedFile!, e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId);
     
-    if(e.changes.length > 0 && e.changes[0].type === 'insert'){
-      this.modelName = e.changes[0].data.modelName;
-      this.createModels(this.selectedFile!);
-    }
-    
-    if(this.editMode){
-      if(e.changes.length > 0 && e.changes[0].type === 'update'){
-        if(e.changes[0].data != undefined){
-          this.modelName = e.changes[0].data.modelName;
-          this.editingActive = e.changes[0].data.active;
-        }
-      }
-      this.updateModel(this.selectedFile!, this.editingActive);
-    }
-    
-    this.modelName = undefined;
-    this.editMode = false;
     this.previewImageUrl = null;
     this.selectedFile = null;
   }
 
-  updateModel(file:File, active:boolean | undefined):void{
+  updateModel(id:number, file:File, active:boolean, name:string, makeId:number):void{
     let formData = new FormData();
-    formData.append('ModelName', this.modelName!);
-    formData.append('MakeId', this.selectedMake!.toString());
-
-    if(active != undefined)
-      formData.append('Active', String(active));
+    formData.append('ModelName', name);
+    formData.append('MakeId', String(makeId));
+    formData.append('Active', String(active));
 
     if(file != null)
       formData.append('Image', file, file.name);
 
-    this.modelService.putModel(this.editingId, formData).subscribe({
+    this.modelService.putModel(id, formData).subscribe({
       next:(res)=>{
         this.getModels();
       },
@@ -116,26 +97,6 @@ export class ModelsComponent implements OnInit {
         console.error(err);
       }
     })
-  }
-
-  makeValChanged(e:any){
-    console.log(e);
-    this.selectedMake = e.value;
-  }
-
-  onsave(e:any,i?:any){
-    console.log(e);
-    console.log(i);
-  }
-
-  clic(e:any){
-    console.log("BTNCLICK");
-    console.log(e);
-  }
-
-  fileChange(e:any){
-    console.log(e);
-    this.selectedFile = e.value[0];
   }
 
   removeModel(event:any){
@@ -150,37 +111,30 @@ export class ModelsComponent implements OnInit {
   }
 
   onEditorPrep(e:any){
-    if(!e.row.isNewRow && e.row.isEditing){
-      this.editingId = e.row.data.id;
-      this.modelName = e.row.data.modelName;
-      this.editingActive = e.row.data.active;
-      this.selectedMake = e.row.data.makeId;
-      this.editMode = true;
+    if(!e.row.isNewRow && e.row.isEditing)
       this.previewImageUrl = e.row.data.imageUrl;
-    }
   }
 
 
   previewImageUrl: string | ArrayBuffer | null = null;
-  editMode:boolean=false;
-  editingId!:number;
-  editingActive:boolean|undefined;
 
   fileChanged(event: any) {
-    console.log(event);
     this.selectedFile = event.value[0];
     const files: File[] = event.value;
 
     if (files.length > 0) {
-        // Read the selected file and set the preview image
         const reader = new FileReader();
         reader.onload = (e: any) => {
             this.previewImageUrl = e.target.result;
         };
         reader.readAsDataURL(files[0]);
     } else {
-        // No file selected, clear the preview
         this.previewImageUrl = null;
     }
+  }
+
+  onPopupHidden(){
+    this.previewImageUrl = null;
+    this.selectedFile = null;
   }
 }

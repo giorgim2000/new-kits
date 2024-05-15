@@ -142,3 +142,23 @@ dxi-item:hover{
         }
     }
 }
+
+.phone{
+    font-size: 32px;
+}
+
+#number{
+    font-weight: bold !important;
+    margin: 0px 8px !important;
+    transition: all 0.3s;
+    font-size: 17px;
+  }
+  
+#number:hover{
+    cursor: pointer;
+    color: #696363;
+}
+
+.user-button{
+    background-color: rgba(0,0,0,.04) !important;
+}

@@ -1,5 +1,5 @@
-<!-- 
-<div class="prods" *ngIf="allproducts">
+
+<div class="prods">
     <div class="cart-icon"  (click)="goToCart()">
         <dx-button icon="cart"></dx-button>
         <span id="cart-count">{{cartProdNumber}}</span>
@@ -8,6 +8,7 @@
         <div class="filterDiv">
           <dx-text-box 
           placeholder="სიტყვით ძიება" 
+          label="სიტყვით ძიება" 
           width="100%"
           [(value)]="searchWord"
           valueChangeEvent="keyup"
@@ -15,17 +16,17 @@
           >
 
           </dx-text-box>
-          <dx-select-box 
-          placeholder="მარკა" 
+          <!-- <dx-select-box 
+          placeholder="მარკა"
           width="100%"
           [(value)]="selectedMake"
           [items]="makes"
           displayExpr="makeName"
           valueExpr="id"
           [showClearButton]="true"
-          (onValueChanged)="makeSelected($event)"
+          (onValueChanged)="makeValueChange($event)"
           >
-          </dx-select-box>
+          </dx-select-box> -->
           <dx-select-box 
           placeholder="მოდელი" 
           width="100%" 
@@ -36,42 +37,43 @@
           displayExpr="modelName"
           valueExpr="id"
           [showClearButton]="true"
-          [disabled]="modelSelectBoxDisabled"
-          (onValueChanged)="modelSelected($event)"
+          (onValueChanged)="modelValueChanged($event)"
           >
           </dx-select-box>
           <dx-select-box 
           placeholder="წელი" 
           width="100%"
+          label="წელი"
           [(value)]="selectedmodelByYear"
           [items]="modelsByYear"
           displayExpr="modelByYearName"
           valueExpr="id"
           [showClearButton]="true"
-          [disabled]="yearsSelectBoxDisabled"
-          (onValueChanged)="yearSelected($event)"
+          [disabled]="modelsByYearSelectBoxDisabled"
+          (onValueChanged)="modelsByYearValueChange($event)"
           >
           </dx-select-box>
           <dx-button text="ძიება" type="default" width="100%" (onClick)="search()"></dx-button>
         </div>
     </div>
-    <div class="product-grid" [@fadeInList]>
+    <div class="product-grid">
         <div class="card" *ngFor="let product of displayProducts">
             <dx-gallery
-            [dataSource]="product.imageUrl!"
+            [dataSource]="product.imageUrls"
             height="100%"
             width="100%"
             [showNavButtons]="true"
             >
             </dx-gallery>
             <div class="card_content">
-                <h2 class="card_title" (click)="getProduct(product)">{{product.name}}</h2>
-                <p class="card_descritpion" (click)="getProduct(product)">{{product.modelByYear.model?.make?.makeName + ' ' + product.modelByYear.model?.modelName}}</p>
-                
+                <h2 class="card_title" (click)="productsDetails(product)">{{product.productName}}</h2>
+                <!-- <p class="card_descritpion" (click)="productsDetails(product)">{{product.modelByYear.model?.make?.makeName + ' ' + product.modelByYear.model?.modelName}}</p> -->
+                <p class="card_descritpion" (click)="productsDetails(product)">{{product.description}}</p>
+
                 <div class="prCs">
-                    <p class="card_price" *ngIf="product.discountedPrice" (click)="getProduct(product)"><del>{{product.price}}₾</del>  {{product.discountedPrice +'₾'}}</p>
-                    <p class="card_price" *ngIf="!product.discountedPrice" (click)="getProduct(product)">{{product.price}}₾</p>
-                    <p class="coming" *ngIf="!product.inStock && product.comingSoon">გზაშია</p>
+                    <p class="card_price" *ngIf="product.discount" (click)="productsDetails(product)"><del>{{product.price}}₾</del>  {{product.price * (1 - (product.discount / 100)) +'₾'}}</p>
+                    <p class="card_price" *ngIf="!product.discount" (click)="productsDetails(product)">{{product.price}}₾</p>
+                    <p class="coming" *ngIf="product.inStockAmount == 0 && product.comingSoon">გზაშია</p>
                     <dx-number-box
                     [visible]="product.isInCart! || product.inStock ? true : false"
                     [showSpinButtons]="true"
@@ -79,23 +81,23 @@
                     height="2.5rem"
                     [(value)]="product.quantityInCart!"
                     [min]="0"
-                    (onValueChanged)="quantityChange($event, product)"
+                    (onValueChanged)="productQuantityChange($event, product)"
                     >
                     </dx-number-box>
                 </div>
                 <dx-button
-                  [text]="product.isInCart ? 'კალათის ნახვა' : product.inStock ? 'კალათში დამატება' : 'შემატყობინე'"
-                  [type]="product.inStock ? 'success' : 'default'"
-                  [stylingMode]="product.isInCart ? 'outlined' : product.inStock ? 'contained' : 'outlined'"
-                  [className]="product.inStock ? 'blackBtn' : 'whiteBtn'"
-                  (onClick)="product.isInCart ? goToCart() : product.inStock ? addToBasket(product) : notifyMe(product)"
+                  [text]="'კალათში დამატება'"
+                  [type]="product.inStockAmount > 0 ? 'success' : 'default'"
+                  [stylingMode]="'outlined'"
+                  [className]="product.inStockAmount > 0 ? 'blackBtn' : 'whiteBtn'"
+                  
                   height="48"
                   >
                   </dx-button>
             </div>
         </div>
     </div>
-    
+    <!-- (onClick)="product.isInCart ? goToCart() : product.inStock ? addToCart(product) : notifyMe(product)" -->
 </div>
 
 <dx-popup
@@ -122,4 +124,3 @@ title="შემატყობინე"
 </div>
 </dx-popup>
 
-<app-about [product]="selectedProduct" (allproductsChange)="onAllProductsChanged($event)" *ngIf="!allproducts"></app-about> -->

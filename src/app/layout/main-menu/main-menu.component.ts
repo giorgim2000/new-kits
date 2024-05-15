@@ -48,15 +48,17 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.screen.changed.subscribe(() => this.updateDrawer());
-    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
-      this.loggedIn = isLoggedIn;
-      if(isLoggedIn)
+    this.authService.authChanged
+    .subscribe(res => {
+      this.loggedIn = res;
+      if(res)
         this.user = this.authService.getUsername();
-    });
-
-    this.loggedIn = this.authService.loggedIn;
-    if(this.loggedIn)
-      this.user = this.authService.User;
+    })
+    
+    if(this.authService.loggedIn)
+      this.authService.sendAuthStateChangeNotification(true);
+    else
+      this.authService.sendAuthStateChangeNotification(false);
   }
 
   updateDrawer() {
@@ -68,7 +70,7 @@ export class MainMenuComponent implements OnInit {
   }
 
   logIn(){
-    this.router.navigate(['auth', 'login']);
+    this.router.navigate(['auth', 'signin']);
   }
 
   register(){

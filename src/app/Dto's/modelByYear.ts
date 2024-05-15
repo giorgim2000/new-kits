@@ -2,7 +2,7 @@ import { Model } from "./model";
 
 export class ModelByYear{
     id?:number;
-    Name!:string;
+    name!:string;
     modelId?:number;
     modelByYearName?: string;
     model?: Model;

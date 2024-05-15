@@ -13,11 +13,14 @@ export class AdminPanelComponent implements OnInit {
     { name: 'მოდელები წლების მიხედვით', selected: false },
     { name: 'პროდუქტები', selected: false },
     { name: 'შეკვეთები', selected: false },
-    { name: 'მომხმარებლები', selected: false }
+    { name: 'მომხმარებლები', selected: false },
+    { name: 'საწყობები', selected: false },
+    { name: 'კურიერები', selected: false }
   ]
   currentMenuItem = this.menuItems[0];
 
   menuItemClick(item : any){
+    console.log(item);
     this.currentMenuItem = item.itemData;
     if(this.currentMenuItem.name === 'მარკები'){
       this.router.navigate(['admin-panel', 'makes']);
@@ -41,6 +44,6 @@ export class AdminPanelComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit(): void {
-    this.menuItemClick(this.currentMenuItem);
+    this.router.navigate(['admin-panel', 'makes']);
   }
 }

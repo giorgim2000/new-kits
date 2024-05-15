@@ -1,20 +1,3 @@
-<!-- <div class="imgDiv">
-    <dx-gallery 
-    [dataSource]="imgPath"
-    height="250"
-    width="350"
-    [loop]="true"
-    [showNavButtons]="true"
-    [showIndicator]="true"
-    [animationEnabled]="true"
-    >
-        <div *dxTemplate="let galleryItem of 'item'">
-            <img [src]="galleryItem" alt="">
-        </div>
-    </dx-gallery>
-</div> -->
-
-
 <div class="main">
     <div class="coverDiv">
         <div class="textContainer">
@@ -40,15 +23,15 @@
             <nav>
                 <ol>
                     <li>
-                        <a href="#">მთავარი</a>
+                        <a (click)="displayModels()">მთავარი</a>
                         &nbsp;/&nbsp;
                     </li>
                     <li>
-                        <a href="#">ლექსუსი</a>
+                        <a (click)="displayModels()">ლექსუსი</a>
                     </li>
                     <li *ngIf="modelVisible">
                         &nbsp;/&nbsp;
-                        <a href="#">{{modelString}}</a>
+                        <a>{{modelString}}</a>
                     </li>
                 </ol>
             </nav>
@@ -60,38 +43,13 @@
                 <h2>რა მოდელია შენი ლექსუსი?</h2>
             </div>
             <ul [@fadeInList]>
-                <li *ngFor="let product of modelsDataSource">
-                    <a (click)="product.modelName != null ? modelClick(product.id!, product.modelName) : modelByYearClick(product.id)">
-                        <img src="{{product.imageUrl}}" alt="{{product.modelName ?? product.modelByYearName}}">
-                        <div>{{product.modelName ?? product.modelByYearName}}</div>
+                <li *ngFor="let item of modelsDataSource">
+                    <a (click)="item.modelName != null ? modelClick(item.id!, item.modelName) : modelByYearClick(item.id)">
+                        <img src="{{item.imageUrl}}" alt="{{item.modelName ?? item.modelByYearName}}">
+                        <div>{{item.modelName ?? item.modelByYearName}}</div>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-
-<!-- <li>
-    <a href="#">
-        <img src="../../../assets/GXMain.png" alt="">
-        <div>GX</div>
-    </a>
-</li>
-<li>
-    <a href="#">
-        <img src="../../../assets/ISMain.png" alt="">
-        <div>IS</div>
-    </a>
-</li>
-<li>
-    <a href="#">
-        <img src="../../../assets/LXMain.png" alt="">
-        <div>LX</div>
-    </a>
-</li>
-<li>
-    <a href="#">
-        <img src="../../../assets/NXMain.png" alt="">
-        <div>NX</div>
-    </a>
-</li> -->

@@ -17,22 +17,22 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit(e: Event) {
-    e.preventDefault();
-    const { email, password } = this.formData;
-    this.loading = true;
+    // e.preventDefault();
+    // const { email, password } = this.formData;
+    // this.loading = true;
 
-    this.authService.logIn(email, password).subscribe({
-      next: (res) => {
-        if(res.isOk){
-          this.loading = false;
-          this.router.navigate(['home']);
-        }
-        this.loading = false;
-      },
-      error: (err) => {
-        console.log("CHUCHLIKA");
-      }
-    });
+    // this.authService.logIn(email, password).subscribe({
+    //   next: (res) => {
+    //     if(res.isOk){
+    //       this.loading = false;
+    //       this.router.navigate(['home']);
+    //     }
+    //     this.loading = false;
+    //   },
+    //   error: (err) => {
+    //     console.log("CHUCHLIKA");
+    //   }
+    // });
   }
 
   onCreateAccountClick = () => {

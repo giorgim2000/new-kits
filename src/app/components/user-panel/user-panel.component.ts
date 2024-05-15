@@ -43,7 +43,7 @@ export class UserPanelComponent {
     text: 'გამოსვლა',
     icon: 'runner',
     onClick: () => {
-      this.authService.logOut();
+      this.authService.logout();
     }
   }];
 

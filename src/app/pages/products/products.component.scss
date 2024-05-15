@@ -1,46 +1,46 @@
-// *,
-// *::before,
-// *::after{
-//     box-sizing: border-box;
-// }
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
 
-// body,
-// h1,
-// h2,
-// h3,
-// h4,
-// p,
-// figure,
-// blockquote,
-// dl,
-// dd{
-//     margin: 0;
-// }
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd{
+    margin: 0;
+}
 
-// *{
-//     font-family: 'Noto Serif Georgian';
-// }
+*{
+    font-family: 'Noto Serif Georgian';
+}
 
-// html:focus-within{
-//     scroll-behavior: smooth;
-// }
+html:focus-within{
+    scroll-behavior: smooth;
+}
 
-// a:not([class]){
-//     text-decoration-skip-ink: auto;
-// }
+a:not([class]){
+    text-decoration-skip-ink: auto;
+}
 
-// img,
-// picture{
-//     max-width: 100%;
-//     display: block;
-// }
+img,
+picture{
+    max-width: 100%;
+    display: block;
+}
 
-// input,
-// button,
-// textarea,
-// select{
-//     font: inherit;
-// }
+input,
+button,
+textarea,
+select{
+    font: inherit;
+}
 
 .prods{
     max-width: 100rem;
@@ -51,6 +51,12 @@
     gap: 8px;
     //grid-template-columns: repeat(3, 1fr);
 }
+
+// .product-grid{
+//     display: grid;
+//     gap: 8px;
+//     grid-template-columns: repeat(3, 1fr);
+// }
 
 .stacked{
     display: grid;
@@ -68,10 +74,17 @@
     gap: 1.69rem;
 }
 
+@media screen and (max-width: 685px){
+    .card{
+        max-width: 650px !important;
+    }
+}
+
 .card{
     background-color: whitesmoke;
     aspect-ratio: 5/4;
     transition: all 0.4s ease;
+    max-width: 430px;
 }
 
 .card:hover{

@@ -6,6 +6,7 @@ import { Model } from 'src/app/Dto\'s/model';
 import { ModelService } from 'src/app/services/model.service';
 import { ModelByYear } from 'src/app/Dto\'s/modelByYear';
 import { ModelByYearService } from 'src/app/services/model-by-year.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -38,8 +39,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   modelsDataSource: any[]=[];
   modelString = "";
   modelVisible = false;
+  selectedModelId:number|undefined;
 
-  constructor(private _sanitizer: DomSanitizer, private _client: HttpClient, private modelService:ModelService, private modelByYearService:ModelByYearService) { }
+  constructor(private router:Router, private modelService:ModelService, private modelByYearService:ModelByYearService) { }
 
   ngOnDestroy(): void {
     this.modelService.ngOnDestroy();
@@ -72,35 +74,43 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   }
 
+  displayModels(){
+    this.getModels();
+    this.modelVisible = false;
+    this.selectedModelId = undefined;
+  }
+
   modelClick(id:number, modelName:string){
+    this.selectedModelId = id;
     this.getModelsByYear(id);
     this.modelString = modelName;
     this.modelVisible = true;
   }
 
   modelByYearClick(id:number){
-
+    this.router.navigate(['products'], {state: {modelId: this.selectedModelId, modelByYearId: id}})
   }
+}
 
-  getImages(){
-    this._client.get('https://localhost:7210/api/Test').subscribe({
-          next: (res : any) => {
-            this.transformImage(res.imageString);
-          },
-          error: (err) => {
-            console.log(err);
-          }
-    })
+//private _sanitizer: DomSanitizer
+// getImages(){
+  //   this._client.get('https://localhost:7210/api/Test').subscribe({
+  //         next: (res : any) => {
+  //           this.transformImage(res.imageString);
+  //         },
+  //         error: (err) => {
+  //           console.log(err);
+  //         }
+  //   })
     
-  }
+  // }
 
-  transformImage(b64:any[]){
-    b64.forEach(element => {
-      this.imgPath.push(this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + element));
-    });
-  }
-}
+  // transformImage(b64:any[]){
+  //   b64.forEach(element => {
+  //     this.imgPath.push(this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + element));
+  //   });
+  // }
 
-export interface ImageRes{
-  ImageString:string;
-}
+// export interface ImageRes{
+//   ImageString:string;
+// }

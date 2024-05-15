@@ -56,7 +56,6 @@ export class MakesComponent {
   }
 
   onChangesSaved(e: any) {
-    console.log(e);
     
     if(e.changes.length > 0 && e.changes[0].type === 'insert'){
       this.makeName = e.changes[0].data.makeName;
@@ -70,9 +69,6 @@ export class MakesComponent {
           this.editingActive = e.changes[0].data.active;
         }
       }
-      console.log(this.selectedFile);
-      console.log(this.makeName);
-      console.log(this.editingActive);
       this.updateMake(this.selectedFile!, this.editingActive);
     }
     

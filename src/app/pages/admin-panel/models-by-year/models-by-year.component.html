@@ -1,4 +1,4 @@
-<div style="width: 100%; display: flex; justify-content: center;">
+<div style="width: 100%; display: flex; justify-content: center; padding-bottom: 20px;">
     <dx-data-grid
     #modelByYearGrid
     [dataSource]="modelByYearDataSource"
@@ -7,75 +7,78 @@
     [showColumnLines]="true"
     [showRowLines]="true"
     width="80%"
+    height="100%"
     keyExpr="id"
     [repaintChangesOnly]="true"
     (onSaved)="onChangesSaved($event)"
     (onRowRemoving)="removeModelByYear($event)"
     (onEditorPreparing)="onEditorPrep($event)"
     >
+        <dxo-editing
+        mode="popup"
+        [allowAdding]="true"
+        [allowUpdating]="true"
+        [allowDeleting]="true"
+        >
+            <dxo-popup
+            title="რედაქტირება"
+            [showTitle]="true"
+            [width]="700"
+            [height]="475"
+            [onHidden]="onPopupHidden"
+            >
+            </dxo-popup>
+            <dxo-form>
+                <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                    <dxi-item dataField="name"></dxi-item>
+                    <dxi-item dataField="startYear"></dxi-item>
+                    <dxi-item dataField="endYear"></dxi-item>
+                    <dxi-item dataField="imageUrl">
+                        <div *dxTemplate="let data of 'editCellTemplate'">
+                            <img #uploadedImage class="uploadedImage" [src]="previewImageUrl" height="50px"/>
+                            <dx-file-uploader
+                                #fileUploader
+                                [multiple]="false"
+                                accept="image/*"
+                                [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
+                                uploadMode="useForm"
+                                (onValueChanged)="fileChanged($event)"
+                            >
+                            </dx-file-uploader>
+                        </div>
+                    </dxi-item>
+                    <dxi-item dataField="active"></dxi-item>
+                    <dxi-item dataField="modelId"></dxi-item>
+                </dxi-item>
+            </dxo-form>
+        </dxo-editing>
+        <dxo-selection mode="single"></dxo-selection>
 
-    <dxo-editing
-    mode="popup"
-    [allowAdding]="true"
-    [allowUpdating]="true"
-    [allowDeleting]="true"
-    >
-    </dxo-editing>
-    <dxo-selection mode="single"></dxo-selection>
+        <dxi-column dataType="string" dataField="name" caption="დასახელება" [allowEditing]="true">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+            <dxi-validation-rule type="stringLength" [max]="15" message="დასახელება არ უნდა აღემატებოდეს 15 ასოს"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataType="number" dataField="startYear" caption="საწყისი წელი" [allowEditing]="true">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+            <dxi-validation-rule type="range" [min]="1980" [max]="2030" message="მნიშვნელობა უნდა იყოს 1980-დან 2030-ის ჩათვლით"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataType="number" dataField="endYear" caption="ბოლო წელი" [allowEditing]="true">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+            <dxi-validation-rule type="range" [min]="1980" [max]="2030" message="მნიშვნელობა უნდა იყოს 1980-დან 2030-ის ჩათვლით"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataField="imageUrl" cellTemplate="cellTemplate" [allowEditing]="true" width="12%" caption="სურათი">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true" width="15%">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataField="modelId" caption="მოდელი" allowEditing="true">
+            <dxo-lookup [dataSource]="models" displayExpr="modelName" valueExpr="id"></dxo-lookup>
+        </dxi-column>
 
-    <dxi-column dataType="string" dataField="name" caption="დასახელება" [allowEditing]="true"></dxi-column>
-    <!-- <dxi-column dataType="string" dataField="modelByYearName" caption="წლები" [allowEditing]="false"></dxi-column> -->
-    <dxi-column dataType="year" dataField="startYear" caption="საწყისი წელი" [allowEditing]="true">
-        <dxi-validation-rule type="required"></dxi-validation-rule>
-    </dxi-column>
-    <dxi-column dataType="year" dataField="endYear" caption="ბოლო წელი" [allowEditing]="true">
-        <dxi-validation-rule type="required"></dxi-validation-rule>
-    </dxi-column>
-    <dxi-column dataField="imageUrl" cellTemplate="cellTemplate" editCellTemplate="editCellTemplate" [allowEditing]="true" width="12%" caption="სურათი">
-    </dxi-column>
-    <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true" width="15%">
-      <dxi-validation-rule type="required"></dxi-validation-rule>
-    </dxi-column>
-    <dxi-column dataField="modelId" caption="მოდელი" allowEditing="true" cellTemplate="modelTemplate" editCellTemplate="editModelTemplate">
-      <!-- <dxi-validation-rule type="required"></dxi-validation-rule> -->
-    </dxi-column>
-    <!-- <dxi-column dataField="image" [visible]="false" editCellTemplate="editCellTemplate"></dxi-column> -->
-
-    <div *dxTemplate="let data of 'cellTemplate'">
-        <img [src]="data.value"  height="50px"/>
-    </div>
-
-    <div *dxTemplate="let data of 'editCellTemplate'">
-        <img #uploadedImage class="uploadedImage" [src]="previewImageUrl" height="50px"/>
-        <dx-file-uploader
-          #fileUploader
-          [multiple]="false"
-          accept="image/*"
-          [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
-          uploadMode="useForm"
-          (onValueChanged)="fileChanged($event)"
-        ></dx-file-uploader>
-        <!-- <dx-button class="retryButton" text="Retry" (onClick)="clic($event)"></dx-button> -->
-    </div>
-
-    <div *dxTemplate="let data of 'editModelTemplate'">
-        <dx-select-box
-        [dataSource]="models"
-        [(value)]="selectedModel"
-        displayExpr="modelName"
-        valueExpr="id"
-        (onValueChanged)="editModelValChanged($event)"
-        ></dx-select-box>
-    </div>
-    <div *dxTemplate="let data of 'modelTemplate'">
-        <dx-select-box
-        [readOnly]="true"
-        [dataSource]="models"
-        [(value)]="data.value"
-        displayExpr="modelName"
-        valueExpr="id"
-        ></dx-select-box>
-    </div>
+        <div *dxTemplate="let data of 'cellTemplate'">
+            <img [src]="data.value"  height="50px"/>
+        </div>
     </dx-data-grid>
 </div>
 
