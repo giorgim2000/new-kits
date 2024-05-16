@@ -14,6 +14,8 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   modelByYearDataSource: ModelByYear[]=[];
   productModels:ModelByYear[]=[];
   selectedProductImages:string[]=[];
+  selectedProductId : number | undefined;
+  productModelPopupVisible = false;
 
   constructor(private productService:ProductsService, private modelByYearService:ModelByYearService){}
 
@@ -74,6 +76,11 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
           this.productModels.push(model);
       }
     }
+  }
+
+  showModels = (e:any)=>{
+    this.selectedProductId = e.row.data.id;
+    this.productModelPopupVisible = true;
   }
 
   selectedFiles:File[]|undefined;

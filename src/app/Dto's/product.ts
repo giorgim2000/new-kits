@@ -71,3 +71,16 @@ export class OrdersProduct {
     order?: Order;
     orderId?: number;
 }
+
+export class CreateProductModel{
+    productId!:number;
+    modelByYearId!:number;
+}
+
+export class ProductModel{
+    id!:number;
+    productId!:number;
+    modelByYearId!:number;
+    productName!:string;
+    modelByYearName!:string;
+}

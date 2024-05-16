@@ -20,7 +20,6 @@ export class AdminPanelComponent implements OnInit {
   currentMenuItem = this.menuItems[0];
 
   menuItemClick(item : any){
-    console.log(item);
     this.currentMenuItem = item.itemData;
     if(this.currentMenuItem.name === 'მარკები'){
       this.router.navigate(['admin-panel', 'makes']);

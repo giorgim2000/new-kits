@@ -1,0 +1,54 @@
+<dx-popup
+title="დეტალები"
+[showTitle]="true"
+width="80%"
+height="80%"
+[visible]="popupVisible"
+>
+    <dx-data-grid
+    [dataSource]="dataSource"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="80%"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    (onEditorPreparing)="ing($event)"
+    (onEditorPrepared)="ed($event)"
+    (onInitNewRow)="init($event)"
+    >
+        <dxo-editing
+        mode="row"
+        [allowAdding]="true"
+        [allowUpdating]="false"
+        [allowDeleting]="true"
+        >
+            <dxo-form>
+                <dxi-item dataField="productId">
+                    <dx-select-box [dataSource]="products" displayExpr="productName" valueExpr="id" [readOnly]="productId != null" [(value)]="productId"></dx-select-box>
+                </dxi-item>
+                <dxi-item dataField="modelByYearId">
+                    <dx-select-box [dataSource]="modelsByYear" displayExpr="name" valueExpr="id" [readOnly]="modelByYearId != null" [(value)]="modelByYearId"></dx-select-box>
+                </dxi-item>
+            </dxo-form>
+        </dxo-editing>
+
+        <dxo-selection mode="single"></dxo-selection>
+
+
+        <dxi-column dataType="string" dataField="id" width="10%" [visible]="false"></dxi-column>
+        <dxi-column dataType="number" dataField="productId" caption="პროდუქტი" width="10%" [visible]="false">
+            
+        </dxi-column>
+        <dxi-column dataType="number" dataField="modelByYearId" caption="მოდელი" width="10%" [visible]="false">
+            
+        </dxi-column>
+        <dxi-column dataType="string" dataField="productName" caption="პროდუქტი" width="10%" [visible]="productId == null"></dxi-column>
+        <dxi-column dataType="string" dataField="modelByYearName" caption="მოდელი" width="10%" [visible]="modelByYearId == null" editCellTemplate="editModel"></dxi-column>
+
+        <div *dxTemplate="let data of 'editModel'">
+            <dx-select-box [dataSource]="modelsByYear" displayExpr="name" valueExpr="id" [readOnly]="modelByYearId != null" [(value)]="modelByYearId"></dx-select-box>
+        </div>
+    </dx-data-grid>
+</dx-popup>
