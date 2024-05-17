@@ -35,6 +35,12 @@ export class ProductModelService {
   create(input:CreateProductModel){
     let url = `https://localhost:7210/api/ProductModels`;
 
-    return this.http.post(url, {input}).pipe();
+    return this.http.post(url, {ProductId: input.ProductId, ModelByYearId:input.ModelByYearId}).pipe();
+  }
+
+  delete(id:number){
+    let url = `https://localhost:7210/api/ProductModels/${id}`;
+
+    return this.http.delete(url);
   }
 }

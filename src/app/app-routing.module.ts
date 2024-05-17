@@ -24,6 +24,7 @@ import { UsersPanelComponent } from './pages/admin-panel/users-panel/users-panel
 import { ProductComponent } from './pages/product/product.component';
 import { AuthComponent } from './pages/auth-form/auth/auth.component';
 import { ProductModelGridComponent } from './components/product-model-grid/product-model-grid.component';
+import { ProductImageGridComponent } from './components/product-image-grid/product-image-grid.component';
 
 const routes: Routes = [
   {
@@ -109,7 +110,7 @@ const routes: Routes = [
     DxFileUploaderModule, DxDataGridModule, ReactiveFormsModule],
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
-    MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, ProductModelGridComponent
+    MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, ProductModelGridComponent,ProductImageGridComponent
   ],
   providers:[AuthService, ScreenManagerService, ModelService]
 })

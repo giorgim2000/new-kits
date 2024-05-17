@@ -16,6 +16,7 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   selectedProductImages:string[]=[];
   selectedProductId : number | undefined;
   productModelPopupVisible = false;
+  imagesVisible = false;
 
   constructor(private productService:ProductsService, private modelByYearService:ModelByYearService){}
 
@@ -83,6 +84,11 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
     this.productModelPopupVisible = true;
   }
 
+  showImages = (e:any)=>{
+    this.selectedProductId = e.row.data.id;
+    this.imagesVisible = true;
+  }
+
   selectedFiles:File[]|undefined;
   fileChanged(e:any){
     this.selectedFiles?.push(e.value[0]);
@@ -112,5 +118,13 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
 
   saveModels(e:any){
     console.log(e);
+  }
+
+  closeProductModelPopup(){
+    this.productModelPopupVisible = false;
+  }
+
+  closeProductImagePopup(){
+    this.imagesVisible = false;
   }
 }

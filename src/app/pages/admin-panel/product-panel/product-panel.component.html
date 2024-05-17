@@ -147,6 +147,13 @@
         [onClick]="showModels"
         ></dxi-button>
       </dxi-column>
+      <dxi-column type="buttons" width="15%" caption="სურათები">
+        <dxi-button
+        hint="სურათები"
+        icon="info"
+        [onClick]="showImages"
+        ></dxi-button>
+      </dxi-column>
 
       <div *dxTemplate="let data of 'cellTemplate'">
           <dx-gallery
@@ -159,4 +166,5 @@
     </dx-data-grid>
 </div>
 
-<app-product-model-grid *ngIf="productModelPopupVisible" [popupVisible]="productModelPopupVisible" [productId]="selectedProductId"></app-product-model-grid>
+<app-product-model-grid [popupVisible]="productModelPopupVisible" [productId]="selectedProductId" (closePopup)="closeProductModelPopup()"></app-product-model-grid>
+<app-product-image-grid [imagePopupVisible]="imagesVisible" [productId]="selectedProductId!" (closePopup)="closeProductImagePopup()"></app-product-image-grid>

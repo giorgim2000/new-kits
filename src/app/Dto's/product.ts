@@ -73,8 +73,8 @@ export class OrdersProduct {
 }
 
 export class CreateProductModel{
-    productId!:number;
-    modelByYearId!:number;
+    ProductId!:number;
+    ModelByYearId!:number;
 }
 
 export class ProductModel{

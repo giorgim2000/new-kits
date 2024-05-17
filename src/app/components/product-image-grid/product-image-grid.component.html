@@ -1,0 +1,58 @@
+<dx-popup
+title="დეტალები"
+[showTitle]="true"
+width="80%"
+height="50%"
+[visible]="imagePopupVisible"
+(onShowing)="popupShown()"
+(onHidden)="popupHidden()"
+>
+    <dx-data-grid
+    [dataSource]="productImageDataSource"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="80%"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    (onSaved)="saveImage($event)"
+    (onRowRemoved)="removeImage($event)"
+    >
+        <dxo-editing
+        mode="form"
+        [allowAdding]="true"
+        [allowUpdating]="false"
+        [allowDeleting]="true"
+        >
+            <dxo-form>
+                <dxi-item dataField="imageUrl">
+                    <div *dxTemplate="let data of 'editImageCellTemplate'">
+                        <img #uploadedImage class="uploadedImage" [src]="previewImageUrl" height="50px"/>
+                        <dx-file-uploader
+                        #fileUploader
+                        [multiple]="false"
+                        accept="image/*"
+                        [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
+                        uploadMode="useForm"
+                        (onValueChanged)="fileChanged($event)"
+                        >
+                        </dx-file-uploader>
+                    </div>
+                </dxi-item>
+            </dxo-form>
+        </dxo-editing>
+
+        <dxo-selection mode="single"></dxo-selection>
+
+        
+
+
+        <dxi-column dataType="number" dataField="id" width="10%" [visible]="false"></dxi-column>
+        <dxi-column dataType="string" dataField="imageUrl" caption="სურათი" width="10%" cellTemplate="imageTemplate" editCellTemplate="editImageCellTemplate"></dxi-column>
+
+        <div *dxTemplate="let data of 'imageTemplate'">
+            <img [src]="data.value"  height="50px"/>
+        </div>
+    </dx-data-grid>
+</dx-popup>

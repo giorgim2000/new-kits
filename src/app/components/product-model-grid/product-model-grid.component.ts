@@ -1,8 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ModelByYear } from 'src/app/Dto\'s/modelByYear';
 import { Product, ProductModel } from 'src/app/Dto\'s/product';
 import { ModelByYearService } from 'src/app/services/model-by-year.service';
 import { ProductModelService } from 'src/app/services/product-model.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-product-model-grid',
@@ -13,52 +14,77 @@ export class ProductModelGridComponent implements OnInit, OnDestroy {
   @Input()productId?:number;
   @Input()modelByYearId?:number;
   @Input()popupVisible!:boolean;
+  @Output() closePopup = new EventEmitter<void>();
   dataSource:ProductModel[]=[];
   products:Product[]=[];
   modelsByYear:ModelByYear[]=[];
 
-  constructor(private productModelService:ProductModelService, private modelByYearService:ModelByYearService){}
+  constructor(private productModelService:ProductModelService, private modelByYearService:ModelByYearService, private productsService: ProductsService){}
 
   ngOnInit(): void {
-    this.getData();
   }
   ngOnDestroy(): void {
     this.productModelService.ngOnDestroy();
   }
 
   getData(){
-    console.log(this.productId);
     if(this.productId != null){
       this.productModelService.getByProduct(this.productId).subscribe({
-        next:(res)=>this.dataSource = res,
+        next:(res)=>{
+          this.dataSource = res
+          this.modelByYearService.getModelsByYear().subscribe({
+            next:(res) => this.modelsByYear = res,
+            error:(err)=> console.log(err)
+          });
+        },
         error:(err)=>console.log(err)
       })
     }
     else{
       this.productModelService.getByModel(this.modelByYearId!).subscribe({
-        next:(res)=> this.dataSource = res,
+        next:(res)=>{
+          this.dataSource = res;
+          this.productsService.getProducts().subscribe({
+            next:(res) => this.products = res,
+            error:(err)=>console.log(err)
+          })
+        },
         error:(err) => console.log(err)
       })
     }
   }
 
-  ing(e:any){
-    console.log("ing");
-    console.log(e);
-    this.modelByYearService.getModelsByYear().subscribe({
-      next:(res) => this.modelsByYear = res
-    });
+  saveData(e:any){
+    if(e.changes.length > 0 && e.changes[0].type == "insert"){
+      if(this.productId != null){
+        this.productModelService.create({ProductId: this.productId, ModelByYearId: e.changes[0].data.modelByYearId}).subscribe({
+          next:(res) => console.log(res),
+          error:(err)=>console.log(err)
+        })
+      }
+
+      if(this.modelByYearId != null){
+        this.productModelService.create({ProductId: e.changes[0].data.productId, ModelByYearId: this.modelByYearId}).subscribe({
+          next:(res) => console.log(res),
+          error:(err)=>console.log(err)
+        })
+      }
+    }
   }
 
-  init(e:any){
-    console.log(e);
-    this.modelByYearService.getModelsByYear().subscribe({
-      next:(res) => this.modelsByYear = res
-    });
+  removeData(e:any){
+    this.productModelService.delete(e.key).subscribe({
+      next:(res) => console.log(res),
+      error:(err)=>console.log(err)
+    })
   }
 
-  ed(e:any){
-    console.log("ed");
-    console.log(e);
+  popupShown(){
+    this.getData();
+  }
+
+  popupHidden(){
+    this.popupVisible = false;
+    this.closePopup.emit();
   }
 }
