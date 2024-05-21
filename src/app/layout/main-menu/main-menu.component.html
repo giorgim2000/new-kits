@@ -5,7 +5,7 @@ class="dx-theme-background-color"
     [location]="isSmall ? 'after' : 'before'"
     id="logoItem"
     >
-        <img src="../../../assets/logo1.png" (click)="goToHome()" height="52px" alt="" id="logo">
+        <img src="../../../assets/logo3.jpg" (click)="goToHome()" height="52px" alt="" id="logo">
     </dxi-item>
     <dxi-item
     *ngIf="!isSmall"
@@ -106,17 +106,31 @@ class="dx-theme-background-color"
             <h2>BodyKits</h2>
             <ul>
                 <li>
-                    <a href="#">მთავარი</a>
+                    <a (click)="goToHome()">მთავარი</a>
                 </li>
                 <li>
-                    <a href="#">პროდუქცია</a>
+                    <a (click)="goToProducts()">პროდუქცია</a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a (click)="goToAbout()">
                         ჩვენს შესახებ
                     </a>
                 </li>
             </ul>
+        </div>
+        <div class="second">
+            <dx-map
+            width="650"
+            height="175"
+            [markers]="marker"
+            [controls]="true"
+            [center]="'41.776281, 44.778695'"
+            [zoom]="18"
+            [apiKey]="'AIzaSyAyr5qFaxNeOBIASwyifJUqyLYIHRyF-fA'"
+            provider="google"
+            [type]="'roadmap'"
+            >
+            </dx-map>
         </div>
         <div class="social">
             <ul>
@@ -134,7 +148,7 @@ class="dx-theme-background-color"
                 </li>
             </ul>
             <ul>
-                <li style="display: flex; gap: 5px; align-items: center;">
+                <li style="display: flex; align-items: center; margin-top: 5px;">
                     <img src="../../../assets/phone.png" alt="" class="phone">
                     <p id="number">+995599192919</p>
                 </li>

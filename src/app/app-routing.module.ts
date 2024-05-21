@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ScreenManagerService } from './services/screen-manager.service';
-import { DxButtonModule, DxContextMenuModule, DxDataGridModule, DxFileUploaderModule, DxFormModule, DxGalleryModule, DxLoadIndicatorModule, DxMenuModule, DxNumberBoxModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxTextBoxModule, DxTreeListModule, DxTreeViewModule } from 'devextreme-angular';
+import { DxButtonModule, DxContextMenuModule, DxDataGridModule, DxFileUploaderModule, DxFormModule, DxGalleryModule, DxListModule, DxLoadIndicatorModule, DxLoadPanelModule, DxMapModule, DxMenuModule, DxNumberBoxModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxTextBoxModule, DxToastModule, DxTreeListModule, DxTreeViewModule } from 'devextreme-angular';
 import { AuthFormComponent } from './pages/auth-form/auth-form.component';
 import { LoginComponent } from './pages/auth-form/login/login.component';
 import { CreateAccountComponent } from './pages/auth-form/create-account/create-account.component';
@@ -25,6 +25,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { AuthComponent } from './pages/auth-form/auth/auth.component';
 import { ProductModelGridComponent } from './components/product-model-grid/product-model-grid.component';
 import { ProductImageGridComponent } from './components/product-image-grid/product-image-grid.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -34,12 +35,10 @@ const routes: Routes = [
   {
     path:'products',
     component: ProductsComponent,
-    children:[
-      {
-        path: ':id',
-        component:ProductComponent
-      }
-    ]
+  },
+  {
+    path: 'products/:id',
+    component:ProductComponent
   },
   {
     path:'about',
@@ -98,6 +97,10 @@ const routes: Routes = [
     ]
   },
   {
+    path:'cart',
+    component:CartComponent
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }
@@ -107,10 +110,11 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), DxGalleryModule, DxTreeViewModule, DxTreeListModule,
     DxContextMenuModule,DxScrollViewModule,DxFormModule, DxLoadIndicatorModule, CommonModule,
     FormsModule, DxSelectBoxModule, DxTextBoxModule,DxButtonModule,DxNumberBoxModule,DxPopupModule, BrowserAnimationsModule, DxMenuModule,
-    DxFileUploaderModule, DxDataGridModule, ReactiveFormsModule],
+    DxFileUploaderModule, DxDataGridModule, ReactiveFormsModule, DxLoadPanelModule, DxToastModule,DxListModule],
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
-    MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, ProductModelGridComponent,ProductImageGridComponent
+    MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, 
+    ProductModelGridComponent,ProductImageGridComponent,CartComponent
   ],
   providers:[AuthService, ScreenManagerService, ModelService]
 })

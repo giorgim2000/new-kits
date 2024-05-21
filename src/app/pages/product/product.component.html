@@ -1,1 +1,94 @@
-<p>product works!</p>
+<div class="cartDiv">
+    <div class="cart-icon"  (click)="goToCart()">
+        <dx-button icon="cart"></dx-button>
+        <span id="cart-count">{{cartProdNumber}}</span>
+    </div>
+</div>
+<div class="mainDiv">
+    <div class="backDiv">
+        <dx-button
+        icon="back"
+        height="6rem"
+        width="6rem"
+        (onClick)="goBack()"
+        ></dx-button>
+    </div>
+    <div class="main">
+        <div class="product">
+            <div class="product-img">
+                <dx-gallery
+                [dataSource]="product.imageUrls!"
+                [showNavButtons]="true"
+                [showIndicator]="true"
+                width="100%"
+                height="100%"
+                ></dx-gallery>
+                <!-- <img [src]="product.imageUrls![0]" [alt]="product.productName"> -->
+                <span class="tag green" *ngIf="!product.rest && product.comingSoon">გზაშია</span>
+                <span class="tag red" *ngIf="!product.rest && !product.comingSoon">დროებით მიუწვდომელი</span>
+            </div>
+            <div class="product-listing">
+                <div class="content">
+                    <h1 class="name">{{product.productName}}</h1>
+                    <p class="info">{{product.description}}</p>
+                    <p class="price" *ngIf="product.discount"><del>{{product.price}}₾</del>  {{product.price! * (1 - (product.discount / 100)) + '₾'}}</p>
+                    <p class="price" *ngIf="!product.discount">{{product.price}}₾</p>
+                    <p *ngIf="product.warranty && product.warranty > 0">გარანტია {{product.warranty}} თვე</p>
+                    
+                </div>
+                <div class="btn-and-rating-box">
+                    <!-- <div class="rating">
+                        <img src="img/star.png" alt="">
+                        <img src="img/star.png" alt="">
+                        <img src="img/star.png" alt="">
+                        <img src="img/star.png" alt="">
+                        <img src="img/star stroke.png" alt="">
+                    </div> 
+                    <button class="btn" *ngIf="product.rest">შეძენა</button>-->
+
+                    <!-- <button class="btn" *ngIf="!product.rest && product.comingSoon" (click)="notifyMe()">შემატყობინე</button>
+                    <button class="btn" *ngIf="product.rest">კალათში დამატება</button> -->
+                    <dx-button
+                    [type]="'success'"
+                    [text]="'კალათში დამატება'"
+                    [stylingMode]="'contained'"
+                    (onClick)="addToCart()"
+                    ></dx-button>
+                    <dx-button
+                    [type]="'default'"
+                    [text]="'შემატყობინე'"
+                    [stylingMode]="'contained'"
+                    (onClick)="notifyMe()"
+                    ></dx-button>
+                </div>
+            </div>
+        </div>
+        <div class="btnDiv">
+
+        </div>
+    </div>
+</div>
+
+<dx-popup
+height="200px"
+width="min(60%, 400px)"
+title="შემატყობინე"
+[visible]="notifyPopupVisible"
+[showCloseButton]="true"
+(onHidden)="closePopup()"
+>
+<div class="popupDiv">
+    <dx-text-box
+    width="225"
+    height="3rem"
+    placeholder="შეიყვანე ტელ. ნომერი"
+    >
+    </dx-text-box>
+    <dx-button
+    text="შენახვა"
+    type="normal"
+    height="3rem"
+    (onClick)="notifyConfirmation()"
+    ></dx-button>
+</div>
+</dx-popup>

@@ -1,9 +1,11 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Make } from 'src/app/Dto\'s/make';
 import { Model } from 'src/app/Dto\'s/model';
 import { ModelByYear } from 'src/app/Dto\'s/modelByYear';
+import { Product } from 'src/app/Dto\'s/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ModelByYearService } from 'src/app/services/model-by-year.service';
 import { ModelService } from 'src/app/services/model.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -44,7 +46,12 @@ export class ProductsComponent implements OnInit {
   modelsByYear:ModelByYear[]=[];
   modelsByYearSelectBoxDisabled : boolean = true;
   products:any[]=[];
-  displayProducts:any[]=[];
+  displayProducts:Product[]=[];
+  isLoading=false;
+  toastMessage:string = "";
+  toastVisible:boolean = false;
+  toastType = "info";
+
   
 
 
@@ -55,10 +62,12 @@ export class ProductsComponent implements OnInit {
   notifyPopupVisible:boolean = false;
 
 
-  constructor(private productService:ProductsService,private modelService:ModelService, private modelsByYearService:ModelByYearService, private activatedRoute:ActivatedRoute){}
+  constructor(private productService:ProductsService,private modelService:ModelService, private modelsByYearService:ModelByYearService, 
+      private activatedRoute:ActivatedRoute, private cartService:CartService, private router:Router){}
 
   ngOnInit(): void {
     this.getModels();
+    this.updateCart();
     
     const state = window.history.state;
     if (state.modelId && state.modelByYearId) {
@@ -69,8 +78,6 @@ export class ProductsComponent implements OnInit {
       this.getProducts(undefined, this.selectedModel, this.selectedmodelByYear);
     }else
       this.getProducts();
-
-    
   }
 
   getModels(){
@@ -90,15 +97,24 @@ export class ProductsComponent implements OnInit {
   }
 
   getProducts(searchWord?:string, modelId?:number,modelByYearId?:number){
+    this.isLoading = true;
     this.productService.getProducts(false, searchWord, modelId, modelByYearId).subscribe({
       next:(res)=>{
         this.displayProducts = res;
+        this.displayProducts.forEach((i : Product) => {
+          i.quantityInCart = this.cartService.getProductQuantity(i.id!);
+          i.rest = 1;
+        });
+        this.isLoading = false;
       }
     })
   }
 
+  updateCart(){
+    this.cartProdNumber = this.cartService.getCartProductNumber();
+  }
+
   modelValueChanged(e:any){
-    console.log(e);
     if(e.value != null){
       this.modelsByYearSelectBoxDisabled = false;
       this.getModelsByYear(e.value);
@@ -117,12 +133,16 @@ export class ProductsComponent implements OnInit {
     this.getProducts(this.searchWord, this.selectedModel, this.selectedmodelByYear);
   }
 
-  addToCart(product:any){
-
+  addToCart(product:Product){
+    console.log(product);
+    this.cartService.addToCart({id: product.id!, name:product.productName!, price:product.price!, quantity: product.quantityInCart && product.quantityInCart > 0 ? product.quantityInCart : 1});
+    this.updateCart();
+    this.displayProducts.find(i => i.id == product.id)!.quantityInCart = this.cartService.getProductQuantity(product.id!);
+    this.showToast("პროდუქტი დამატებულია კალათში", 'success');
   }
 
   notifyMe(product:any){
-
+    this.notifyPopupVisible = true;
   }
 
   productQuantityChange(e:any,product:any){
@@ -130,14 +150,24 @@ export class ProductsComponent implements OnInit {
   }
 
   productsDetails(product:any){
-
+    this.router.navigate([`products/${product.id}`], {state: {product: product}});
   }
 
   goToCart(){
-
+    this.router.navigate(['cart']);
   }
 
+  setupGalleryClickHandler(event:any) {
+    const galleryElement = event.element;
 
+    // Add event listeners to gallery nav buttons to stop propagation
+    const navButtons = galleryElement.querySelectorAll('.dx-gallery-nav-button');
+    navButtons.forEach((button:any) => {
+      button.addEventListener('click', (e:any) => {
+        e.stopPropagation();
+      });
+    });
+  }
 
 
   notifyConfirmation(){
@@ -145,6 +175,12 @@ export class ProductsComponent implements OnInit {
   }
 
   closePopup(){
+    this.notifyPopupVisible = false;
+  }
 
+  showToast(msg: string, type: string) {
+    this.toastMessage = msg;
+    //this.toastType = type;
+    this.toastVisible = true;
   }
 }

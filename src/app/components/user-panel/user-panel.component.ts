@@ -27,7 +27,7 @@ export class UserPanelComponent {
   },
   {
     text: 'ისტორია',
-    icon: 'folder',
+    icon: 'box',
     onClick: () => {
       this.router.navigate(['/history']);
     }

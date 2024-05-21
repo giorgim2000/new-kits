@@ -1,3 +1,4 @@
+import { CartService } from "../services/cart.service";
 import { ModelByYear } from "./modelByYear";
 import { Order } from "./order";
 
@@ -6,6 +7,7 @@ export class Product{
     code?:string;
     barcode?:string;
     finaId?:number;
+    finaCode?:string;
     productName?:string;
     description?:string;
     retailPrice?:number;
@@ -16,17 +18,19 @@ export class Product{
     wholeSaleDiscount?:number;
     price?:number;
     discount?:number;
-    inStockAmount?:number;
+    rest?:number;
     imageUrls?: string[];
-    warrantyMonths?:number;
+    warranty?:number;
     comingSoon?:boolean;
     active?:boolean;
     modelByYears?:ModelByYear[];
     modelsByYearIds?:number[];
+    isInCart?:boolean;
+    quantityInCart?:number;
 }
 
 export class CreateProduct{
-    productName?:string;
+    ProductName?:string;
     description?:string;
     retailPrice?:number;
     retailDiscount?:number;
@@ -39,8 +43,8 @@ export class CreateProduct{
     warranty?:number;
     comingSoon?:boolean;
     active?:boolean;
-    finaCode?:string;
-    barcode?:string;
+    FinaCode?:string;
+    Barcode?:string;
 }
 
 export class Store{
@@ -83,4 +87,12 @@ export class ProductModel{
     modelByYearId!:number;
     productName!:string;
     modelByYearName!:string;
+}
+
+export class CartProduct{
+    id!:number;
+    name!:string;
+    price!:number;
+    quantity!:number;
+    imageUrls?:string[];
 }

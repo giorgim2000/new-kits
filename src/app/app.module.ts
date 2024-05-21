@@ -6,7 +6,7 @@ import { MainMenuComponent, MainMenuModule } from './layout/main-menu/main-menu.
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ScreenManagerService } from './services/screen-manager.service';
 import { LayoutModule } from '@angular/cdk/layout';
-import { DxContextMenuModule } from 'devextreme-angular';
+import { DxContextMenuModule, DxMapModule } from 'devextreme-angular';
 import { CreateAccountComponent } from './pages/auth-form/create-account/create-account.component';
 import { AuthService } from './services/auth.service';
 import { ModelService } from './services/model.service';

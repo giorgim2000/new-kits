@@ -2,6 +2,7 @@ dx-toolbar{
     height: 70px !important;
     background: whitesmoke;
     padding-right: 20px;
+    border-bottom: thin groove;
 }
 
 dxi-item{
@@ -17,12 +18,13 @@ dxi-item{
 }
 
 dxi-item:hover{
-    color: #666;;
+    color: #666;
     cursor: pointer;
 }
 
 #logoItem{
     margin: 9px 0 9px 15px !important;
+    border-radius: 50%;
 }
 
 .menuItem{
@@ -76,8 +78,19 @@ dxi-item:hover{
                         font-family: "Nobel-Regular", arial, helvetica, san-serif;
                         text-decoration: none !important;
                         font-weight: 700;
+                        cursor: pointer;
                     }
+
                 }
+            }
+        }
+
+        .second{
+            padding: 20px;
+
+            dx-map{
+                width: 650px;
+                height: 180px;
             }
         }
 

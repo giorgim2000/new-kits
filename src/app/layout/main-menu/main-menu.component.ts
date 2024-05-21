@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { DxButtonModule, DxDrawerComponent, DxDrawerModule, DxListModule, DxMenuModule, DxToolbarModule } from 'devextreme-angular';
+import { DxButtonModule, DxDrawerComponent, DxDrawerModule, DxListModule, DxMapModule, DxMenuModule, DxToolbarModule } from 'devextreme-angular';
+import { Marker } from 'src/app/Dto\'s/map';
 import { UserPanelComponent } from 'src/app/components/user-panel/user-panel.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ScreenManagerService } from 'src/app/services/screen-manager.service';
@@ -43,6 +44,10 @@ export class MainMenuComponent implements OnInit {
     { id: 4, text: 'Employees' },
     { id: 5, text: 'Reports' },
   ];
+
+  marker:Marker[]=[{
+    location: `41.776281, 44.778695`
+  }]
 
   constructor(private router:Router, private screen:ScreenManagerService, private authService:AuthService) { }
 
@@ -99,7 +104,7 @@ export class MainMenuComponent implements OnInit {
 }
 
 @NgModule({
-  imports:[CommonModule, DxToolbarModule, DxDrawerModule, DxMenuModule, DxListModule,UserPanelComponent, DxButtonModule],
+  imports:[CommonModule, DxToolbarModule, DxDrawerModule, DxMenuModule, DxListModule,UserPanelComponent, DxButtonModule, DxMapModule],
   exports:[MainMenuComponent],
   declarations:[MainMenuComponent],
   providers:[ScreenManagerService]

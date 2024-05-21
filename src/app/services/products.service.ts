@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, catchError, map, of } from 'rxjs';
 import { CreateProduct } from '../Dto\'s/product';
@@ -38,7 +38,13 @@ export class ProductsService {
   }
 
   createProduct(product:CreateProduct){
-    return this.http.post("https://localhost:7210/api/Products", {product})
+    let header = new HttpHeaders({
+      'Content-Type': "application/json"
+    });
+    let options = {
+      headers: header
+    };
+    return this.http.post("https://localhost:7210/api/Products", product, options)
                     .pipe(map((res) =>{
                       return res;
                     }),
@@ -46,5 +52,26 @@ export class ProductsService {
                       console.log(error);
                       return of(error);
                     }))
+  }
+
+  updateProduct(id:number, product:CreateProduct){
+    let header = new HttpHeaders({
+      'Content-Type': "application/json"
+    });
+    let options = {
+      headers: header
+    }; 
+    return this.http.put(`https://localhost:7210/api/Products/${id}`, product, options)
+                    .pipe(map((res) =>{
+                      return res;
+                    }),
+                    catchError((error) => {
+                      console.log(error);
+                      return of(error);
+                    }))
+  }
+
+  removeProduct(id:number){
+    return this.http.delete(`https://localhost:7210/api/Products/${id}`);
   }
 }

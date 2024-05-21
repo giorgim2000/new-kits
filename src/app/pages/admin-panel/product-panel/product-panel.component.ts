@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DxDataGridComponent } from 'devextreme-angular';
 import { ModelByYear } from 'src/app/Dto\'s/modelByYear';
-import { Product } from 'src/app/Dto\'s/product';
+import { Product, ProductModel } from 'src/app/Dto\'s/product';
 import { ModelByYearService } from 'src/app/services/model-by-year.service';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -10,13 +11,14 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrl: './product-panel.component.scss'
 })
 export class ProductPanelComponent implements OnInit, OnDestroy {
+  @ViewChild(DxDataGridComponent, { static: false }) productGrid!: DxDataGridComponent;
   products:Product[]=[];
-  modelByYearDataSource: ModelByYear[]=[];
   productModels:ModelByYear[]=[];
-  selectedProductImages:string[]=[];
   selectedProductId : number | undefined;
   productModelPopupVisible = false;
   imagesVisible = false;
+  isLoading = false;
+
 
   constructor(private productService:ProductsService, private modelByYearService:ModelByYearService){}
 
@@ -27,26 +29,17 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProducts();
-    this.getModelsByYear();
   }
 
   getProducts(){
+    this.isLoading = true;
     this.productService.getProducts(true).subscribe({
       next:(res)=>{
         this.products = res;
+        this.productGrid.instance.refresh();
+        this.isLoading = false;
       }
     })
-  }
-
-  getModelsByYear(id?:number,modelId?:number,includeAll?:boolean){
-    this.modelByYearService.getModelsByYear(id,modelId,includeAll).subscribe(
-      response =>{
-        this.modelByYearDataSource = response;
-      },
-      error => {
-        console.log(error);
-      }
-    )
   }
 
   addPercentToNum(e:any){
@@ -57,67 +50,50 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   }
 
   onChangesSaved(e:any){
-    console.log(e);
-    if(e.changes.length > 0 && e.changes[0].type === 'insert')
-      this.productService.createProduct(e.changes[0].data);
+    if(e.changes.length > 0 && e.changes[0].type === 'insert'){
+      this.productService.createProduct({ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
+          retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
+          wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
+          comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: e.changes[0].data.finaCode, Barcode: e.changes[0].data.barcode
+      }).subscribe({
+        next:(res) => this.getProducts(),
+        error:(err)=>console.log(err)
+      });
+    }
 
+    if(e.changes.length > 0 && e.changes[0].type === 'update' && e.changes[0].data != undefined){
+      this.productService.updateProduct(e.changes[0].data.id, {ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
+        retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
+        wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
+        comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: e.changes[0].data.finaCode, Barcode: e.changes[0].data.barcode
+    }).subscribe({
+      next:(res) => this.getProducts(),
+      error:(err)=>console.log(err)
+    });
+    }
   }
 
   removeProduct(e:any){
-
+    this.productService.removeProduct(e.key).subscribe({
+      next:(res) => this.productGrid.instance.refresh(),
+      error:(err)=>console.log(err)
+    });
   }
 
   onEditorPrep(e:any){
-    if(!e.row.isNewRow && e.row.isEditing){
-      this.selectedProductImages = e.row.data.imageUrls;
-      for (let index = 0; index < e.row.data.modelsByYearIds.length; index++) {
-        var model = this.modelByYearDataSource.find(i => i.id == e.row.data.modelsByYearIds[index]);
-        console.log(model);
-        if(model != undefined)
-          this.productModels.push(model);
-      }
-    }
+    // if(!e.row.isNewRow && e.row.isEditing){
+    // }
   }
 
   showModels = (e:any)=>{
     this.selectedProductId = e.row.data.id;
+    console.log(this.selectedProductId);
     this.productModelPopupVisible = true;
   }
 
   showImages = (e:any)=>{
     this.selectedProductId = e.row.data.id;
     this.imagesVisible = true;
-  }
-
-  selectedFiles:File[]|undefined;
-  fileChanged(e:any){
-    this.selectedFiles?.push(e.value[0]);
-    const files: File[] = e.value;
-
-    if (files.length > 0) {
-        // Read the selected file and set the preview image
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.selectedProductImages.push(e.target.result);
-        };
-        reader.readAsDataURL(files[0]);
-    } else {
-        // No file selected, clear the preview
-        //this.previewImageUrl = null;
-    }
-  }
-
-  selectedModel:ModelByYear|undefined;
-  modelValueChange(e:any){
-    this.selectedModel = e.value;
-  }
-
-  addModelToProduct(){
-    this.productModels.push(this.selectedModel!);
-  }
-
-  saveModels(e:any){
-    console.log(e);
   }
 
   closeProductModelPopup(){

@@ -37,6 +37,7 @@ export class ProductImageGridComponent implements OnInit,OnDestroy {
           if(res){
             this.selectedFile = null;
             this.previewImageUrl = null;
+            this.getImages();
           }
         },
         error:(err)=>console.log(err)
@@ -46,7 +47,7 @@ export class ProductImageGridComponent implements OnInit,OnDestroy {
 
   removeImage(e:any){
     this.productImageService.removeProductImage(e.key).subscribe({
-      next:(res)=>console.log(res),
+      next:(res)=> this.getImages(),
       error:(err)=>console.log(err)
     });
   }

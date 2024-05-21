@@ -1,0 +1,19 @@
+<div *ngIf="cart.length === 0">Your cart is empty.</div>
+
+<div class="list-container">
+  <dx-list [dataSource]="cart" height="100%" [showSelectionControls]="true">
+    <div *dxTemplate="let item of 'item'">
+      <div class="product">
+        <dx-gallery
+        [dataSource]="item.imageUrls!"
+        [showNavButtons]="true"
+        [showIndicator]="true"
+        width="130"
+        height="100%"
+        ></dx-gallery>
+        <div class="name">{{ item.name }}</div>
+        <div class="price">{{item.price}}₾</div>
+      </div>
+    </div>
+  </dx-list>
+</div>
