@@ -1,7 +1,7 @@
 <div *ngIf="cart.length === 0">Your cart is empty.</div>
 
 <div class="list-container">
-  <dx-list [dataSource]="cart" height="100%" [showSelectionControls]="true">
+  <dx-list [dataSource]="cart" height="100%" [showSelectionControls]="true" [title]="'კალათა'">
     <div *dxTemplate="let item of 'item'">
       <div class="product">
         <dx-gallery
