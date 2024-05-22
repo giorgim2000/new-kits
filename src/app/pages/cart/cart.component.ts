@@ -42,7 +42,9 @@ export class CartComponent {
 
   getTotalPrice(){
     var sum = 0;
-    this.cart.forEach(i => sum += (i.price * i.quantity));
+    if(this.cart.length > 0)
+      this.cart.forEach(i => sum += (i.price * i.quantity));
+
     return sum;
   }
 
