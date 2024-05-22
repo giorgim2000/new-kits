@@ -33,7 +33,7 @@
                     <p class="info">{{product.description}}</p>
                     <p class="price" *ngIf="product.discount"><del>{{product.price}}₾</del>  {{product.price! * (1 - (product.discount / 100)) + '₾'}}</p>
                     <p class="price" *ngIf="!product.discount">{{product.price}}₾</p>
-                    <p *ngIf="product.warranty && product.warranty > 0">გარანტია {{product.warranty}} თვე</p>
+                    <p *ngIf="product.warranty && product.warranty > 0" class="warranty">გარანტია {{product.warranty}} თვე</p>
                     
                 </div>
                 <div class="btn-and-rating-box">

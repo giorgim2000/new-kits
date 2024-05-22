@@ -1,4 +1,4 @@
-<div *ngIf="cart.length === 0">Your cart is empty.</div>
+<!-- <div *ngIf="cart.length === 0">Your cart is empty.</div>
 
 <div class="list-container">
   <dx-list [dataSource]="cart" height="100%" [showSelectionControls]="true">
@@ -16,4 +16,47 @@
       </div>
     </div>
   </dx-list>
+</div> -->
+
+
+<!-- shopping-cart.component.html -->
+<div class="main">
+  <div class="pageTitle">
+    <dx-button icon="cart" style="background: transparent; border: 0;"></dx-button>
+    <p>კალათა</p>
+  </div>
+  <div class="shopping-cart">
+    <div class="cart-list">
+      <dx-list [dataSource]="cart" selectionMode="none">
+        <div *dxTemplate="let item of 'item'">
+          <div class="cart-item">
+            <dx-gallery
+            [dataSource]="item.imageUrls!"
+            [showNavButtons]="true"
+            [showIndicator]="true"
+            width="130"
+            height="100%"
+            class="cart-item-image"
+            ></dx-gallery>
+            <div class="cart-item-details">
+              <div class="cart-item-name">{{ item.name }}</div>
+              <div class="cart-item-quantity">
+                <dx-number-box [(value)]="item.quantity" [min]="1" (onValueChanged)="updateQuantity(item, $event.value)" [showSpinButtons]="true"></dx-number-box>
+              </div>
+              <div class="cart-item-price">{{ item.price }}₾</div>
+              <div class="cart-item-total">{{ item.price * item.quantity }}₾</div>
+            </div>
+            <dx-button icon="trash" (onClick)="removeProduct(item.id)"></dx-button>
+          </div>
+        </div>
+      </dx-list>
+    </div>
+    <div class="cart-summary">
+      <div style="margin-bottom: 18px;">ჯამი: {{ getTotalPrice() }}₾</div>
+      <dx-button text="Checkout" (onClick)="checkout()"></dx-button>
+    </div>
+  </div>
 </div>
+
+
+<dx-load-panel [visible]="loading"></dx-load-panel>

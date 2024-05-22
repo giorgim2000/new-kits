@@ -1,35 +1,117 @@
-::ng-deep .demo-container {
-    height: 450px;
-  }
+// ::ng-deep .demo-container {
+//     height: 450px;
+//   }
   
-  ::ng-deep .list-container {
-    height: 100%;
-  }
+//   ::ng-deep .list-container {
+//     height: 100%;
+//   }
   
-  ::ng-deep .product {
-    height: 65px;
-    display: flex;
-  }
+//   ::ng-deep .product {
+//     height: 65px;
+//     display: flex;
+//   }
   
-  ::ng-deep .product > img {
-    height: 100%;
-    width: 95px;
-    float: left;
-  }
+//   ::ng-deep .product > img {
+//     height: 100%;
+//     width: 95px;
+//     float: left;
+//   }
   
-  ::ng-deep .product > div {
-    padding-left: 10px;
-    vertical-align: top;
-    line-height: 65px;
-    font-size: 15px;
-    float: left;
+//   ::ng-deep .product > div {
+//     padding-left: 10px;
+//     vertical-align: top;
+//     line-height: 65px;
+//     font-size: 15px;
+//     float: left;
+//   }
+
+//   ::ng-deep .product > div.name {
+//     width: -webkit-fill-available;
+//   }
+  
+//   ::ng-deep .product > div.price {
+//     float: right;
+//     font-size: 20px;
+//   }
+
+.main{
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.pageTitle{
+  display: flex;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 18px;
+  *{
+    font-size: 30px;
   }
 
-  ::ng-deep .product > div.name {
-    width: -webkit-fill-available;
+  p{
+    margin: 0;
   }
-  
-  ::ng-deep .product > div.price {
-    float: right;
-    font-size: 20px;
+
+  dx-button{
+    padding: 5px;
   }
+}
+
+.shopping-cart {
+  max-width: 800px;
+  margin: 0 auto;
+  //border: medium groove;
+  padding: 40px;
+  background: #f1f1f1;
+  height: calc(100vh - 222px);
+}
+
+.cart-list {
+  height: calc(100vh - 400px);
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.cart-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-item-name {
+  font-size: 14px;
+  flex: 1;
+}
+
+.cart-item-quantity {
+  width: 100px;
+}
+
+.cart-item-price,
+.cart-item-total {
+  width: 100px;
+  text-align: center;
+}
+
+.cart-summary {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 18px;
+}
+

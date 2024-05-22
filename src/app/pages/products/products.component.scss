@@ -47,8 +47,8 @@ select{
     padding-inline: 4rem;
     display: grid;
     grid-template-rows: 1fr auto !important;
-    margin: 8px auto;
-    gap: 8px;
+    margin: 4px auto;
+    gap: 4px;
     background-color: #fafafa;
     //grid-template-columns: repeat(3, 1fr);
 }
@@ -113,7 +113,7 @@ select{
 }
 
 .card_title{
-    font-size: 1.25rem;
+    font-size: 1.18rem;
     line-height: 1.1;
     font-weight: bold;
     place-self: center;
@@ -122,6 +122,8 @@ select{
 .card_descritpion{
     place-self: center;
     align-items: flex-start;
+    line-height: 1;
+    overflow: hidden;
 }
 
 .card_price{
@@ -160,7 +162,7 @@ select{
     background: white;
     border-left: solid 0.5px black;
     position: sticky;
-    padding: 10px;
+    padding: 10px 0px 10px 10px;
     z-index: 1;
   }
 
@@ -199,7 +201,7 @@ select{
 .cart-icon dx-button{
     //font-size: 24px;
     position: absolute;
-    top: 18px;
+    top: 14px;
     right: -50px;
 }
 
@@ -209,7 +211,7 @@ select{
 
 #cart-count {
     position: absolute;
-    top: 10px;
+    top: 6px;
     right: -60px;
     background-color: red;
     color: white;
@@ -221,7 +223,7 @@ select{
 
 
 dx-gallery{
-    aspect-ratio: 1/1.25;
+    aspect-ratio: 1.85/1;
     width: 100%;
     object-fit: cover;
 }
@@ -261,21 +263,21 @@ del{
     justify-content: center;
 
     p{
-        font-size: 25px;
+        font-size: 22px;
     }
 }
 
 .tag{
     position: absolute;
-    top: 10px;
+    top: 0px;
     //transform-origin: bottom;
     opacity: 0;
     transform: rotate(-90deg);
     text-transform: capitalize;
     color: whitesmoke;
     padding: 5px 10px;
-    width: 150px;
-    font-size: 18px;
+    width: 105px;
+    font-size: 12px;
     text-align: center;
     background: #292929;
     user-select: none;

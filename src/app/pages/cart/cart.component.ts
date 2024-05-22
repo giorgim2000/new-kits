@@ -11,6 +11,7 @@ import { ProductImageService } from 'src/app/services/product-image.service';
 })
 export class CartComponent {
   cart : CartProduct[] = [];
+  loading = false;
 
   constructor(private cartService: CartService, private productImageService:ProductImageService) { }
 
@@ -19,6 +20,7 @@ export class CartComponent {
   }
 
   loadCart() {
+    this.loading = true;
     this.cart = this.cartService.getCart();
     for (let index = 0; index < this.cart.length; index++) {
       this.productImageService.getProductImages(this.cart[index].id).subscribe({
@@ -31,9 +33,21 @@ export class CartComponent {
             }
             console.log(this.cart);
           };
-        }
+          this.loading = false;
+        },
+        error:(err)=> this.loading = false
       })
     }
+  }
+
+  getTotalPrice(){
+    var sum = 0;
+    this.cart.forEach(i => sum += (i.price * i.quantity));
+    return sum;
+  }
+
+  updateQuantity(product:any, e:any){
+    this.cartService.addToCart(product);
   }
 
   removeProduct(productId:number) {
@@ -44,5 +58,9 @@ export class CartComponent {
   clearCart() {
     this.cartService.clearCart();
     this.loadCart();
+  }
+
+  checkout(){
+
   }
 }
