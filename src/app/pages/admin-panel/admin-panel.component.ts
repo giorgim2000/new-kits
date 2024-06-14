@@ -36,6 +36,8 @@ export class AdminPanelComponent implements OnInit {
       this.router.navigate(['admin-panel', 'orders']);
     else if(this.currentMenuItem.name === 'მომხმარებლები')
       this.router.navigate(['admin-panel', 'users-panel']);
+    else if(this.currentMenuItem.name === 'საწყობები')
+      this.router.navigate(['admin-panel', 'stores']);
     
 
   }

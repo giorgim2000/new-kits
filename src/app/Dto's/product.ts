@@ -50,7 +50,9 @@ export class CreateProduct{
 export class Store{
     id?:number;
     name?:string;
-    adress?:string;
+    address?:string;
+    group_id?:number;
+    project_id?:number;
     productByStore?:ProductByStore[];
 }
 

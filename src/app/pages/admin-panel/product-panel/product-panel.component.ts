@@ -87,7 +87,6 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
 
   showModels = (e:any)=>{
     this.selectedProductId = e.row.data.id;
-    console.log(this.selectedProductId);
     this.productModelPopupVisible = true;
   }
 

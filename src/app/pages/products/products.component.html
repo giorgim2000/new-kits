@@ -56,7 +56,7 @@
           <dx-button text="ძიება" type="default" width="100%" (onClick)="search()"></dx-button>
         </div>
     </div>
-    <div class="product-grid">
+    <div class="product-grid" [@fadeInList]>
         <div class="card" *ngFor="let product of displayProducts">
             <div style="position: relative;">
                 <dx-gallery

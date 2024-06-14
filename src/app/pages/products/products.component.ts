@@ -103,7 +103,7 @@ export class ProductsComponent implements OnInit {
         this.displayProducts = res;
         this.displayProducts.forEach((i : Product) => {
           i.quantityInCart = this.cartService.getProductQuantity(i.id!);
-          i.rest = 1;
+          //i.rest = 1;
         });
         this.isLoading = false;
       }

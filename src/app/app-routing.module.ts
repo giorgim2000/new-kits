@@ -26,6 +26,7 @@ import { AuthComponent } from './pages/auth-form/auth/auth.component';
 import { ProductModelGridComponent } from './components/product-model-grid/product-model-grid.component';
 import { ProductImageGridComponent } from './components/product-image-grid/product-image-grid.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { StoresComponent } from './pages/admin-panel/stores/stores.component';
 
 const routes: Routes = [
   {
@@ -93,6 +94,10 @@ const routes: Routes = [
       {
         path: 'users-panel',
         component: UsersPanelComponent
+      },
+      {
+        path: 'stores',
+        component: StoresComponent
       }
     ]
   },
@@ -114,7 +119,7 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
     MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, 
-    ProductModelGridComponent,ProductImageGridComponent,CartComponent
+    ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent
   ],
   providers:[AuthService, ScreenManagerService, ModelService]
 })

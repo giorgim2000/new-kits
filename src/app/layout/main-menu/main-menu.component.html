@@ -56,7 +56,7 @@ class="dx-theme-background-color"
     >
       <p class="menuItem" (click)="register()">რეგისტრაცია</p>
     </dxi-item>
-    <dxi-item
+    <!-- <dxi-item
     *ngIf="isSmall"
     location="before"
     widget="dxButton"
@@ -87,13 +87,13 @@ class="dx-theme-background-color"
             </div>
             
         </dx-drawer>
-    </dxi-item>
+    </dxi-item> -->
 </dx-toolbar>
 
 
 
 <dx-drawer
-*ngIf="!isSmall"
+
 >
     <div class="mainContent">
         <ng-content></ng-content>
@@ -134,7 +134,7 @@ class="dx-theme-background-color"
         </div>
         <div class="social">
             <ul>
-                <!-- <li>
+                <li>
                     <a href="https://www.facebook.com/lexus" class="icon fb"></a>
                 </li>
                 <li>
@@ -145,7 +145,7 @@ class="dx-theme-background-color"
                 </li>
                 <li>
                     <a href="https://twitter.com/lexus" class="icon twitter"></a>
-                </li> -->
+                </li>
             </ul>
             <ul>
                 <li style="display: flex; align-items: center; margin-top: 5px;">

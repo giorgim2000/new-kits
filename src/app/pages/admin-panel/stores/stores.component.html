@@ -1,1 +1,49 @@
-<p>stores works!</p>
+<div style="width: 100%; display: flex; justify-content: center; padding-bottom: 20px;">
+    <dx-data-grid
+    [dataSource]="storesDataSource"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="80%"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    [columnHidingEnabled]="true"
+    >
+      
+      <dxo-selection mode="single"></dxo-selection>
+
+      <dxi-column dataType="number" dataField="id" caption="საიდენთიფიკაციო"></dxi-column>
+      <dxi-column dataType="string" dataField="name" caption="დასახელება"></dxi-column>
+      <dxi-column dataType="string" dataField="address" caption="მისამართი"></dxi-column>
+      <dxi-column type="buttons" caption="პროდუქტები">
+        <dxi-button
+        hint="პროდუქტები"
+        icon="info"
+        [onClick]="showProducts"
+        ></dxi-button>
+      </dxi-column>
+
+    </dx-data-grid>
+</div>
+
+<dx-popup
+minHeight="60%"
+minWidth="70%"
+[visible]="showProductRestPopup"
+(onHidden)="onPopupHidden()"
+title="პროდუქციის ნაშთი"
+>
+    <dx-data-grid
+    [dataSource]="productsRestDataSource"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    [columnHidingEnabled]="true"
+    >
+
+    </dx-data-grid>
+</dx-popup>
