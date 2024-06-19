@@ -1,0 +1,23 @@
+<div class="user-panel">
+    <div class="user-info">
+        <div class="user-name">
+            <dxi-button icon="listorientationvertical"></dxi-button>
+        </div>
+    </div>
+    
+    <dx-context-menu
+    [items]="menuItems"
+    target=".user-button"
+    showEvent="dxclick"
+    width="180px"
+    [position]="{
+      my: 'top',
+      at: 'bottom'
+    }"
+    cssClass="user-menu">
+  </dx-context-menu>
+  <!-- <dx-list
+    class="dx-toolbar-menu-action"
+    [items]="menuItems">
+  </dx-list> -->
+</div>

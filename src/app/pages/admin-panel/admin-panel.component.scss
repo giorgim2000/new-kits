@@ -5,9 +5,19 @@
     padding: 20px;
     background-color: whitesmoke;
     margin-bottom: 10px;
+    flex-wrap: wrap;
 }
 
-.menu .dx-menu-item {  
-    color: red !important;  
-    background: yellow !important;  
+.dx-menu{
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .adminPanelMenuDiv {
+        flex-direction: column;
+    }
+
+    .dx-menu-item {
+        width: 100%;
+    }
 }

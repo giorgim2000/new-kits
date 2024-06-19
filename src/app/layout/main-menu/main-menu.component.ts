@@ -3,6 +3,7 @@ import { Component, NgModule, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { DxButtonModule, DxDrawerComponent, DxDrawerModule, DxListModule, DxMapModule, DxMenuModule, DxToolbarModule } from 'devextreme-angular';
 import { Marker } from 'src/app/Dto\'s/map';
+import { HamburgerMenuComponent } from 'src/app/components/hamburger-menu/hamburger-menu.component';
 import { UserPanelComponent } from 'src/app/components/user-panel/user-panel.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ScreenManagerService } from 'src/app/services/screen-manager.service';
@@ -104,7 +105,7 @@ export class MainMenuComponent implements OnInit {
 }
 
 @NgModule({
-  imports:[CommonModule, DxToolbarModule, DxDrawerModule, DxMenuModule, DxListModule,UserPanelComponent, DxButtonModule, DxMapModule],
+  imports:[CommonModule, DxToolbarModule, DxDrawerModule, DxMenuModule, DxListModule,UserPanelComponent, DxButtonModule, DxMapModule, HamburgerMenuComponent],
   exports:[MainMenuComponent],
   declarations:[MainMenuComponent],
   providers:[ScreenManagerService]
