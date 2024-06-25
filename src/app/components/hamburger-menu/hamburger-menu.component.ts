@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DxContextMenuModule, DxListModule } from 'devextreme-angular';
+import { DxButtonModule, DxContextMenuModule, DxListModule } from 'devextreme-angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-hamburger-menu',
   standalone: true,
-  imports: [DxContextMenuModule, DxListModule, CommonModule],
+  imports: [DxContextMenuModule, DxListModule, CommonModule, DxButtonModule],
   templateUrl: './hamburger-menu.component.html',
   styleUrl: './hamburger-menu.component.scss'
 })

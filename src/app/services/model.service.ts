@@ -16,7 +16,7 @@ export class ModelService {
   }
 
   getModels(id?:number, makeId?:number, includeAll?:boolean){
-    let url = `https://localhost:5001/api/Models`;
+    let url = `https://localhost:7210/api/Models`;
     if(id != null)
       url += `/${id}`;
 
@@ -38,7 +38,7 @@ export class ModelService {
   }
 
   postModel(formData: FormData): Observable<any> {
-    return this.http.post<any>(`https://localhost:5001/api/Models`, formData);
+    return this.http.post<any>(`https://localhost:7210/api/Models`, formData);
   }
 
   putModel(id:number, formData:FormData): Observable<any>{

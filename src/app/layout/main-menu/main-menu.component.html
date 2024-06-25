@@ -34,9 +34,9 @@ class="dx-theme-background-color"
             width="fit-content"
             height="100%"
             stylingMode="text">
-            <div *dxTemplate="let data of 'content'">
-                <app-user-panel [username]="user" menuMode="context"></app-user-panel>
-            </div>
+                <div *dxTemplate="let data of 'content'">
+                    <app-user-panel [username]="user" menuMode="context"></app-user-panel>
+                </div>
             </dx-button>
         </div>
         
@@ -56,6 +56,28 @@ class="dx-theme-background-color"
     >
       <p class="menuItem" (click)="register()">რეგისტრაცია</p>
     </dxi-item>
+    <dxi-item
+    *ngIf="isSmall"
+    location="before"
+    menuItemTemplate="hamburgerMenu"
+    >
+        <div *dxTemplate="let data of 'item'">
+            <dx-button
+            class="user-button authorization"
+            width="fit-content"
+            height="100%"
+            icon="listorientationvertical">
+                <div *dxTemplate="let data of 'content'">
+                    <app-hamburger-menu></app-hamburger-menu>
+                </div>
+            </dx-button>
+        </div>
+    </dxi-item>
+
+    <div *dxTemplate="let data of 'hamburgerMenu'">
+        <app-hamburger-menu></app-hamburger-menu>
+    </div>
+
     <!-- <dxi-item
     *ngIf="isSmall"
     location="before"
@@ -118,7 +140,7 @@ class="dx-theme-background-color"
         </div>
         <div class="second">
             <dx-map
-            width="650"
+            [width]="mapWidth"
             height="175"
             [markers]="marker"
             [controls]="true"

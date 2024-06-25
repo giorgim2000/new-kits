@@ -46,6 +46,7 @@ export class MainMenuComponent implements OnInit {
     { id: 5, text: 'Reports' },
   ];
 
+  mapWidth = 650;
   marker:Marker[]=[{
     location: `41.776281, 44.778695`
   }]
@@ -68,11 +69,16 @@ export class MainMenuComponent implements OnInit {
   }
 
   updateDrawer() {
-    const isXSmall = this.screen.sizes['screen-x-small'];
-    const isLarge = this.screen.sizes['screen-large'];
+    //const isXSmall = this.screen.sizes['screen-x-small'];
+    //const isLarge = this.screen.sizes['screen-large'];
 
-    this.isSmall = isXSmall;
-    this.islarge = isLarge;
+    this.isSmall = this.screen.sizes['screen-x-small'] || this.screen.sizes['screen-small'];
+    //this.isSmall = !this.screen.sizes['screen-large'];
+    
+    if(this.isSmall)
+      this.mapWidth = 180;
+    else
+      this.mapWidth = 650;
   }
 
   logIn(){
