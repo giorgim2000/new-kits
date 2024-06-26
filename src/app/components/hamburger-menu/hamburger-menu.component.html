@@ -1,4 +1,4 @@
-<div class="user-panel">
+<!-- <div class="user-panel">
     <div class="user-info">
         <div class="user-name">
           <dx-button icon="listorientationvertical"></dx-button>
@@ -20,4 +20,14 @@
     class="dx-toolbar-menu-action"
     [items]="menuItems">
   </dx-list>
+</div> -->
+
+<div class="hamburger-menu" [class.open]="isOpen">
+  <ul>
+    <li (click)="navigateTo('home')">მთავარი</li>
+    <li (click)="navigateTo('products')">პროდუქცია</li>
+    <li (click)="navigateTo('about')">ჩვენს შესახებ</li>
+    <li (click)="navigateTo('showroom')">შოურუმი</li>
+  </ul>
 </div>
+<div class="overlay" *ngIf="isOpen" (click)="closeMenu()"></div>

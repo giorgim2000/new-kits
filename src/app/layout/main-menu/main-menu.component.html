@@ -56,7 +56,7 @@ class="dx-theme-background-color"
     >
       <p class="menuItem" (click)="register()">რეგისტრაცია</p>
     </dxi-item>
-    <dxi-item
+    <!-- <dxi-item
     *ngIf="isSmall"
     location="before"
     menuItemTemplate="hamburgerMenu"
@@ -76,46 +76,21 @@ class="dx-theme-background-color"
 
     <div *dxTemplate="let data of 'hamburgerMenu'">
         <app-hamburger-menu></app-hamburger-menu>
-    </div>
+    </div> -->
 
-    <!-- <dxi-item
-    *ngIf="isSmall"
-    location="before"
-    widget="dxButton"
-    [options]="opt"
-    >
-        <dx-drawer
-        *ngIf="isSmall"
-        [openedStateMode]="'shrink'"
-        [position]="'top'"
-        [revealMode]="'slide'"
-        template="template"
-        [opened]="false"
-        height="100%"
-        [closeOnOutsideClick]="true"
-        >
-            <div *dxTemplate="let data of 'template'">
-                <dx-list
-                class="panel-list dx-theme-typography-background-color"
-                [hoverStateEnabled]="false"
-                [activeStateEnabled]="false"
-                [focusStateEnabled]="false"
-                [dataSource]="navigation"
-                >
-                </dx-list>
-            </div>
-            <div class="mainContent">
-                <ng-content></ng-content>
-            </div>
-            
-        </dx-drawer>
-    </dxi-item> -->
+    <dxi-item *ngIf="isSmall" location="before">
+        <!-- <p (click)="hamburgerMenu.toggleMenu()">GGG</p> -->
+        <dx-button (click)="hamburgerMenu.toggleMenu()" width="fit-content" height="100%" icon="listorientationvertical"></dx-button>
+    </dxi-item>
+    
+      
 </dx-toolbar>
 
 
 
 <dx-drawer>
     <div class="mainContent">
+        <app-hamburger-menu #hamburgerMenu></app-hamburger-menu>
         <ng-content></ng-content>
     </div>
 </dx-drawer>
@@ -176,3 +151,36 @@ class="dx-theme-background-color"
         </div>
     </div>
 </div>
+
+<!-- <dxi-item
+    *ngIf="isSmall"
+    location="before"
+    widget="dxButton"
+    [options]="opt"
+    >
+        <dx-drawer
+        *ngIf="isSmall"
+        [openedStateMode]="'shrink'"
+        [position]="'top'"
+        [revealMode]="'slide'"
+        template="template"
+        [opened]="false"
+        height="100%"
+        [closeOnOutsideClick]="true"
+        >
+            <div *dxTemplate="let data of 'template'">
+                <dx-list
+                class="panel-list dx-theme-typography-background-color"
+                [hoverStateEnabled]="false"
+                [activeStateEnabled]="false"
+                [focusStateEnabled]="false"
+                [dataSource]="navigation"
+                >
+                </dx-list>
+            </div>
+            <div class="mainContent">
+                <ng-content></ng-content>
+            </div>
+            
+        </dx-drawer>
+    </dxi-item> -->

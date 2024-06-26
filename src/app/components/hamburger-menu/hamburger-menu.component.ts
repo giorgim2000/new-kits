@@ -57,11 +57,26 @@ export class HamburgerMenuComponent implements OnInit{
     }
   ]
 
+  isOpen = false;
   constructor(private router:Router, private authService:AuthService){}
 
   ngOnInit(): void {
     if(this.authService.isLoggedIn$){
       
     }
+  }
+
+
+  toggleMenu() {
+    this.isOpen = !this.isOpen;
+  }
+
+  closeMenu() {
+    this.isOpen = false;
+  }
+
+  navigateTo(route: string) {
+    this.router.navigate([route]);
+    this.closeMenu();
   }
 }
