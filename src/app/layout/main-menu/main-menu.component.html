@@ -80,7 +80,9 @@ class="dx-theme-background-color"
 
     <dxi-item *ngIf="isSmall" location="before">
         <!-- <p (click)="hamburgerMenu.toggleMenu()">GGG</p> -->
-        <dx-button (click)="hamburgerMenu.toggleMenu()" width="fit-content" height="100%" icon="listorientationvertical"></dx-button>
+        <dx-button (click)="hamburgerMenu.toggleMenu()" width="fit-content" height="100%">
+            <img src="../../../assets/more.png" alt="menu" height="30">
+        </dx-button>
     </dxi-item>
     
       
