@@ -46,10 +46,11 @@ select{
     max-width: 100rem;
     padding-inline: 4rem;
     display: grid;
-    grid-template-rows: 1fr auto !important;
+    grid-template-rows: auto auto 1fr;
     margin: 4px auto;
     gap: 4px;
     background-color: #fafafa;
+    min-height: calc(100vh - 230px);
     //grid-template-columns: repeat(3, 1fr);
 }
 

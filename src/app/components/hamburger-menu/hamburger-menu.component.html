@@ -1,33 +1,16 @@
-<!-- <div class="user-panel">
-    <div class="user-info">
-        <div class="user-name">
-          <dx-button icon="listorientationvertical"></dx-button>
-        </div>
-    </div>
-    
-    <dx-context-menu
-    [items]="menuItems"
-    target=".user-button"
-    showEvent="dxclick"
-    width="180px"
-    [position]="{
-      my: 'top',
-      at: 'bottom'
-    }"
-    cssClass="user-menu">
-  </dx-context-menu>
-  <dx-list
-    class="dx-toolbar-menu-action"
-    [items]="menuItems">
-  </dx-list>
-</div> -->
-
 <div class="hamburger-menu" [class.open]="isOpen">
+  <p *ngIf="loggedIn">გამარჯობა, {{user}}</p>
   <ul>
     <li (click)="navigateTo('home')">მთავარი</li>
     <li (click)="navigateTo('products')">პროდუქცია</li>
     <li (click)="navigateTo('about')">ჩვენს შესახებ</li>
     <li (click)="navigateTo('showroom')">შოურუმი</li>
+    <li *ngIf="!loggedIn" (click)="navigateTo('/auth/signin')">შესვლა</li>
+    <li *ngIf="!loggedIn" (click)="navigateTo('/auth/register')">რეგისტრაცია</li>
+    <li *ngIf="loggedIn">პროფილი</li>
+    <li *ngIf="loggedIn && user == 'admin'">ადმინ პანელი</li>
+    <li *ngIf="loggedIn">ჩემი შეკვეთები</li>
+    <li *ngIf="loggedIn">გამოსვლა</li>
   </ul>
 </div>
 <div class="overlay" *ngIf="isOpen" (click)="closeMenu()"></div>

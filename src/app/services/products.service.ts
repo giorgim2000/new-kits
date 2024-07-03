@@ -17,7 +17,7 @@ export class ProductsService {
   }
 
   getProducts(includeAll:boolean = false, search?:string, modelId?:number, modelByYearId?:number){
-    var url = `https://localhost:7210/api/Products?includeAll=${includeAll}`;
+    var url = `http://localhost:5000/api/Products?includeAll=${includeAll}`;
     if(search != undefined)
       url += `&search=${search}`;
 
@@ -44,7 +44,7 @@ export class ProductsService {
     let options = {
       headers: header
     };
-    return this.http.post("https://localhost:7210/api/Products", product, options)
+    return this.http.post("http://localhost:5000/api/Products", product, options)
                     .pipe(map((res) =>{
                       return res;
                     }),
@@ -61,7 +61,7 @@ export class ProductsService {
     let options = {
       headers: header
     }; 
-    return this.http.put(`https://localhost:7210/api/Products/${id}`, product, options)
+    return this.http.put(`http://localhost:5000/api/Products/${id}`, product, options)
                     .pipe(map((res) =>{
                       return res;
                     }),
@@ -72,6 +72,6 @@ export class ProductsService {
   }
 
   removeProduct(id:number){
-    return this.http.delete(`https://localhost:7210/api/Products/${id}`);
+    return this.http.delete(`http://localhost:5000/api/Products/${id}`);
   }
 }

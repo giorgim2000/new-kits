@@ -39,6 +39,12 @@
   grid-template-columns: auto 1fr;
 }
 
+@media screen and (max-width: 1024px){
+  .main{
+    display: block;
+  }
+}
+
 .pageTitle{
   display: flex;
   display: flex;

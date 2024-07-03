@@ -9,7 +9,7 @@ import { CreateAccountComponent } from './pages/auth-form/create-account/create-
 import { ChangePasswordComponent } from './pages/auth-form/change-password/change-password.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './services/auth.service';
+import { AuthGuardService, AuthService } from './services/auth.service';
 import { ModelService } from './services/model.service';
 import { ProductsComponent } from './pages/products/products.component';
 import { AboutComponent } from './pages/about/about.component';
@@ -27,6 +27,7 @@ import { ProductModelGridComponent } from './components/product-model-grid/produ
 import { ProductImageGridComponent } from './components/product-image-grid/product-image-grid.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { StoresComponent } from './pages/admin-panel/stores/stores.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 const routes: Routes = [
   {
@@ -99,11 +100,16 @@ const routes: Routes = [
         path: 'stores',
         component: StoresComponent
       }
-    ]
+    ],
+    canActivate: [AuthGuardService]
   },
   {
     path:'cart',
     component:CartComponent
+  },
+  {
+    path:'checkout',
+    component:CheckoutComponent
   },
   {
     path: '**',
@@ -119,8 +125,8 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
     MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, 
-    ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent
+    ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent, CheckoutComponent
   ],
-  providers:[AuthService, ScreenManagerService, ModelService]
+  providers:[AuthService, ScreenManagerService, ModelService, AuthGuardService]
 })
 export class AppRoutingModule { }

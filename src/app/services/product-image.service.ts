@@ -16,17 +16,17 @@ export class ProductImageService {
   }
 
   getProductImages(productId:number){
-    return this.http.get(`https://localhost:7210/api/ProductImages/${productId}`)
+    return this.http.get(`http://localhost:5000/api/ProductImages/${productId}`)
                     .pipe(map((res) => {
                       return res;
                     }))
   }
 
   createProductImage(productId:number, formData: FormData){
-    return this.http.post(`https://localhost:7210/api/ProductImages/${productId}`, formData);
+    return this.http.post(`http://localhost:5000/api/ProductImages/${productId}`, formData);
   }
 
   removeProductImage(id:number){
-    return this.http.delete(`https://localhost:7210/api/ProductImages/${id}`);
+    return this.http.delete(`http://localhost:5000/api/ProductImages/${id}`);
   }
 }

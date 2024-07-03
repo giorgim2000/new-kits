@@ -17,21 +17,21 @@ export class UserService {
   }
 
   getUsers(){
-    return this.http.get('https://localhost:7210/api/UserManagement/getusers')
+    return this.http.get('http://localhost:5000/api/UserManagement/getusers')
               .pipe(map((res)=>{
                   return res;
               }));
   }
 
   updateUser(user:any){
-    return this.http.put('https://localhost:7210/api/UserManagement', user)
+    return this.http.put('http://localhost:5000/api/UserManagement', user)
                     .pipe(map((res)=>{
                       return res;
                     }));
   }
 
   removeUser(id:number){
-    return this.http.delete(`https://localhost:7210/api/UserManagement/${id}`)
+    return this.http.delete(`http://localhost:5000/api/UserManagement/${id}`)
                     .pipe(map((res)=>{
                       return res;
                     }));

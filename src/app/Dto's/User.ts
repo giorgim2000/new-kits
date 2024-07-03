@@ -34,3 +34,8 @@ export interface AuthResponseDto {
     errorMessage: string;
     token: string;
 }
+
+export interface IUserClaim{
+    claimType:string;
+    claimValue:string;
+}

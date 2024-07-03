@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { map, catchError, of, BehaviorSubject, Subject } from 'rxjs';
-import { AuthResponseDto, UserForAuthenticationDto } from '../Dto\'s/User';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { map, catchError, of, BehaviorSubject, Subject, Observable } from 'rxjs';
+import { AuthResponseDto, IUserClaim, UserForAuthenticationDto } from '../Dto\'s/User';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +51,7 @@ export class AuthService {
   // }
 
   public loginUser = (route: string, body: UserForAuthenticationDto) => {
-    return this.http.post<AuthResponseDto>("https://localhost:7210/login", body);
+    return this.http.post<AuthResponseDto>("http://localhost:5000/login", body);
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {
@@ -66,6 +66,10 @@ export class AuthService {
     return localStorage.getItem('username');
   }
 
+  isAdmin(): Observable<boolean> {
+    return this.http.get<boolean>('http://localhost:5000/api/Role');
+  }
+
   async createAccount(user:any) {
     try {
       let header = new HttpHeaders({
@@ -76,7 +80,7 @@ export class AuthService {
       };
       
       // Send request
-      this.http.post("https://localhost:7210/register", user, options)
+      this.http.post("http://localhost:5000/register", user, options)
                 .subscribe({
                   next: (res) => {
                     console.log(res);
@@ -114,18 +118,43 @@ export class AuthService {
     }
   }
 
-  // async logOut() {
-  //   return this.http.post("https://localhost:7210/logOut", null, {withCredentials: true}).subscribe({
-  //     next: (res) =>{
-  //       this.isLoggedInSubject.next(false);
-  //     }
-  //   });
-  
-  // }
+  getUserInfo(){
+    return this.http.post<IUserClaim[]>('http://localhost:5000/api/role', null);
+  }
 
   public logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem('username');
     this.sendAuthStateChangeNotification(false);
+    if(this.router.url.startsWith('/admin-panel') || this.router.url.startsWith('/products'))
+      this.router.navigate(['home']);
+  }
+}
+
+
+@Injectable()
+export class AuthGuardService implements CanActivate {
+  constructor(private router: Router, private authService: AuthService) { }
+
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
+    const isLoggedIn = this.authService.loggedIn;
+    if(!isLoggedIn)
+      return of(false);
+
+
+    return this.authService.isAdmin().pipe(
+      map((isAdmin: boolean) => {
+        if (isAdmin) {
+          return true;
+        } else {
+          this.router.navigate(['/not-authorized']); // Redirect to a not authorized page or login
+          return false;
+        }
+      }),
+      catchError((error) => {
+        this.router.navigate(['/login-form']);
+        return of(false);
+      })
+    );
   }
 }

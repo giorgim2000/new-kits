@@ -56,7 +56,9 @@
           <dx-button text="ძიება" type="default" width="100%" (onClick)="search()"></dx-button>
         </div>
     </div>
+    
     <div class="product-grid" [@fadeInList]>
+        <p *ngIf="displayProducts.length == 0" style="align-self: center; justify-self: center;">პროდუქცია ვერ მოიძებნა...</p>
         <div class="card" *ngFor="let product of displayProducts">
             <div style="position: relative;">
                 <dx-gallery

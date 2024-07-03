@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ImageDto } from 'src/app/Dto\'s/image';
 import { CartProduct } from 'src/app/Dto\'s/product';
 import { CartService } from 'src/app/services/cart.service';
@@ -13,7 +14,7 @@ export class CartComponent {
   cart : CartProduct[] = [];
   loading = false;
 
-  constructor(private cartService: CartService, private productImageService:ProductImageService) { }
+  constructor(private cartService: CartService, private productImageService:ProductImageService, private router:Router) { }
 
   ngOnInit(): void {
     this.loadCart();
@@ -63,6 +64,6 @@ export class CartComponent {
   }
 
   checkout(){
-
+    this.router.navigate(['checkout']);
   }
 }

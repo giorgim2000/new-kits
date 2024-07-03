@@ -17,7 +17,7 @@ export class ProductModelService {
   }
 
   getByProduct(productId:number){
-    let url = `https://localhost:7210/api/ProductModels?productId=${productId}`;
+    let url = `http://localhost:5000/api/ProductModels?productId=${productId}`;
 
     return this.http.get<ProductModel[]>(url).pipe(map((res)=>{
       return res;
@@ -25,7 +25,7 @@ export class ProductModelService {
   }
 
   getByModel(modelByYearId:number){
-    let url = `https://localhost:7210/api/ProductModels?modelByYearId=${modelByYearId}`;
+    let url = `http://localhost:5000/api/ProductModels?modelByYearId=${modelByYearId}`;
 
     return this.http.get<ProductModel[]>(url).pipe(map((res)=>{
       return res;
@@ -33,13 +33,13 @@ export class ProductModelService {
   }
 
   create(input:CreateProductModel){
-    let url = `https://localhost:7210/api/ProductModels`;
+    let url = `http://localhost:5000/api/ProductModels`;
 
     return this.http.post(url, {ProductId: input.ProductId, ModelByYearId:input.ModelByYearId}).pipe();
   }
 
   delete(id:number){
-    let url = `https://localhost:7210/api/ProductModels/${id}`;
+    let url = `http://localhost:5000/api/ProductModels/${id}`;
 
     return this.http.delete(url);
   }

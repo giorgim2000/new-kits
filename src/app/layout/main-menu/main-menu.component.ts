@@ -54,20 +54,8 @@ export class MainMenuComponent implements OnInit {
 
   constructor(private router:Router, private screen:ScreenManagerService, private authService:AuthService) { }
 
-  // isOpen = false;
-  // toggleMenu() {
-  //   this.isOpen = !this.isOpen;
-  // }
-
-  // closeMenu() {
-  //   this.isOpen = false;
-  // }
-
-  // navigateTo(route: string) {
-  //   this.router.navigate([route]);
-  //   this.closeMenu();
-  // }
   ngOnInit(): void {
+    this.updateDrawer();
     this.screen.changed.subscribe(() => this.updateDrawer());
     this.authService.authChanged
     .subscribe(res => {
@@ -89,8 +77,12 @@ export class MainMenuComponent implements OnInit {
     this.isSmall = this.screen.sizes['screen-x-small'] || this.screen.sizes['screen-small'];
     //this.isSmall = !this.screen.sizes['screen-large'];
     
-    if(this.isSmall)
+    if(this.screen.sizes['screen-x-small'])
       this.mapWidth = 180;
+    else if(this.screen.sizes['screen-small'])
+      this.mapWidth = 300;
+    else if(this.screen.sizes['screen-medium'])
+      this.mapWidth = 450;
     else
       this.mapWidth = 650;
   }

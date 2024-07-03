@@ -56,14 +56,24 @@ export class HamburgerMenuComponent implements OnInit{
       }
     }
   ]
+  loggedIn:boolean = false;
+  user:any;
 
   isOpen = false;
-  constructor(private router:Router, private authService:AuthService){}
+  constructor(private router:Router, public authService:AuthService){}
 
   ngOnInit(): void {
-    if(this.authService.isLoggedIn$){
-      
-    }
+    this.authService.authChanged
+    .subscribe(res => {
+      this.loggedIn = res;
+      if(res)
+        this.user = this.authService.getUsername();
+    })
+    
+    if(this.authService.loggedIn)
+      this.authService.sendAuthStateChangeNotification(true);
+    else
+      this.authService.sendAuthStateChangeNotification(false);
   }
 
 
@@ -75,7 +85,7 @@ export class HamburgerMenuComponent implements OnInit{
     this.isOpen = false;
   }
 
-  navigateTo(route: string) {
+  navigateTo(route: string | string[]) {
     this.router.navigate([route]);
     this.closeMenu();
   }
