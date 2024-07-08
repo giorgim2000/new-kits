@@ -8,9 +8,9 @@
     <li *ngIf="!loggedIn" (click)="navigateTo('/auth/signin')">შესვლა</li>
     <li *ngIf="!loggedIn" (click)="navigateTo('/auth/register')">რეგისტრაცია</li>
     <li *ngIf="loggedIn">პროფილი</li>
-    <li *ngIf="loggedIn && user == 'admin'">ადმინ პანელი</li>
+    <li *ngIf="loggedIn && user == 'admin'" (click)="navigateTo('/admin-panel')">ადმინ პანელი</li>
     <li *ngIf="loggedIn">ჩემი შეკვეთები</li>
-    <li *ngIf="loggedIn">გამოსვლა</li>
+    <li *ngIf="loggedIn" (click)="authService.logout()">გამოსვლა</li>
   </ul>
 </div>
 <div class="overlay" *ngIf="isOpen" (click)="closeMenu()"></div>

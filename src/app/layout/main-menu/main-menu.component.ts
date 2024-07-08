@@ -38,6 +38,7 @@ export class MainMenuComponent implements OnInit {
     },
   };
   isSmall = false;
+  isXSmall : any;
   islarge= true;
   navigation = [
     { id: 1, text: 'Products' },
@@ -71,14 +72,11 @@ export class MainMenuComponent implements OnInit {
   }
 
   updateDrawer() {
-    //const isXSmall = this.screen.sizes['screen-x-small'];
-    //const isLarge = this.screen.sizes['screen-large'];
-
     this.isSmall = this.screen.sizes['screen-x-small'] || this.screen.sizes['screen-small'];
-    //this.isSmall = !this.screen.sizes['screen-large'];
-    
+    this.isXSmall = this.screen.sizes['screen-x-small'];
+
     if(this.screen.sizes['screen-x-small'])
-      this.mapWidth = 180;
+      this.mapWidth = 170;
     else if(this.screen.sizes['screen-small'])
       this.mapWidth = 300;
     else if(this.screen.sizes['screen-medium'])

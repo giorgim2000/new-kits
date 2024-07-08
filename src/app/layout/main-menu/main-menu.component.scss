@@ -24,6 +24,7 @@ dxi-item:hover{
 
 #logoItem{
     margin: 9px 0 9px 15px !important;
+    align-items: center;
 }
 
 #logo{
@@ -182,16 +183,37 @@ dxi-item:hover{
 }
 
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 788px){
     #number{
         margin: 0px 2px !important;
         font-size: 14px;
     }
+
+    #logo{
+        height: 44px !important;
+    }
+    
     .footer{
+        width: 96%;
+        padding-inline: 6px;
         .row{
+            .first{
+                padding: 10px 0;
+                h2{
+                    margin-right: 0px;
+                }
+
+                ul{
+                    margin-right: 0px;
+                }
+            }
+
+            .second{
+                padding: 10px 6px;
+            }
 
             .social{
-                padding: 25px 0;
+                padding: 10px 0px;
 
                 ul{
                     padding: 0;
@@ -202,6 +224,10 @@ dxi-item:hover{
                             height: 24px;
                             margin: 4px;
                         }
+
+                        img{
+                            height: 20px;
+                        }
                     }
                 }
             }
@@ -209,16 +235,48 @@ dxi-item:hover{
     }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 448px){
+    #logo{
+        height: 37px !important;
+    }
+
     .footer{
         .row{
             .first{
                 h2{
-                    margin-right: 0;
+                    font-size: 12px;
                 }
 
                 ul{
-                    margin-right: 0;
+                    li{
+                        a{
+                            font-size: 10px;
+                        }
+                    }
+                }
+            }
+
+            .second{
+                padding: 10px 3px;
+            }
+
+            .social{
+                ul{
+                    li{
+                        a{
+                            height: 18px;
+                            margin: 1px;
+                        }
+
+                        img{
+                            height: 18px;
+                        }
+
+                        #number{
+                            margin: 0px 3px;
+                            font-size: 11px;
+                        }
+                    }
                 }
             }
         }

@@ -12,14 +12,24 @@ export class ProductComponent implements OnInit, OnDestroy {
   product!:Product;
   cartProdNumber = 0;
   notifyPopupVisible = false;
+  addProductDisabled = false;
+  notifyMeBtnDisabled = false;
+  isHovered:boolean = false;
+  restPopupVisible:boolean = false;
 
   constructor(private router:Router, private cartService:CartService){
     this.product = window.history.state.product;
   }
 
   ngOnInit(): void {
+    console.log(this.product);
     this.cartProdNumber = this.cartService.getCartProductNumber();
+    if(this.product.rest == 0 || this.product.rest == undefined)
+      this.addProductDisabled = true;
+    else
+      this.notifyMeBtnDisabled = true;
   }
+  
   ngOnDestroy(): void {
     
   }
@@ -41,6 +51,10 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   goBack(){
     this.router.navigate(['/products']);
+  }
+
+  showRestPopup(){
+    this.restPopupVisible = true;
   }
 
   notifyMe(){

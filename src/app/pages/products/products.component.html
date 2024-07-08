@@ -58,7 +58,7 @@
     </div>
     
     <div class="product-grid" [@fadeInList]>
-        <p *ngIf="displayProducts.length == 0" style="align-self: center; justify-self: center;">პროდუქცია ვერ მოიძებნა...</p>
+        <p *ngIf="displayProducts.length == 0 && !isLoading" style="align-self: center; justify-self: center;">პროდუქცია ვერ მოიძებნა...</p>
         <div class="card" *ngFor="let product of displayProducts">
             <div style="position: relative;">
                 <dx-gallery
@@ -90,7 +90,7 @@
                     label="კალათშია"
                     [showSpinButtons]="true"
                     width="9rem"
-                    
+                    [disabled]="product.rest == 0"
                     height="2.5rem"
                     [(value)]="product.quantityInCart!"
                     [min]="0"

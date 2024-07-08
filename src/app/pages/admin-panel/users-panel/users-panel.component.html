@@ -6,7 +6,8 @@
     [showBorders]="true"
     [showColumnLines]="true"
     [showRowLines]="true"
-    width="80%"
+    width="98%"
+    [columnHidingEnabled]="true"
     keyExpr="id"
     [repaintChangesOnly]="true"
     (onSaved)="onChangesSaved($event)"
@@ -50,32 +51,32 @@
     </dxo-editing>
     <dxo-selection mode="single"></dxo-selection>
 
-    <dxi-column dataType="string" dataField="username" [allowEditing]="true" width="15%" caption="მომხმარებელი">
+    <dxi-column dataType="string" dataField="username" [allowEditing]="true" caption="მომხმარებელი">
         <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataType="string" dataField="userIdNumber" caption="პირადი N" [allowEditing]="true" width="15%">
+    <dxi-column dataType="string" dataField="userIdNumber" caption="პირადი N" [allowEditing]="true">
       <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataType="string" dataField="firstName" [allowEditing]="true" width="13%" caption="სახელი">
+    <dxi-column dataType="string" dataField="firstName" [allowEditing]="true" caption="სახელი">
         <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataType="string" dataField="lastName" [allowEditing]="true" width="13%" caption="გვარი">
+    <dxi-column dataType="string" dataField="lastName" [allowEditing]="true" caption="გვარი">
         <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataType="string" dataField="phoneNumber" [allowEditing]="true" width="10%" caption="ნომერი">
+    <dxi-column dataType="string" dataField="phoneNumber" [allowEditing]="true" caption="ნომერი">
         <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataType="string" dataField="email" [allowEditing]="true" width="15%" caption="ფოსტა">
+    <dxi-column dataType="string" dataField="email" [allowEditing]="true" caption="ფოსტა">
         <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataType="string" dataField="userPriceType" [allowEditing]="true" width="10%" caption="მომხმარებლის ტიპი">
+    <dxi-column dataType="string" dataField="userPriceType" [allowEditing]="true" caption="მომხმარებლის ტიპი">
         <dxo-lookup
         [dataSource]="userPriceTypeDataSource"
         displayExpr="name"
         valueExpr="id"
         ></dxo-lookup>
     </dxi-column>
-    <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true" width="10%">
+    <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true">
       <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
 

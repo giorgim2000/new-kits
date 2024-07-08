@@ -157,7 +157,8 @@ export class ProductsComponent implements OnInit {
   }
 
   goToCart(){
-    this.router.navigate(['cart']);
+    if(this.cartService.getCartProductNumber() > 0)
+      this.router.navigate(['cart']);
   }
 
   setupGalleryClickHandler(event:any) {

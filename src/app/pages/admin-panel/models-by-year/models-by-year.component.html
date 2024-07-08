@@ -6,7 +6,8 @@
     [showBorders]="true"
     [showColumnLines]="true"
     [showRowLines]="true"
-    width="80%"
+    width="98%"
+    [columnHidingEnabled]="true"
     height="100%"
     keyExpr="id"
     [repaintChangesOnly]="true"
@@ -66,10 +67,10 @@
             <dxi-validation-rule type="required"></dxi-validation-rule>
             <dxi-validation-rule type="range" [min]="1980" [max]="2030" message="მნიშვნელობა უნდა იყოს 1980-დან 2030-ის ჩათვლით"></dxi-validation-rule>
         </dxi-column>
-        <dxi-column dataField="imageUrl" cellTemplate="cellTemplate" [allowEditing]="true" width="12%" caption="სურათი">
+        <dxi-column dataField="imageUrl" cellTemplate="cellTemplate" [allowEditing]="true" caption="სურათი">
             <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-column>
-        <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true" width="15%">
+        <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true">
             <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-column>
         <dxi-column dataField="modelId" caption="მოდელი" allowEditing="true">

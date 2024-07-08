@@ -26,3 +26,13 @@ form{
         }
     }
 }
+
+@media screen and (max-width:530px){
+    .card{
+        .card-body{
+            h1{
+                font-weight: 400;
+            }
+        }
+    }
+}

@@ -10,7 +10,6 @@
     align-items: center;
     // max-height: 737px !important;
     // padding: calc((100vh - 685px) / 2) 0;
-    background: #d3cbb5;
   }
   
   .single-card {
@@ -35,6 +34,10 @@
         margin-bottom: 20px;
         display: flex;
         justify-content: center;
+
+        img{
+          border-radius: 50%;
+        }
   
         .title {
           color: black;
@@ -47,6 +50,14 @@
         //   color: rgba($base-text-color, alpha($base-text-color) * 0.7);
         //   line-height: 18px;
         // }
+      }
+    }
+  }
+
+  @media screen and (max-width:530px){
+    .single-card{
+      .dx-card{
+        width: 94%;
       }
     }
   }

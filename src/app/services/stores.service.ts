@@ -16,7 +16,7 @@ export class StoresService {
   }
 
   getStores(){
-    return this.http.get('http://localhost:5000/api/FinaStores')
+    return this.http.get('http://91.239.207.195:5000/api/FinaStores')
               .pipe(map((res)=>{
                   return res;
               }));

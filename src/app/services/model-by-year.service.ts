@@ -16,7 +16,7 @@ export class ModelByYearService {
   }
 
   getModelsByYear(id?:number, modelId?:number, includeAll?:boolean){
-    let url = "http://localhost:5000/api/ModelsByYear";
+    let url = "http://91.239.207.195:5000/api/ModelsByYear";
     if(id != undefined)
       url += `/${id}`;
 
@@ -38,15 +38,15 @@ export class ModelByYearService {
   }
 
   postModelByYear(formData: FormData): Observable<any> {
-    return this.http.post<any>(`http://localhost:5000/api/ModelsByYear`, formData);
+    return this.http.post<any>(`http://91.239.207.195:5000/api/ModelsByYear`, formData);
   }
 
   putModelByYear(id:number, formData:FormData): Observable<any>{
-    return this.http.put<any>(`http://localhost:5000/api/ModelsByYear/${id}`, formData);
+    return this.http.put<any>(`http://91.239.207.195:5000/api/ModelsByYear/${id}`, formData);
   }
 
   removeModelByYear(id:number){
-    return this.http.delete(`http://localhost:5000/api/ModelsByYear/${id}`)
+    return this.http.delete(`http://91.239.207.195:5000/api/ModelsByYear/${id}`)
     .pipe(map((response) => {
       return response;
     }),

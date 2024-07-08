@@ -1,20 +1,20 @@
 .adminPanelMenuDiv{
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
     padding: 20px;
-    background-color: whitesmoke;
     margin-bottom: 10px;
-    flex-wrap: wrap;
+    //flex-wrap: wrap;
 }
 
 .dx-menu{
-    flex-wrap: wrap;
+    //flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {
     .adminPanelMenuDiv {
-        flex-direction: column;
+        //flex-direction: column;
     }
 
     .dx-menu-item {

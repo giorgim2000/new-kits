@@ -51,7 +51,7 @@ export class AuthService {
   // }
 
   public loginUser = (route: string, body: UserForAuthenticationDto) => {
-    return this.http.post<AuthResponseDto>("http://localhost:5000/login", body);
+    return this.http.post<AuthResponseDto>("http://91.239.207.195:5000/login", body);
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {
@@ -67,7 +67,7 @@ export class AuthService {
   }
 
   isAdmin(): Observable<boolean> {
-    return this.http.get<boolean>('http://localhost:5000/api/Role');
+    return this.http.get<boolean>('http://91.239.207.195:5000/api/Role');
   }
 
   async createAccount(user:any) {
@@ -80,7 +80,7 @@ export class AuthService {
       };
       
       // Send request
-      this.http.post("http://localhost:5000/register", user, options)
+      this.http.post("http://91.239.207.195:5000/register", user, options)
                 .subscribe({
                   next: (res) => {
                     console.log(res);
@@ -119,7 +119,7 @@ export class AuthService {
   }
 
   getUserInfo(){
-    return this.http.post<IUserClaim[]>('http://localhost:5000/api/role', null);
+    return this.http.post<IUserClaim[]>('http://91.239.207.195:5000/api/role', null);
   }
 
   public logout = () => {

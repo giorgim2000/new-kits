@@ -6,7 +6,8 @@
     [showBorders]="true"
     [showColumnLines]="true"
     [showRowLines]="true"
-    width="80%"
+    width="98%"
+    [columnHidingEnabled]="true"
     keyExpr="id"
     [repaintChangesOnly]="true"
     (onSaved)="onChangesSaved($event)"
@@ -62,10 +63,10 @@
     <dxi-column dataType="string" dataField="modelName" caption="მარკა" [allowEditing]="true">
       <dxi-validation-rule type="stringLength" [max]="15" message="დასახელება არ უნდა აღემატებოდეს 15 ასოს"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataField="imageUrl" cellTemplate="cellTemplate"  [allowEditing]="true" width="12%" caption="სურათი">
+    <dxi-column dataField="imageUrl" cellTemplate="cellTemplate"  [allowEditing]="true" caption="სურათი">
       <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true" width="15%">
+    <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true">
     </dxi-column>
     <dxi-column dataField="makeId" caption="მარკა" allowEditing="true">
       <dxo-lookup [dataSource]="makes" displayExpr="makeName" valueExpr="id">

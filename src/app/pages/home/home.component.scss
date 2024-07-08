@@ -196,6 +196,7 @@
             justify-content: center;
             width: 100%;
             margin-top: 20px;
+            padding-inline: 10px;
 
             li{
                 width: calc(100% / 5);
@@ -226,7 +227,7 @@
                         height: 100%;
                         display: flex;
                         justify-content: center;
-                        align-items: end;
+                        align-items: flex-end;
                         transition: all .1s ease-in;
                     }
 
@@ -242,6 +243,26 @@
 
 
 @media screen and (max-width: 1024px) {
+    .coverDiv{
+        .textContainer{
+            .panel{
+                h2{
+                    .introTextButtons{
+                        span{
+                            font-size: 14px;
+                            letter-spacing: 2px;
+                        }
+                
+                        a{
+                            font-size: 14px;
+                            background-size: 20px;
+                            letter-spacing: 2px;
+                        }
+                    }
+                }
+            }
+        }
+    }
     .modelsContainer{
         div{
             ul{
@@ -254,28 +275,112 @@
 }
 
 @media screen and (max-width: 768px) {
+    .coverDiv{
+        background-position: right;
+
+        .textContainer{
+            width: 100%;
+
+            .panel{
+                h2{
+                    width: 100%;
+
+                    .textHeader{
+                        h1{
+                            letter-spacing: 1px;
+                            font-size: 16px;
+                        }
+                    }
+
+                    .introTextButtons{
+                        width: 100%;
+                        padding: 0px 6px;
+
+                        span{
+                            letter-spacing: 1px;
+                            padding: 0px;
+                            font-size: 11px;
+                        }
+
+                        a{
+                            padding: 0 30px 0 12px;
+                            letter-spacing: 1px;
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
     .modelsContainer{
         div{
+            .panelHeading{
+                padding: 0px 80px;
+
+                h2{
+                    margin: 3px 0px;
+                    font-size: 18px;
+                }
+            }
+
             ul{
                 li{
                     width: calc(100% / 3);
+
+                    a{
+                        img{
+                            margin-bottom: 15px;
+                        }
+                    }
                 }
             }
         }
     }
 }
 
-@media screen and (max-width: 480px) {
+
+
+@media screen and (max-width: 600px) {
     .modelsContainer{
         div{
             ul{
                 li{
                     width: calc(100% / 2);
+                    a{
+                        img{
+                            margin-bottom: 20px;
+                        }
+                    }
                 }
             }
         }
     }
 }
+
+
+
+@media screen and (max-width: 390px){
+    .coverDiv{
+        .textContainer{
+            .panel{
+                h2{
+                    .introTextButtons{
+                        span{
+                            font-size: 9px;
+                        }
+                
+                        a{
+                            font-size: 11px;
+                            background-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
 
 
 .imgDiv{

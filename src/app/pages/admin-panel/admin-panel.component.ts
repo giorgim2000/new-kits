@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ScreenManagerService } from 'src/app/services/screen-manager.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrl: './admin-panel.component.scss'
 })
 export class AdminPanelComponent implements OnInit {
+  menuDirection : any = "horizontal";
   menuItems = [
     { name: 'მარკები', selected: true },
     { name: 'მოდელები', selected: false },
@@ -38,13 +40,20 @@ export class AdminPanelComponent implements OnInit {
       this.router.navigate(['admin-panel', 'users-panel']);
     else if(this.currentMenuItem.name === 'საწყობები')
       this.router.navigate(['admin-panel', 'stores']);
-    
-
   }
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private screen : ScreenManagerService) { }
 
   ngOnInit(): void {
+    this.updateMenu();
+    this.screen.changed.subscribe(() => this.updateMenu());
     this.router.navigate(['admin-panel', 'makes']);
+  }
+
+  updateMenu(){
+    if(this.screen.sizes['screen-large'])
+      this.menuDirection = 'horizontal';
+    else
+      this.menuDirection = 'vertical';
   }
 }
