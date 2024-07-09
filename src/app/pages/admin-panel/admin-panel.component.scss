@@ -1,23 +1,29 @@
 .adminPanelMenuDiv{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     padding: 20px;
     margin-bottom: 10px;
-    //flex-wrap: wrap;
+    gap: 20px;
+}
+
+.panelContentDiv{
+    border-top: 1px groove;
 }
 
 .dx-menu{
     //flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 796px) {
     .adminPanelMenuDiv {
-        //flex-direction: column;
+        gap: 4px;
+        flex-direction: column;
+        padding: 10px 4px;
     }
 
-    .dx-menu-item {
-        width: 100%;
-    }
+    .dx-datagrid{  
+        font:9px verdana !important;  
+    } 
 }

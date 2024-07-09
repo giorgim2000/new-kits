@@ -6,7 +6,7 @@
     [showBorders]="true"
     [showColumnLines]="true"
     [showRowLines]="true"
-    width="80%"
+    width="100%"
     keyExpr="id"
     [repaintChangesOnly]="true"
     [columnHidingEnabled]="true"
@@ -61,49 +61,50 @@
       <dxo-selection mode="single"></dxo-selection>
 
       <dxi-column dataType="number" dataField="id" [visible]="false"></dxi-column>
-      <dxi-column dataType="string" dataField="productName" caption="დასახელება" [allowEditing]="true" width="20%"></dxi-column>
-      <dxi-column dataType="string" dataField="description" caption="აღწერა" [allowEditing]="true" width="20%"></dxi-column>
-      <dxi-column dataType="number" dataField="retailPrice" caption="საცალო ფასი" [allowEditing]="true" width="5%"></dxi-column>
-      <dxi-column dataType="number" dataField="retailDiscount" caption="საცალო ფასდაკლება" [allowEditing]="true" width="5%"></dxi-column>
-      <dxi-column dataType="number" dataField="semiWholeSalePrice" caption="ნახ-საბ. ფასი" [allowEditing]="true" width="5%"></dxi-column>
-      <dxi-column dataType="number" dataField="semiWholeSaleDiscount" caption="ნახ-საბ. ფასდ." [allowEditing]="true" width="5%">
+      <dxi-column dataType="string" dataField="productName" caption="დასახელება" [allowEditing]="true" [minWidth]="100" ></dxi-column>
+      <dxi-column dataType="string" dataField="description" caption="აღწერა" [allowEditing]="true"></dxi-column>
+      <dxi-column dataType="number" dataField="retailPrice" caption="საცალო ფასი" [allowEditing]="true"></dxi-column>
+      <dxi-column dataType="number" dataField="retailDiscount" caption="საცალო ფასდაკლება" [allowEditing]="true"></dxi-column>
+      <dxi-column dataType="number" dataField="semiWholeSalePrice" caption="ნახ-საბ. ფასი" [allowEditing]="true"></dxi-column>
+      <dxi-column dataType="number" dataField="semiWholeSaleDiscount" caption="ნახ-საბ. ფასდ." [allowEditing]="true">
       </dxi-column>
-      <dxi-column dataType="number" dataField="wholeSalePrice" caption="საბ. ფასი" [allowEditing]="true" width="5%">
+      <dxi-column dataType="number" dataField="wholeSalePrice" caption="საბ. ფასი" [allowEditing]="true">
       </dxi-column>
-      <dxi-column dataType="number" dataField="wholeSaleDiscount" caption="საბ. ფასდაკ." [allowEditing]="true" width="5%">
+      <dxi-column dataType="number" dataField="wholeSaleDiscount" caption="საბ. ფასდაკ." [allowEditing]="true">
       </dxi-column>
-      <dxi-column dataType="number" dataField="inStockNumber" caption="ნაშთი" [allowEditing]="false" width="5%">
+      <dxi-column dataType="number" dataField="inStockNumber" caption="ნაშთი" [allowEditing]="false">
       </dxi-column>
-      <dxi-column dataType="number" dataField="warranty" caption="გარანტია" [allowEditing]="true" width="5%">
+      <dxi-column dataType="number" dataField="warranty" caption="გარანტია" [allowEditing]="true">
       </dxi-column>
-      <dxi-column dataType="boolean" dataField="comingSoon" caption="გზაშია" [allowEditing]="true" [visible]="false" width="5%">
+      <dxi-column dataType="boolean" dataField="comingSoon" caption="გზაშია" [allowEditing]="true" [visible]="false">
       </dxi-column>
-      <dxi-column dataType="string" dataField="finaCode" caption="კოდი" [allowEditing]="true" width="5%">
+      <dxi-column dataType="string" dataField="finaCode" caption="კოდი" [allowEditing]="true">
       </dxi-column>
-      <dxi-column dataType="string" dataField="barcode" caption="შტრიხკოდი" [allowEditing]="true" width="5%">
+      <dxi-column dataType="string" dataField="barcode" caption="შტრიხკოდი" [allowEditing]="true">
       </dxi-column>
-      <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true" width="5%"></dxi-column>
-      <dxi-column type="buttons" width="10%" caption="მოდელები">
+      <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true"></dxi-column>
+      <dxi-column type="buttons" caption="მოდელები" width="70">
         <dxi-button
         hint="მოდელები"
         icon="info"
         [onClick]="showModels"
         ></dxi-button>
       </dxi-column>
-      <dxi-column type="buttons" width="10%" caption="სურათები">
+      <dxi-column type="buttons" caption="სურათები" width="70">
         <dxi-button
         hint="სურათები"
         icon="info"
         [onClick]="showImages"
         ></dxi-button>
       </dxi-column>
-      <dxi-column type="buttons" width="15%">
+      <dxi-column type="buttons" width="100">
         
       </dxi-column>
+      <dx-load-indicator [visible]="isLoading"></dx-load-indicator>
     </dx-data-grid>
     
 </div>
 
 <app-product-model-grid [popupVisible]="productModelPopupVisible" [productId]="selectedProductId" (closePopup)="closeProductModelPopup()"></app-product-model-grid>
 <app-product-image-grid [imagePopupVisible]="imagesVisible" [productId]="selectedProductId!" (closePopup)="closeProductImagePopup()"></app-product-image-grid>
-<dx-load-indicator [visible]="isLoading"></dx-load-indicator>
+

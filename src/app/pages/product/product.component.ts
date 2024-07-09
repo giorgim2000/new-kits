@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Product } from 'src/app/Dto\'s/product';
+import { Product, ProductRestWithStores } from 'src/app/Dto\'s/product';
 import { CartService } from 'src/app/services/cart.service';
+import { ProductRestService } from 'src/app/services/product-rest.service';
 
 @Component({
   selector: 'app-product',
@@ -16,8 +17,9 @@ export class ProductComponent implements OnInit, OnDestroy {
   notifyMeBtnDisabled = false;
   isHovered:boolean = false;
   restPopupVisible:boolean = false;
+  productRestInfo: ProductRestWithStores[] = [];
 
-  constructor(private router:Router, private cartService:CartService){
+  constructor(private router:Router, private cartService:CartService, private restService:ProductRestService){
     this.product = window.history.state.product;
   }
 
@@ -34,6 +36,14 @@ export class ProductComponent implements OnInit, OnDestroy {
     
   }
   
+  getProductRestInfo(){
+    if(this.productRestInfo.length == 0){
+      this.restService.getProductRestWithStores(this.product.finaId!).subscribe({
+        next: (res)=> this.productRestInfo = res,
+        error: (err)=> console.log(err)
+      });
+    }
+  }
 
   goToCart(){
     this.router.navigate(['cart']);
@@ -54,7 +64,12 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   showRestPopup(){
+    this.getProductRestInfo();
     this.restPopupVisible = true;
+  }
+
+  closeRestPopup(){
+    this.restPopupVisible = false;
   }
 
   notifyMe(){

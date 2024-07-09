@@ -98,3 +98,10 @@ export class CartProduct{
     quantity!:number;
     imageUrls?:string[];
 }
+
+export interface ProductRestWithStores {
+    storeId: number;
+    storeName: string | null;
+    storeAddress: string | null;
+    rest: number;
+}

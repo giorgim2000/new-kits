@@ -11,7 +11,6 @@
         [selectedItem]="currentMenuItem"
         [selectionMode]="'single'"
         cssClass="menu"
-        
         >
             <!-- <div *ngIf="currentMenuItem" [ngClass]="{'selectedMenuItem': currentMenuItem.selected}">
                 <div class="name">{{ currentMenuItem.name }}</div>
@@ -19,7 +18,7 @@
         </dx-menu>
     </div>
     
-    <div>
+    <div class="panelContentDiv">
         <router-outlet></router-outlet>
     </div>
 </div>

@@ -89,3 +89,26 @@ title="შემატყობინე"
 </div>
 </dx-popup>
 
+<dx-popup
+height="min(70%, 350px)"
+width="min(98%, 600px)"
+title="პროდუქტის ნაშთი"
+[visible]="restPopupVisible"
+[showCloseButton]="true"
+(onHidden)="closeRestPopup()"
+>
+    <dx-data-grid
+    [dataSource]="productRestInfo"
+    width="100%"
+    height="100%"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    >
+        <dxi-column dataType="number" dataField="storeId" visible="false"></dxi-column>
+        <dxi-column dataType="string" dataField="storeName"></dxi-column>
+        <dxi-column dataType="string" dataField="storeAddress"></dxi-column>
+        <dxi-column dataType="string" dataField="rest"></dxi-column>
+    </dx-data-grid>
+</dx-popup>
+
