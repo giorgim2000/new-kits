@@ -10,6 +10,9 @@
     [columnHidingEnabled]="true"
     keyExpr="id"
     [repaintChangesOnly]="true"
+    (onSaved)="onChangesSaved($event)"
+    (onRowRemoving)="removeCourier($event)"
+    (onEditorPreparing)="onEditorPrep($event)"
     >
       <dxo-editing
       mode="popup"

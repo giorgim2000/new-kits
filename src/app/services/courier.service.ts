@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, of, Subject } from 'rxjs';
+import { CourierDto } from '../Dto\'s/courier';
 
 @Injectable({
   providedIn: 'root'
@@ -26,16 +27,16 @@ export class CourierService {
     }));
   }
 
-  postCourier(){
-
+  postCourier(input:CourierDto){
+    return this.http.post('https://localhost:7210/api/Couriers', {input});
   }
 
-  putCourier(){
-
+  putCourier(id:number, input:CourierDto){
+    return this.http.put(`https://localhost:7210/api/Couriers/${id}`, {input});
   }
 
-  removeCourier(){
-
+  removeCourier(id:number){
+    return this.http.delete(`https://localhost:7210/api/Couriers/${id}`);
   }
 
 }
