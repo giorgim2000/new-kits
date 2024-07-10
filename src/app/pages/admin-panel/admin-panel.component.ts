@@ -40,6 +40,8 @@ export class AdminPanelComponent implements OnInit {
       this.router.navigate(['admin-panel', 'users-panel']);
     else if(this.currentMenuItem.name === 'საწყობები')
       this.router.navigate(['admin-panel', 'stores']);
+    else if(this.currentMenuItem.name === 'კურიერები')
+      this.router.navigate(['admin-panel', 'couriers']);
   }
 
   constructor(private router:Router, private screen : ScreenManagerService) { }

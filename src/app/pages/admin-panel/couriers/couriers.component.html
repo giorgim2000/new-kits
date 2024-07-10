@@ -1,1 +1,45 @@
-<p>couriers works!</p>
+<div style="width: 100%; display: flex; justify-content: center; padding-bottom: 20px;">
+    <dx-data-grid
+    #makeGrid
+    [dataSource]="couriers"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="100%"
+    [columnHidingEnabled]="true"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    >
+      <dxo-editing
+      mode="popup"
+      [allowAdding]="true"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      >
+      </dxo-editing>
+      
+      <dxo-selection mode="single"></dxo-selection>
+
+      <dxi-column dataType="string" dataField="id" caption="Id" [allowEditing]="false"></dxi-column>
+      <dxi-column dataType="string" dataField="firstname" caption="სახელი" [allowEditing]="true">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+        <dxi-validation-rule type="stringLength" [max]="15" message="სახელი არ უნდა აღემატებოდეს 15 ასოს"></dxi-validation-rule>
+      </dxi-column>
+      <dxi-column dataType="string" dataField="lastname" caption="გვარი" [allowEditing]="true">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+        <dxi-validation-rule type="stringLength" [max]="15" message="გვარი არ უნდა აღემატებოდეს 15 ასოს"></dxi-validation-rule>
+      </dxi-column>
+      <dxi-column dataType="string" dataField="courierIdNumber" caption="პირადი ნომერი" [allowEditing]="true">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+        <dxi-validation-rule type="stringLength" [max]="15" message="პირადი ნომერი შედგება 11 ციფრისგან!"></dxi-validation-rule>
+      </dxi-column>
+      <dxi-column dataType="string" dataField="phoneNumber" caption="მობილური" [allowEditing]="true">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+        <dxi-validation-rule type="stringLength" [max]="15" message="მობილური ნომერი შედგება 9 ციფრისგან!"></dxi-validation-rule>
+      </dxi-column>
+    </dx-data-grid>
+</div>
+
+
+

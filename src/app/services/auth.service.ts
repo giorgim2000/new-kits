@@ -147,11 +147,12 @@ export class AuthGuardService implements CanActivate {
         if (isAdmin) {
           return true;
         } else {
-          this.router.navigate(['/not-authorized']); // Redirect to a not authorized page or login
+          this.authService.logout(); // Redirect to a not authorized page or login
           return false;
         }
       }),
       catchError((error) => {
+        this.authService.logout();
         this.router.navigate(['/login-form']);
         return of(false);
       })

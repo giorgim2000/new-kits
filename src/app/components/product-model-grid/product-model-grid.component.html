@@ -6,6 +6,7 @@ height="50%"
 [visible]="popupVisible"
 (onShowing)="popupShown()"
 (onHidden)="popupHidden()"
+[showCloseButton]="true"
 >
     <dx-data-grid
     [dataSource]="dataSource"

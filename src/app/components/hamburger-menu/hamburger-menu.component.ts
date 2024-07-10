@@ -58,6 +58,7 @@ export class HamburgerMenuComponent implements OnInit{
   ]
   loggedIn:boolean = false;
   user:any;
+  isAdmin:boolean = false;
 
   isOpen = false;
   constructor(private router:Router, public authService:AuthService){}
@@ -66,8 +67,12 @@ export class HamburgerMenuComponent implements OnInit{
     this.authService.authChanged
     .subscribe(res => {
       this.loggedIn = res;
-      if(res)
+      if(res){
         this.user = this.authService.getUsername();
+        this.authService.isAdmin().subscribe({
+          next:(res) => this.isAdmin = res
+        })
+      }
     })
     
     if(this.authService.loggedIn)

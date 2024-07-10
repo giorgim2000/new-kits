@@ -6,6 +6,7 @@ height="50%"
 [visible]="imagePopupVisible"
 (onShowing)="popupShown()"
 (onHidden)="popupHidden()"
+[showCloseButton]="true"
 >
     <dx-data-grid
     [dataSource]="productImageDataSource"

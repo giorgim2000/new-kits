@@ -105,10 +105,10 @@ title="პროდუქტის ნაშთი"
     [showColumnLines]="true"
     [showRowLines]="true"
     >
-        <dxi-column dataType="number" dataField="storeId" visible="false"></dxi-column>
-        <dxi-column dataType="string" dataField="storeName"></dxi-column>
-        <dxi-column dataType="string" dataField="storeAddress"></dxi-column>
-        <dxi-column dataType="string" dataField="rest"></dxi-column>
+        <dxi-column dataType="number" dataField="storeId" [visible]="false"></dxi-column>
+        <dxi-column dataType="string" caption="დასახელება" dataField="storeName"></dxi-column>
+        <dxi-column dataType="string" caption="მისამართი" dataField="storeAddress"></dxi-column>
+        <dxi-column dataType="string" caption="ნაშთი" dataField="rest"></dxi-column>
     </dx-data-grid>
 </dx-popup>
 

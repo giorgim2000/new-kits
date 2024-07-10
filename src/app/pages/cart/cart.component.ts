@@ -4,6 +4,7 @@ import { ImageDto } from 'src/app/Dto\'s/image';
 import { CartProduct } from 'src/app/Dto\'s/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductImageService } from 'src/app/services/product-image.service';
+import { ScreenManagerService } from 'src/app/services/screen-manager.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,10 +14,13 @@ import { ProductImageService } from 'src/app/services/product-image.service';
 export class CartComponent {
   cart : CartProduct[] = [];
   loading = false;
+  isLarge = false;
 
-  constructor(private cartService: CartService, private productImageService:ProductImageService, private router:Router) { }
+  constructor(private cartService: CartService, private productImageService:ProductImageService, private router:Router, private screen:ScreenManagerService) { }
 
   ngOnInit(): void {
+    this.updateScreen();
+    this.screen.changed.subscribe(() => this.updateScreen());
     this.loadCart();
   }
 
@@ -39,6 +43,10 @@ export class CartComponent {
         error:(err)=> this.loading = false
       })
     }
+  }
+
+  updateScreen(){
+    this.isLarge = this.screen.sizes['screen-large'];
   }
 
   getTotalPrice(){

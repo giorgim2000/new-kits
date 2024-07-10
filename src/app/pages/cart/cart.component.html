@@ -23,7 +23,7 @@
 <div class="main">
   <div class="pageTitle">
     <dx-button icon="cart" style="background: transparent; border: 0;"></dx-button>
-    <p>კალათა</p>
+    <p id="cartTitle">კალათა</p>
   </div>
   <div class="shopping-cart">
     <div class="cart-list">
@@ -31,6 +31,7 @@
         <div *dxTemplate="let item of 'item'">
           <div class="cart-item">
             <dx-gallery
+            *ngIf="isLarge"
             [dataSource]="item.imageUrls!"
             [showNavButtons]="true"
             [showIndicator]="true"
