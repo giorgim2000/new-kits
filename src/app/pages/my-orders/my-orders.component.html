@@ -1,1 +1,17 @@
-<p>my-orders works!</p>
+<div style="width: 100%; display: flex; justify-content: flex-start; align-items: center; flex-direction: column; min-height: calc(100vh - 266px); padding: 14px 0px;">
+    <h2>ჩემი შეკვეთები</h2>
+    <dx-data-grid
+    [dataSource]="myOrders"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="80%"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    [columnHidingEnabled]="true"
+    [title]="'ჩემი შეკვეთები'"
+    >
+
+    </dx-data-grid>
+</div>

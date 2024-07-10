@@ -27,7 +27,7 @@
   </div>
   <div class="shopping-cart">
     <div class="cart-list">
-      <dx-list [dataSource]="cart" selectionMode="none">
+      <dx-list [dataSource]="cart" selectionMode="none" noDataText="კალათა ცარიელია">
         <div *dxTemplate="let item of 'item'">
           <div class="cart-item">
             <dx-gallery
@@ -54,10 +54,7 @@
     </div>
     <div class="cart-summary">
       <div style="margin-bottom: 18px;">ჯამი: {{ getTotalPrice() }}₾</div>
-      <dx-button text="შეძენა" (onClick)="checkout()"></dx-button>
+      <dx-button text="შეძენა" (onClick)="checkout()" type="success" [disabled]="cart.length == 0"></dx-button>
     </div>
   </div>
 </div>
-
-
-<dx-load-panel [visible]="loading"></dx-load-panel>

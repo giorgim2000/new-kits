@@ -29,6 +29,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { StoresComponent } from './pages/admin-panel/stores/stores.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { CouriersComponent } from './pages/admin-panel/couriers/couriers.component';
+import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
 
 const routes: Routes = [
   {
@@ -117,6 +118,10 @@ const routes: Routes = [
     component:CheckoutComponent
   },
   {
+    path:'myorders',
+    component:MyOrdersComponent
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }
@@ -130,7 +135,7 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
     MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, 
-    ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent, CheckoutComponent,  CouriersComponent
+    ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent, CheckoutComponent, CouriersComponent, MyOrdersComponent
   ],
   providers:[AuthService, ScreenManagerService, ModelService, AuthGuardService]
 })

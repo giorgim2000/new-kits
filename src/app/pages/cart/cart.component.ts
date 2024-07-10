@@ -13,7 +13,6 @@ import { ScreenManagerService } from 'src/app/services/screen-manager.service';
 })
 export class CartComponent {
   cart : CartProduct[] = [];
-  loading = false;
   isLarge = false;
 
   constructor(private cartService: CartService, private productImageService:ProductImageService, private router:Router, private screen:ScreenManagerService) { }
@@ -25,7 +24,6 @@ export class CartComponent {
   }
 
   loadCart() {
-    this.loading = true;
     this.cart = this.cartService.getCart();
     for (let index = 0; index < this.cart.length; index++) {
       this.productImageService.getProductImages(this.cart[index].id).subscribe({
@@ -38,9 +36,8 @@ export class CartComponent {
             }
             console.log(this.cart);
           };
-          this.loading = false;
         },
-        error:(err)=> this.loading = false
+        error:(err)=> console.log(err)
       })
     }
   }

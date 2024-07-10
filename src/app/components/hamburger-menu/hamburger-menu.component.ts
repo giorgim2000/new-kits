@@ -91,6 +91,7 @@ export class HamburgerMenuComponent implements OnInit{
   }
 
   navigateTo(route: string | string[]) {
+    console.log(route);
     this.router.navigate([route]);
     this.closeMenu();
   }

@@ -3,26 +3,34 @@ import { OrdersProduct } from "./product";
 
 export class Order {
     id?: number;
+
     Firstname?:string;
     Lastname?:string;
     IdNumber?:string;
     Phone?:string;
     CompanyName?:string;
     CompanyNumber?:string;
-    //user?: User;
-    //userId?: number;
-    //anonymousUser?: any;
-    //anonymousUserId?: number;
+    
+    userId?: number;
+    anonymousUserId?: number;
     status?: OrderStatus;
     paymentType?: PaymentType;
     orderProducts: OrdersProduct[] = [];
     discountAmount?: number;
     creationTime?: Date;
     deliveryDate?: Date;
-    delivery?: Delivery;
     deliveryId?: number;
     storeId?: number;
     amount?: number;
+    invoiceId?:number;
+}
+
+export class OrderDto{
+
+}
+
+export class CreateOrderDto{
+
 }
 
 export enum OrderStatus {

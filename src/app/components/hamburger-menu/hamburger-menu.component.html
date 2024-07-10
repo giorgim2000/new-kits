@@ -9,7 +9,7 @@
     <li *ngIf="!loggedIn" (click)="navigateTo('/auth/register')">რეგისტრაცია</li>
     <li *ngIf="loggedIn">პროფილი</li>
     <li *ngIf="loggedIn && isAdmin" (click)="navigateTo('/admin-panel')">ადმინ პანელი</li>
-    <li *ngIf="loggedIn && !isAdmin">ჩემი შეკვეთები</li>
+    <li *ngIf="loggedIn && !isAdmin" (click)="navigateTo('/myorders')">ჩემი შეკვეთები</li>
     <li *ngIf="loggedIn" (click)="authService.logout()">გამოსვლა</li>
   </ul>
 </div>
