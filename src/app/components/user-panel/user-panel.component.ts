@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DxContextMenuModule, DxListModule } from 'devextreme-angular';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './user-panel.component.html',
   styleUrl: './user-panel.component.scss'
 })
-export class UserPanelComponent {
+export class UserPanelComponent implements OnInit {
   @Input()
   username:string|undefined;
 
@@ -26,20 +26,6 @@ export class UserPanelComponent {
     }
   },
   {
-    text: 'ისტორია',
-    icon: 'box',
-    onClick: () => {
-      this.router.navigate(['/history']);
-    }
-  },
-  {
-    text: 'ადმინ პანელი',
-    icon: 'folder',
-    onClick: () => {
-      this.router.navigate(['/admin-panel']);
-    }
-  },
-  {
     text: 'გამოსვლა',
     icon: 'runner',
     onClick: () => {
@@ -47,6 +33,41 @@ export class UserPanelComponent {
     }
   }];
 
+  myOrdersItem = {
+    text: 'ისტორია',
+    icon: 'box',
+    onClick: () => {
+      this.router.navigate(['/myorders']);
+    }
+  };
+
+  adminPanelItem = {
+    text: 'ადმინ პანელი',
+    icon: 'folder',
+    onClick: () => {
+      this.router.navigate(['/admin-panel']);
+    }
+  };
+
   constructor(private authService:AuthService,private router:Router){}
+
+  ngOnInit(): void {
+    this.updateMenulist();
+    this.authService.authChanged.subscribe(res => {
+      console.log(res);
+      this.updateMenulist();
+    })
+  }
   
+  updateMenulist(){
+    this.menuItems = this.menuItems.filter(item => item.text !== 'ისტორია' && item.text !== 'ადმინ პანელი');
+
+    this.authService.isAdmin().subscribe(isAdmin => {
+    if (isAdmin) {
+      this.menuItems.splice(1, 0, this.adminPanelItem);
+    } else if (this.authService.loggedIn) {
+      this.menuItems.splice(1, 0, this.myOrdersItem);
+    }
+  });
+  }
 }

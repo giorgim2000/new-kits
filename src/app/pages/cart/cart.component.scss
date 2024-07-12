@@ -74,6 +74,7 @@
 .cart-list {
   min-height: calc(100vh - 400px);
   overflow-y: auto;
+  border: 1px groove;
 }
 
 .cart-item {

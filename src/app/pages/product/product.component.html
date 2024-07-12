@@ -72,6 +72,7 @@ title="შემატყობინე"
 [visible]="notifyPopupVisible"
 [showCloseButton]="true"
 (onHidden)="closePopup()"
+[closeOnOutsideClick]="true"
 >
 <div class="popupDiv">
     <dx-text-box
@@ -96,6 +97,7 @@ title="პროდუქტის ნაშთი"
 [visible]="restPopupVisible"
 [showCloseButton]="true"
 (onHidden)="closeRestPopup()"
+[closeOnOutsideClick]="true"
 >
     <dx-data-grid
     [dataSource]="productRestInfo"
@@ -104,6 +106,7 @@ title="პროდუქტის ნაშთი"
     [showBorders]="true"
     [showColumnLines]="true"
     [showRowLines]="true"
+    [wordWrapEnabled]="true"
     >
         <dxi-column dataType="number" dataField="storeId" [visible]="false"></dxi-column>
         <dxi-column dataType="string" caption="დასახელება" dataField="storeName"></dxi-column>

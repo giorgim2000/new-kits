@@ -34,6 +34,7 @@ minWidth="70%"
 [visible]="showProductRestPopup"
 (onHidden)="onPopupHidden()"
 title="პროდუქციის ნაშთი"
+[closeOnOutsideClick]="true"
 >
     <dx-data-grid
     [dataSource]="productsRestDataSource"
