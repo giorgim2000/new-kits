@@ -88,19 +88,22 @@
       <dxi-column type="buttons" caption="მოდელები" width="70">
         <dxi-button
         hint="მოდელები"
-        icon="info"
+        icon="car"
         [onClick]="showModels"
+        
         ></dxi-button>
-      </dxi-column>
-      <dxi-column type="buttons" caption="სურათები" width="70">
         <dxi-button
         hint="სურათები"
-        icon="info"
+        icon="image"
         [onClick]="showImages"
         ></dxi-button>
       </dxi-column>
-      <dxi-column type="buttons" width="100">
+      <!-- <dxi-column type="buttons" caption="სურათები" width="70">
         
+      </dxi-column> -->
+      <dxi-column type="buttons" width="100">
+        <dxi-button name="edit" icon="edit"></dxi-button>
+        <dxi-button name="delete" icon="trash"></dxi-button>
       </dxi-column>
       <dx-load-indicator [visible]="isLoading"></dx-load-indicator>
     </dx-data-grid>

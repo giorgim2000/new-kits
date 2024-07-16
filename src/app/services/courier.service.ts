@@ -17,7 +17,7 @@ export class CourierService {
   }
 
   getCouriers(){
-    let url = `https://localhost:44337/api/Couriers`;
+    let url = `http://91.239.207.195:5000/api/Couriers`;
 
     return this.http.get(url).pipe(map((response)=>{
       return response;
@@ -28,15 +28,15 @@ export class CourierService {
   }
 
   postCourier(input:CourierDto){
-    return this.http.post('https://localhost:7210/api/Couriers', {input});
+    return this.http.post('http://91.239.207.195:5000/api/Couriers', {input});
   }
 
   putCourier(id:number, input:CourierDto){
-    return this.http.put(`https://localhost:7210/api/Couriers/${id}`, {input});
+    return this.http.put(`http://91.239.207.195:5000/api/Couriers/${id}`, {input});
   }
 
   removeCourier(id:number){
-    return this.http.delete(`https://localhost:7210/api/Couriers/${id}`);
+    return this.http.delete(`http://91.239.207.195:5000/api/Couriers/${id}`);
   }
 
 }
