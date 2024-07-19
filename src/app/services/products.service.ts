@@ -7,6 +7,8 @@ import { CreateProduct } from '../Dto\'s/product';
   providedIn: 'root'
 })
 export class ProductsService {
+  //url = "http://91.239.207.195:5000";
+  url = "https://localhost:7210";
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }
@@ -17,7 +19,7 @@ export class ProductsService {
   }
 
   getProducts(includeAll:boolean = false, search?:string, modelId?:number, modelByYearId?:number){
-    var url = `http://91.239.207.195:5000/api/Products?includeAll=${includeAll}`;
+    var url = this.url + `/api/Products?includeAll=${includeAll}`;
     if(search != undefined)
       url += `&search=${search}`;
 
@@ -44,7 +46,7 @@ export class ProductsService {
     let options = {
       headers: header
     };
-    return this.http.post("http://91.239.207.195:5000/api/Products", product, options)
+    return this.http.post(this.url + "/api/Products", product, options)
                     .pipe(map((res) =>{
                       return res;
                     }),
@@ -61,7 +63,7 @@ export class ProductsService {
     let options = {
       headers: header
     }; 
-    return this.http.put(`http://91.239.207.195:5000/api/Products/${id}`, product, options)
+    return this.http.put(this.url + `/api/Products/${id}`, product, options)
                     .pipe(map((res) =>{
                       return res;
                     }),
@@ -72,6 +74,6 @@ export class ProductsService {
   }
 
   removeProduct(id:number){
-    return this.http.delete(`http://91.239.207.195:5000/api/Products/${id}`);
+    return this.http.delete(this.url + `/api/Products/${id}`);
   }
 }

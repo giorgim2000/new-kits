@@ -6,6 +6,8 @@ import { Subject, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductImageService {
+  //url = "http://91.239.207.195:5000";
+  url = "https://localhost:7210";
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }
@@ -16,17 +18,17 @@ export class ProductImageService {
   }
 
   getProductImages(productId:number){
-    return this.http.get(`http://91.239.207.195:5000/api/ProductImages/${productId}`)
+    return this.http.get(this.url + `/api/ProductImages/${productId}`)
                     .pipe(map((res) => {
                       return res;
                     }))
   }
 
   createProductImage(productId:number, formData: FormData){
-    return this.http.post(`http://91.239.207.195:5000/api/ProductImages/${productId}`, formData);
+    return this.http.post(this.url + `/api/ProductImages/${productId}`, formData);
   }
 
   removeProductImage(id:number){
-    return this.http.delete(`http://91.239.207.195:5000/api/ProductImages/${id}`);
+    return this.http.delete(this.url + `/api/ProductImages/${id}`);
   }
 }

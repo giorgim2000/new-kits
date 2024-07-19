@@ -33,6 +33,7 @@
           [showTitle]="true"
           width="70%"
           height="70%"
+          minWidth="min(100%, 500px)"
           [closeOnOutsideClick]="true"
           [showCloseButton]="true"
         >
@@ -85,7 +86,7 @@
       <dxi-column dataType="string" dataField="barcode" caption="შტრიხკოდი" [allowEditing]="true">
       </dxi-column>
       <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true"></dxi-column>
-      <dxi-column type="buttons" caption="მოდელები" width="70">
+      <dxi-column type="buttons" width="70">
         <dxi-button
         hint="მოდელები"
         icon="car"
@@ -101,7 +102,7 @@
       <!-- <dxi-column type="buttons" caption="სურათები" width="70">
         
       </dxi-column> -->
-      <dxi-column type="buttons" width="100">
+      <dxi-column type="buttons" width="70">
         <dxi-button name="edit" icon="edit"></dxi-button>
         <dxi-button name="delete" icon="trash"></dxi-button>
       </dxi-column>

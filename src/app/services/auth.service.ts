@@ -8,6 +8,8 @@ import { AuthResponseDto, IUserClaim, UserForAuthenticationDto } from '../Dto\'s
   providedIn: 'root'
 })
 export class AuthService {
+  //url = "http://91.239.207.195:5000";
+  url = "https://localhost:7210";
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   User: any | null;
@@ -51,7 +53,7 @@ export class AuthService {
   // }
 
   public loginUser = (route: string, body: UserForAuthenticationDto) => {
-    return this.http.post<AuthResponseDto>("http://91.239.207.195:5000/login", body);
+    return this.http.post<AuthResponseDto>(this.url + "/login", body);
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {
@@ -67,7 +69,7 @@ export class AuthService {
   }
 
   isAdmin(): Observable<boolean> {
-    return this.http.get<boolean>('http://91.239.207.195:5000/api/Role');
+    return this.http.get<boolean>(this.url + "/api/Role");
   }
 
   async createAccount(user:any) {
@@ -80,7 +82,7 @@ export class AuthService {
       };
       
       // Send request
-      this.http.post("http://91.239.207.195:5000/register", user, options)
+      this.http.post(this.url + "/register", user, options)
                 .subscribe({
                   next: (res) => {
                     console.log(res);
@@ -119,7 +121,7 @@ export class AuthService {
   }
 
   getUserInfo(){
-    return this.http.post<IUserClaim[]>('http://91.239.207.195:5000/api/role', null);
+    return this.http.post<IUserClaim[]>(this.url + '/api/role', null);
   }
 
   public logout = () => {

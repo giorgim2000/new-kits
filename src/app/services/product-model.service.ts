@@ -7,6 +7,8 @@ import { CreateProductModel, ProductModel } from '../Dto\'s/product';
   providedIn: 'root'
 })
 export class ProductModelService {
+  //url = "http://91.239.207.195:5000";
+  url = "https://localhost:7210";
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }
@@ -17,7 +19,7 @@ export class ProductModelService {
   }
 
   getByProduct(productId:number){
-    let url = `http://91.239.207.195:5000/api/ProductModels?productId=${productId}`;
+    let url = this.url + `/api/ProductModels?productId=${productId}`;
 
     return this.http.get<ProductModel[]>(url).pipe(map((res)=>{
       return res;
@@ -25,7 +27,7 @@ export class ProductModelService {
   }
 
   getByModel(modelByYearId:number){
-    let url = `http://91.239.207.195:5000/api/ProductModels?modelByYearId=${modelByYearId}`;
+    let url = this.url + `/api/ProductModels?modelByYearId=${modelByYearId}`;
 
     return this.http.get<ProductModel[]>(url).pipe(map((res)=>{
       return res;
@@ -33,13 +35,13 @@ export class ProductModelService {
   }
 
   create(input:CreateProductModel){
-    let url = `http://91.239.207.195:5000/api/ProductModels`;
+    let url = this.url + `/api/ProductModels`;
 
     return this.http.post(url, {ProductId: input.ProductId, ModelByYearId:input.ModelByYearId}).pipe();
   }
 
   delete(id:number){
-    let url = `http://91.239.207.195:5000/api/ProductModels/${id}`;
+    let url = this.url + `/api/ProductModels/${id}`;
 
     return this.http.delete(url);
   }

@@ -7,6 +7,8 @@ import { Make } from '../Dto\'s/make';
   providedIn: 'root'
 })
 export class MakeService {
+  //url = "http://91.239.207.195:5000";
+  url = "https://localhost:7210";
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }
@@ -17,7 +19,7 @@ export class MakeService {
   }
 
   getMakes(){
-    return this.http.get<Make>("http://91.239.207.195:5000/api/Makes")
+    return this.http.get<Make>(this.url + "/api/Makes")
                     .pipe(map((response) => {
                       takeUntil(this.unsubscribe$);
                       return response;
@@ -30,15 +32,15 @@ export class MakeService {
 
   postMake(formData: FormData): Observable<any> {
     console.log(formData);
-    return this.http.post<any>(`http://91.239.207.195:5000/api/Makes`, formData);
+    return this.http.post<any>(this.url + `/api/Makes`, formData);
   }
 
   putMake(id:number, formData:FormData){
-    return this.http.put<any>(`http://91.239.207.195:5000/api/Makes/${id}`, formData);
+    return this.http.put<any>(this.url + `/api/Makes/${id}`, formData);
   }
 
   removeMake(id:number){
-    return this.http.delete(`http://91.239.207.195:5000/api/Makes/${id}`)
+    return this.http.delete(this.url + `/api/Makes/${id}`)
     .pipe(map((response) => {
       return response;
     }),

@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UsersPanelComponent implements OnInit, OnDestroy {
   usersDataSource:User[]=[];
+  showOrders = false;
   userPriceTypeDataSource = [
     {id:0, name:"საცალო"},
     {id:1, name:"მცირე-საბითუმო"},

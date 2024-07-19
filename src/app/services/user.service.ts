@@ -7,6 +7,8 @@ import { User } from '../Dto\'s/User';
   providedIn: 'root'
 })
 export class UserService {
+  //url = "http://91.239.207.195:5000";
+  url = "https://localhost:7210";
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }
@@ -17,21 +19,21 @@ export class UserService {
   }
 
   getUsers(){
-    return this.http.get('http://91.239.207.195:5000/api/UserManagement/getusers')
+    return this.http.get(this.url + '/api/UserManagement/getusers')
               .pipe(map((res)=>{
                   return res;
               }));
   }
 
   updateUser(user:any){
-    return this.http.put('http://91.239.207.195:5000/api/UserManagement', user)
+    return this.http.put(this.url + '/api/UserManagement', user)
                     .pipe(map((res)=>{
                       return res;
                     }));
   }
 
   removeUser(id:number){
-    return this.http.delete(`http://91.239.207.195:5000/api/UserManagement/${id}`)
+    return this.http.delete(this.url + `/api/UserManagement/${id}`)
                     .pipe(map((res)=>{
                       return res;
                     }));

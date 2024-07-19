@@ -6,6 +6,8 @@ import { Observable, Subject, catchError, map, of, takeUntil } from 'rxjs';
   providedIn: 'root'
 })
 export class ModelService {
+  //url = "http://91.239.207.195:5000";
+  url = "https://localhost:7210";
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }
@@ -16,7 +18,7 @@ export class ModelService {
   }
 
   getModels(id?:number, makeId?:number, includeAll?:boolean){
-    let url = `http://91.239.207.195:5000/api/Models`;
+    let url = this.url + `/api/Models`;
     if(id != null)
       url += `/${id}`;
 
@@ -38,15 +40,15 @@ export class ModelService {
   }
 
   postModel(formData: FormData): Observable<any> {
-    return this.http.post<any>(`http://91.239.207.195:5000/api/Models`, formData);
+    return this.http.post<any>(this.url + `/api/Models`, formData);
   }
 
   putModel(id:number, formData:FormData): Observable<any>{
-    return this.http.put<any>(`http://91.239.207.195:5000/api/Models/${id}`, formData);
+    return this.http.put<any>(this.url + `/api/Models/${id}`, formData);
   }
 
   removeModel(id:number){
-    return this.http.delete(`http://91.239.207.195:5000/api/Models/${id}`)
+    return this.http.delete(this.url + `/api/Models/${id}`)
     .pipe(map((response) => {
       return response;
     }),

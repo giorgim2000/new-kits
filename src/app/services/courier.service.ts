@@ -7,6 +7,8 @@ import { CourierDto } from '../Dto\'s/courier';
   providedIn: 'root'
 })
 export class CourierService {
+  //url = "http://91.239.207.195:5000";
+  url = "https://localhost:7210";
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }
@@ -17,7 +19,7 @@ export class CourierService {
   }
 
   getCouriers(){
-    let url = `http://91.239.207.195:5000/api/Couriers`;
+    let url = this.url + `/api/Couriers`;
 
     return this.http.get(url).pipe(map((response)=>{
       return response;
@@ -28,15 +30,15 @@ export class CourierService {
   }
 
   postCourier(input:CourierDto){
-    return this.http.post('http://91.239.207.195:5000/api/Couriers', {input});
+    return this.http.post(this.url + '/api/Couriers', {input});
   }
 
   putCourier(id:number, input:CourierDto){
-    return this.http.put(`http://91.239.207.195:5000/api/Couriers/${id}`, {input});
+    return this.http.put(this.url + `/api/Couriers/${id}`, {input});
   }
 
   removeCourier(id:number){
-    return this.http.delete(`http://91.239.207.195:5000/api/Couriers/${id}`);
+    return this.http.delete(this.url + `/api/Couriers/${id}`);
   }
 
 }
