@@ -16,6 +16,8 @@ export class UsersPanelComponent implements OnInit, OnDestroy {
     {id:1, name:"მცირე-საბითუმო"},
     {id:2, name:"საბითუმო"}
   ];
+  userOrdersPopupVisible = false;
+  selectedUserId : number | undefined;
   
   constructor(private userService:UserService){}
 
@@ -59,5 +61,9 @@ export class UsersPanelComponent implements OnInit, OnDestroy {
     this.userService.removeUser(e.key).subscribe({
       next:(res) => this.getUsers()
     })
+  }
+
+  closeUserOrdersPopup(){
+    this.userOrdersPopupVisible = false;
   }
 }

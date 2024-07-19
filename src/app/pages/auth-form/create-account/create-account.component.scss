@@ -1,0 +1,11 @@
+.switchDiv{
+    display: flex;
+    width: 75%;
+    justify-content: space-evenly;
+    margin: 5px auto;
+
+    label{
+        font-size: 13px;
+        font-weight: 500;
+    }
+}

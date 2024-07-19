@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ScreenManagerService } from './services/screen-manager.service';
-import { DxButtonModule, DxContextMenuModule, DxDataGridModule, DxFileUploaderModule, DxFormModule, DxGalleryModule, DxListModule, DxLoadIndicatorModule, DxLoadPanelModule, DxMapModule, DxMenuModule, DxNumberBoxModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxTextBoxModule, DxToastModule, DxTreeListModule, DxTreeViewModule } from 'devextreme-angular';
+import { DxButtonModule, DxContextMenuModule, DxDataGridModule, DxFileUploaderModule, DxFormModule, DxGalleryModule, DxListModule, DxLoadIndicatorModule, DxLoadPanelModule, DxMapModule, DxMenuModule, DxNumberBoxModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxSwitchModule, DxTextBoxModule, DxToastModule, DxTreeListModule, DxTreeViewModule } from 'devextreme-angular';
 import { AuthFormComponent } from './pages/auth-form/auth-form.component';
 import { LoginComponent } from './pages/auth-form/login/login.component';
 import { CreateAccountComponent } from './pages/auth-form/create-account/create-account.component';
@@ -30,6 +30,7 @@ import { StoresComponent } from './pages/admin-panel/stores/stores.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { CouriersComponent } from './pages/admin-panel/couriers/couriers.component';
 import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
+import { UsersOrdersGridComponent } from './components/users-orders-grid/users-orders-grid.component';
 
 const routes: Routes = [
   {
@@ -131,11 +132,11 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes), DxGalleryModule, DxTreeViewModule, DxTreeListModule,
     DxContextMenuModule,DxScrollViewModule,DxFormModule, DxLoadIndicatorModule, CommonModule,
     FormsModule, DxSelectBoxModule, DxTextBoxModule,DxButtonModule,DxNumberBoxModule,DxPopupModule, BrowserAnimationsModule, DxMenuModule,
-    DxFileUploaderModule, DxDataGridModule, ReactiveFormsModule, DxLoadPanelModule, DxToastModule,DxListModule],
+    DxFileUploaderModule, DxDataGridModule, ReactiveFormsModule, DxLoadPanelModule, DxToastModule,DxListModule, DxSwitchModule],
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
     MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, 
-    ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent, CheckoutComponent, CouriersComponent, MyOrdersComponent
+    ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent, CheckoutComponent, CouriersComponent, MyOrdersComponent, UsersOrdersGridComponent
   ],
   providers:[AuthService, ScreenManagerService, ModelService, AuthGuardService]
 })

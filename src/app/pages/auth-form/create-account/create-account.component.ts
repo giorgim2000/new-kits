@@ -11,18 +11,18 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CreateAccountComponent {
   loading = false;
-  formData: any ={};
+  formData: any = {};
+  isCompany = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   async onSubmit(e: Event) {
     e.preventDefault();
     this.loading = true;
-    console.log(this.formData);
     const data = this.formData;
-    console.log(data);
     const result = await this.authService.createAccount(data);
     this.loading = false;
+
 
     if (result.isOk) {
       notify("თქვენ წარმატებით გაიარეთ რეგისტრაცია!", 'success', 2000);
@@ -33,6 +33,10 @@ export class CreateAccountComponent {
   }
 
   confirmPassword = (e: ValidationCallbackData) => {
-    return e.value === this.formData?.Password;
+    return e.value === this.formData!.Password;
+  }
+
+  switchChange(e:any){
+    this.isCompany = e.value;
   }
 }
