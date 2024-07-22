@@ -1,1 +1,39 @@
-<p>users-orders-grid works!</p>
+<dx-popup
+title="შეკვეთები"
+[showTitle]="true"
+width="80%"
+height="50%"
+[visible]="popupVisible"
+(onShowing)="popupShown()"
+(onHidden)="popupHidden()"
+[showCloseButton]="true"
+[closeOnOutsideClick]="true"
+>
+    <dx-data-grid
+    [dataSource]="userOrders!"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="100%"
+    keyExpr="id"
+    >
+        <dxo-editing
+        mode="row"
+        [allowAdding]="false"
+        [allowUpdating]="false"
+        [allowDeleting]="false"
+        >
+        </dxo-editing>
+
+        <dxo-selection mode="single"></dxo-selection>
+
+
+        <dxi-column dataType="number" dataField="orderId" width="10%" [visible]="false"></dxi-column>
+        <dxi-column dataType="date" dataField="orderDate" caption="თარიღი"></dxi-column>
+        <dxi-column dataType="string" dataField="status" caption="სტატუსი"></dxi-column>
+        <dxi-column dataType="string" dataField="paymentType" caption="გადახდა"></dxi-column>
+        <dxi-column dataType="number" dataField="sum" caption="ჯამი"></dxi-column>
+    </dx-data-grid>
+</dx-popup>
+

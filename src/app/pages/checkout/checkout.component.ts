@@ -39,10 +39,17 @@ export class CheckoutComponent implements OnInit {
     this.authService.getUserInfo().subscribe({
       next:(res : IUserClaim[])=>{
         this.userInfo = res;
-        this.order.Firstname = this.userInfo[1].claimValue;
-        this.order.Lastname = this.userInfo[2].claimValue;
-        this.order.IdNumber = this.userInfo[3].claimValue;
-        this.order.Phone = this.userInfo[4].claimValue;
+        this.isCompany = this.userInfo.find(i => i.claimType == "IsCompany")?.claimValue == "True";
+        this.order.userId = Number(this.userInfo.find(i => i.claimType.endsWith("nameidentifier"))?.claimValue);
+        this.order.Phone = this.userInfo.find(i => i.claimType.endsWith("mobilephone"))?.claimValue;
+        if(this.userInfo.find(i => i.claimType == "IsCompany")?.claimValue == "True"){
+          this.order.CompanyName = this.userInfo.find(i => i.claimType == "CompanyName")?.claimValue;
+          this.order.CompanyCode = this.userInfo.find(i => i.claimType == "CompanyCode")?.claimValue;
+        }else{
+          this.order.Firstname = this.userInfo.find(i => i.claimType == "Firstname")?.claimValue;
+          this.order.Lastname = this.userInfo.find(i => i.claimType == "Lastname")?.claimValue;
+          this.order.IdNumber = this.userInfo[3].claimValue;
+        }
       },
       error:(err)=>{
         console.log(err);
@@ -76,6 +83,7 @@ export class CheckoutComponent implements OnInit {
 
   confirmOrder(){
     this.toastVisible = true;
+    this.cartService.clearCart();
     setTimeout(() => {
       this.router.navigate(['/home']);
     }, 1500);

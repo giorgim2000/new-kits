@@ -13,6 +13,8 @@ export class ModelsComponent implements OnInit, OnDestroy {
   modelDataSource: Model[] = [];
   makes:Make[]=[];
   selectedFile!: File | null;
+  editMode:boolean=false;
+  editingModelId:number|undefined;
   @ViewChild('fileUploader', { static: false }) DxFileUploader!: any;
   @ViewChild('modelGrid') modelGrid!: any;
 
@@ -70,21 +72,36 @@ export class ModelsComponent implements OnInit, OnDestroy {
   }
 
   onChangesSaved(e: any) {
+    console.log(e);
     if(e.changes.length > 0 && e.changes[0].type === 'insert')
       this.createModels(this.selectedFile!,e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId);
 
-    if(e.changes.length > 0 && e.changes[0].type === 'update' && e.changes[0].data != undefined)
-      this.updateModel(e.changes[0].data.id, this.selectedFile!, e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId);
+    if(this.editMode){
+      if(e.changes.length > 0 && e.changes[0].type === 'update' && e.changes[0].data != undefined)
+        this.updateModel(e.changes[0].data.id, this.selectedFile, e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId);
+      else{
+        if(this.selectedFile != null)
+          this.updateModel(this.editingModelId!, this.selectedFile);
+      }
+    }
+    
     
     this.previewImageUrl = null;
     this.selectedFile = null;
+    this.editMode = false;
+    this.editingModelId = undefined;
   }
 
-  updateModel(id:number, file:File, active:boolean, name:string, makeId:number):void{
+  updateModel(id:number, file:File | null, active?:boolean, name?:string, makeId?:number):void{
     let formData = new FormData();
-    formData.append('ModelName', name);
-    formData.append('MakeId', String(makeId));
-    formData.append('Active', String(active));
+    if(name != null)
+      formData.append('ModelName', name);
+
+    if(makeId != null)
+      formData.append('MakeId', String(makeId));
+
+    if(active != null)
+      formData.append('Active', String(active));
 
     if(file != null)
       formData.append('Image', file, file.name);
@@ -111,8 +128,11 @@ export class ModelsComponent implements OnInit, OnDestroy {
   }
 
   onEditorPrep(e:any){
-    if(!e.row.isNewRow && e.row.isEditing)
+    if(!e.row.isNewRow && e.row.isEditing){
       this.previewImageUrl = e.row.data.imageUrl;
+      this.editMode = true;
+      this.editingModelId = e.row.data.id;
+    }
   }
 
 

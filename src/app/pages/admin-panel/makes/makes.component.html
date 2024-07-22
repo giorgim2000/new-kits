@@ -70,6 +70,10 @@
       <div *dxTemplate="let data of 'cellTemplate'">
           <img [src]="data.value"  height="70px"/>
       </div>
+      <dxi-column type="buttons" width="70">
+        <dxi-button name="edit" icon="edit"></dxi-button>
+        <dxi-button name="delete" icon="trash"></dxi-button>
+      </dxi-column>
     </dx-data-grid>
 </div>
 

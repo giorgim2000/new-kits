@@ -23,13 +23,13 @@ dxi-item:hover{
 }
 
 #logoItem{
-    margin: 9px 0 9px 15px !important;
+    margin: 9px 0 9px 20px !important;
     align-items: center;
 }
 
-#logo{
-    border-radius: 50%;
-}
+// #logo{
+//     border-radius: 50%;
+// }
 
 .menuItem{
     font-weight: bold;
@@ -46,7 +46,7 @@ dxi-item:hover{
 .footer{
     padding-inline: 10px;
     margin-inline: auto;
-    width: 90%;
+    width: 94%;
     border-top: 0.1px #666 solid;
 
     .row{
@@ -119,7 +119,7 @@ dxi-item:hover{
                         width: 30px;
                         height: 30px;
                         display: inline-block;
-                        margin-left: 20px;
+                        margin-left: 10px;
                         color: #666;
                         text-decoration: none;
                         background-color: transparent;
@@ -170,7 +170,7 @@ dxi-item:hover{
     font-weight: bold !important;
     margin: 0px 8px !important;
     transition: all 0.3s;
-    font-size: 17px;
+    font-size: 15px;
   }
   
 #number:hover{

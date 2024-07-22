@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from 'src/app/Dto\'s/User';
+import { IUserOrder } from 'src/app/Dto\'s/order';
 import { Role } from 'src/app/Dto\'s/role';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,7 +11,6 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UsersPanelComponent implements OnInit, OnDestroy {
   usersDataSource:User[]=[];
-  showOrders = false;
   userPriceTypeDataSource = [
     {id:0, name:"საცალო"},
     {id:1, name:"მცირე-საბითუმო"},
@@ -18,6 +18,7 @@ export class UsersPanelComponent implements OnInit, OnDestroy {
   ];
   userOrdersPopupVisible = false;
   selectedUserId : number | undefined;
+  selectedUserOrders: IUserOrder[] = [];
   
   constructor(private userService:UserService){}
 
@@ -37,6 +38,12 @@ export class UsersPanelComponent implements OnInit, OnDestroy {
         console.error(err);
       }
     })
+  }
+
+  showOrders = (e:any) => {
+    this.selectedUserId = e.row.data.id;
+    this.selectedUserOrders = e.row.data.orders;
+    this.userOrdersPopupVisible = true;
   }
 
   onChangesSaved(e:any){

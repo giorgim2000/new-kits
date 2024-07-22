@@ -3,16 +3,13 @@ import { OrdersProduct } from "./product";
 
 export class Order {
     id?: number;
-
+    userId?: number;
     Firstname?:string;
     Lastname?:string;
     IdNumber?:string;
     Phone?:string;
     CompanyName?:string;
-    CompanyNumber?:string;
-    
-    userId?: number;
-    anonymousUserId?: number;
+    CompanyCode?:string;
     status?: OrderStatus;
     paymentType?: PaymentType;
     orderProducts: OrdersProduct[] = [];
@@ -34,11 +31,15 @@ export class CreateOrderDto{
 }
 
 export enum OrderStatus {
-    
+    Recieved, Pending, Finished, Cancelled
 }
 
 export enum PaymentType {
     Cash, Transfer, Card
+}
+
+export enum UserPriceType{
+    Retail, SemiWhole, Whole
 }
 
 export class Delivery {
@@ -59,4 +60,12 @@ export class Courier {
     courierIdNumber?: string;
     phoneNumber?: string;
     deliveries?: Delivery[];
+}
+
+export interface IUserOrder{
+    orderId?:number;
+    orderDate?:Date;
+    status?:OrderStatus;
+    paymentType?:PaymentType;
+    sum?:number;
 }

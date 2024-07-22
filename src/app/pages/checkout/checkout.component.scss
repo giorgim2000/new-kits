@@ -1,11 +1,64 @@
-.mainCheckoutDiv{
+:host {
+    width: 100%;
+    height: 100% !important;
+    min-height: calc(100vh - 222px) !important;
+  }
+  
+  dx-scroll-view{
+    min-height: calc(100vh - 222px) !important;
     display: flex;
-    flex-direction: column;
-    //grid-template-rows: 1fr 1fr;
-    padding: 0px 40px;
+    align-items: center;
+    // max-height: 737px !important;
+    // padding: calc((100vh - 685px) / 2) 0;
+  }
+  
+  .single-card {
+    .dx-card {
+      width: 500px;
+      margin: auto auto;
+      padding: 40px;
+      flex-grow: 0;
+      background: #e8e8e8;
+  
+      :host-context(.screen-x-small) & {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+        border: 0;
+        flex-grow: 1;
+      }
+  
+      .header {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
 
-    h2{
-        place-self: center;
+        img{
+          border-radius: 50%;
+        }
+  
+        .title {
+          color: black;
+          line-height: 28px;
+          font-weight: 500;
+          font-size: 24px;
+        }
+  
+        // .description {
+        //   color: rgba($base-text-color, alpha($base-text-color) * 0.7);
+        //   line-height: 18px;
+        // }
+      }
     }
-}
+  }
+
+  @media screen and (max-width:530px){
+    .single-card{
+      .dx-card{
+        width: 94%;
+      }
+    }
+  }
 

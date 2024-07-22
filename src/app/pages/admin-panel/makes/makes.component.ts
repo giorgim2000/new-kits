@@ -56,7 +56,7 @@ export class MakesComponent {
   }
 
   onChangesSaved(e: any) {
-    
+    console.log(e);
     if(e.changes.length > 0 && e.changes[0].type === 'insert'){
       this.makeName = e.changes[0].data.makeName;
       this.createMake(this.selectedFile!);

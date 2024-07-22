@@ -65,7 +65,7 @@
     <dxi-column dataType="string" dataField="lastName" [allowEditing]="true" caption="გვარი">
         <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column dataType="string" dataField="phoneNumber" [allowEditing]="true" caption="ნომერი">
+    <dxi-column dataType="string" dataField="phoneNumber" [allowEditing]="true" caption="ტელეფონი">
         <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
     <dxi-column dataType="string" dataField="email" [allowEditing]="true" caption="ფოსტა">
@@ -82,7 +82,7 @@
       <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
     <dxi-column type="buttons" caption="შეკვეთები" width="70">
-      <dxi-button name="order" icon="order" [onClick]="showOrders"></dxi-button>
+      <dxi-button icon="info" [onClick]="showOrders"></dxi-button>
     </dxi-column>
     <dxi-column type="buttons" width="70">
       <dxi-button name="edit" icon="edit"></dxi-button>
@@ -92,5 +92,4 @@
     </dx-data-grid>
 </div>
 
-<app-product-model-grid [popupVisible]="productModelPopupVisible" [productId]="selectedProductId" (closePopup)="closeProductModelPopup()"></app-product-model-grid>
-<app-users-orders-grid></app-users-orders-grid>
+<app-users-orders-grid [popupVisible]="userOrdersPopupVisible" [userId]="selectedUserId" (closePopup)="closeUserOrdersPopup()" [userOrders]="selectedUserOrders"></app-users-orders-grid>

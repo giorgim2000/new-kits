@@ -25,6 +25,8 @@ export class ProductModelGridComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.productModelService.ngOnDestroy();
+    this.modelByYearService.ngOnDestroy();
+    this.productsService.ngOnDestroy();
   }
 
   getData(){

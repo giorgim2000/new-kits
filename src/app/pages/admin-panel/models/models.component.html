@@ -62,7 +62,7 @@
 
     <dxo-selection mode="single"></dxo-selection>
 
-    <dxi-column dataType="string" dataField="modelName" caption="მარკა" [allowEditing]="true">
+    <dxi-column dataType="string" dataField="modelName" caption="მოდელი" [allowEditing]="true">
       <dxi-validation-rule type="stringLength" [max]="15" message="დასახელება არ უნდა აღემატებოდეს 15 ასოს"></dxi-validation-rule>
     </dxi-column>
     <dxi-column dataField="imageUrl" cellTemplate="cellTemplate"  [allowEditing]="true" caption="სურათი">
@@ -78,6 +78,10 @@
     <div *dxTemplate="let data of 'cellTemplate'">
         <img [src]="data.value"  height="50px"/>
     </div>
+    <dxi-column type="buttons" width="70">
+      <dxi-button name="edit" icon="edit"></dxi-button>
+      <dxi-button name="delete" icon="trash"></dxi-button>
+    </dxi-column>
     </dx-data-grid>
 </div>
 

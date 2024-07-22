@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './orders.component.scss'
 })
 export class OrdersComponent {
-
+  orders:any[]=[];
 }
