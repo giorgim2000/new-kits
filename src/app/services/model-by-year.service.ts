@@ -6,8 +6,8 @@ import { Subject, map, takeUntil, catchError, of, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ModelByYearService {
-  //url = "http://91.239.207.195:5000";
-  url = "https://localhost:7210";
+  url = "http://91.239.207.195:5000";
+  //url = "https://localhost:7210";
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }

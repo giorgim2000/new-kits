@@ -8,8 +8,8 @@ import { AuthResponseDto, IUserClaim, UserForAuthenticationDto } from '../Dto\'s
   providedIn: 'root'
 })
 export class AuthService {
-  //url = "http://91.239.207.195:5000";
-  url = "https://localhost:7210";
+  url = "http://91.239.207.195:5000";
+  //url = "https://localhost:7210";
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   User: any | null;

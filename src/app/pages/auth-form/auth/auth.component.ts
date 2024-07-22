@@ -14,8 +14,11 @@ export class AuthComponent {
   private returnUrl!: string;
   
   loginForm!: FormGroup;
-  errorMessage: string = '';
-  showError!: boolean;
+  //errorMessage: string = '';
+  //showError!: boolean;
+  toastMessage:string = "მომხმარებელი ან პაროლი არასწორია!";
+  toastVisible:boolean = false;
+
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
   
   ngOnInit(): void {
@@ -33,7 +36,7 @@ export class AuthComponent {
   }
   
   loginUser = (loginFormValue:any) => {
-    this.showError = false;
+    //this.showError = false;
     const login = {... loginFormValue };
     const userForAuth: UserForAuthenticationDto = {
       username: login.username,
@@ -42,14 +45,17 @@ export class AuthComponent {
     this.authService.loginUser('api/accounts/login', userForAuth)
     .subscribe({
       next: (res:AuthResponseDto) => {
+       console.log(res);
        localStorage.setItem("token", res.token);
        localStorage.setItem("username", userForAuth.username);
        this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
        this.router.navigate([this.returnUrl]);
     },
     error: (err: HttpErrorResponse) => {
-      this.errorMessage = err.message;
-      this.showError = true;
+      console.log(err);
+      this.toastVisible = true;
+      //this.errorMessage = err.message;
+      //this.showError = true;
     }})
   }
 }

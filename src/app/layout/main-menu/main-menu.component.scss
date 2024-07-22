@@ -1,20 +1,20 @@
 dx-toolbar{
     height: 70px !important;
     background: whitesmoke;
-    padding-right: 20px;
+    padding-right: 10px;
     border-bottom: thin groove;
 }
 
 dxi-item{
     display: flex;
     height: 52px;
-    margin: 9px 8px;
+    margin: 11px 4px;
     color: black;
     transition: all 0.3s ease-in-out;
     font-family: "Nobel-Regular", arial, helvetica, san-serif;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 dxi-item:hover{
@@ -33,7 +33,7 @@ dxi-item:hover{
 
 .menuItem{
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     text-transform: uppercase;
     font-family: "Nobel-Bold",arial,helvetica,san-serif;
 }

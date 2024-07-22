@@ -69,9 +69,10 @@
                 (onContentReady)="setupGalleryClickHandler($event)"
                 >
                 </dx-gallery>
+                <span class="tag green" *ngIf="product.rest && product.rest > 2">მარაგშია</span>
                 <span class="tag black" *ngIf="product.rest && product.rest! > 0 && product.rest! < 3">დარჩენილია: {{product.rest}}</span>
-                <span class="tag coming" *ngIf="product.rest == 0 && product.comingSoon">გზაშია</span>
-                <span class="tag red" *ngIf="product.rest == 0 && !product.comingSoon">არ არის მარაგში</span>
+                <span class="tag coming" *ngIf="product.rest! <= 0 && product.comingSoon">გზაშია</span>
+                <span class="tag red" *ngIf="product.rest! <= 0 && !product.comingSoon">არ არის მარაგში</span>
             </div>
             
             <div class="card_content">
@@ -114,8 +115,8 @@
     shadingColor="rgba(0,0,0,0.4)"
     [visible]="isLoading"
     [showIndicator]="true"
-    [showPane]="false"
-    [shading]="false"
+    [showPane]="true"
+    [shading]="true"
     [hideOnOutsideClick]="false"
     ></dx-load-panel>
 </div>

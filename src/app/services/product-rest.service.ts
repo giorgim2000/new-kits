@@ -7,8 +7,8 @@ import { ProductRestWithStores } from '../Dto\'s/product';
   providedIn: 'root'
 })
 export class ProductRestService {
-  //url = "http://91.239.207.195:5000";
-  url = "https://localhost:7210";
+  url = "http://91.239.207.195:5000";
+  //url = "https://localhost:7210";
   private unsubscribe$ = new Subject<void>();
 
   constructor(private http:HttpClient) { }

@@ -11,6 +11,12 @@ class="dx-theme-background-color"
     *ngIf="!isSmall"
     location="after"
     >
+        <p class="menuItem" (click)="goToHome()">მთავარი</p>
+    </dxi-item>
+    <dxi-item
+    *ngIf="!isSmall"
+    location="after"
+    >
         <p class="menuItem" (click)="goToProducts()">პროდუქტები</p>
     </dxi-item>
     <dxi-item

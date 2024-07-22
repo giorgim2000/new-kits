@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-body">
         <h1 class="card-title">ავტორიზაცია</h1>
-        <div *ngIf="showError" class="alert alert-danger" role="alert">
+        <!-- <div *ngIf="showError" class="alert alert-danger" role="alert">
             {{errorMessage}}
-        </div>
+        </div> -->
         
         <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="loginUser(loginForm.value)">
             <div class="mb-3 row">
@@ -33,3 +33,5 @@
         </form>
     </div>
   </div>
+
+  <dx-toast [message]="toastMessage" [(visible)]="toastVisible" type="error"></dx-toast>
