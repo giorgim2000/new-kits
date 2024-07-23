@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 50px;
+    padding: 50px 30px;
 }
   
 .backDiv{
@@ -59,19 +59,19 @@ body{
   
   .product{
       position: relative;
-      width: 80%;
+      width: 100%;
       min-width: 350px;
       min-height: 500px;
       height: auto;
       display: flex;
       justify-content: center;
       align-items: center;
-      max-width: 1024px;
+      max-width: 1444px;
   }
   
   .product-img{
-      width: 50%;
-      height: 450px;
+      width: 63%;
+      height: 500px;
       background: #fff;
       position: relative;
       opacity: 0;
@@ -93,26 +93,31 @@ body{
     right: 10px;
     height: 25px;
     cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
   }
 
-  .hover-content {
-    visibility: hidden;
-    width: 200px;
-    background-color:#333 ;
-    color: #f9f9f9;
-    text-align: center;
-    border-radius: 5px;
-    padding: 10px;
-    position: absolute;
-    top: -25px;
-    right: 30px;
-    transition: visibility 0.3s, opacity 0.3s;
-  }
+  // .hover-content {
+  //   visibility: hidden;
+  //   width: 200px;
+  //   background-color:#333 ;
+  //   color: #f9f9f9;
+  //   text-align: center;
+  //   border-radius: 5px;
+  //   padding: 10px;
+  //   position: absolute;
+  //   top: -25px;
+  //   right: 30px;
+  //   transition: visibility 0.3s, opacity 0.3s;
+  // }
   
-  .hover-content.visible {
-    visibility: visible;
-    opacity: 1;
-  }
+  // .hover-content.visible {
+  //   visibility: visible;
+  //   opacity: 1;
+  // }
   
   .tag{
       position: absolute;
@@ -146,8 +151,8 @@ body{
   }
   
 .product-listing{
-    width: 50%;
-    min-height: 450px;
+    width: 37%;
+    min-height: 500px;
     height: 450px;
     background:  #fafafa;;
     padding: 10px;

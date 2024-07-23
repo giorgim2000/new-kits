@@ -28,12 +28,15 @@
                 <span class="tag red" *ngIf="!product.rest && !product.comingSoon">დროებით მიუწვდომელი</span>
             </div>
             <div class="product-listing">
-                <span class="restInfoIcon" (mouseover)="isHovered = true" (mouseout)="isHovered = false" (click)="showRestPopup()">
+                <div class="restInfoIcon"  (click)="showRestPopup(product.rest!)">
+                    <img height="14px" [src]="product.rest && product.rest > 0 ? '../../../assets/checklist.png' : '../../../assets/x.png'"> მარაგების ნახვა
+                </div>
+                <!-- <span class="restInfoIcon" (mouseover)="isHovered = true" (mouseout)="isHovered = false" (click)="showRestPopup()">
                     <img src="../../../assets/info.png" height="25px">
                 </span>
                 <div class="hover-content" [ngClass]="{'visible': isHovered}">
                     ნაშთის ინფორმაცია
-                </div>
+                </div> -->
                 <div class="content">
                     <h1 class="name">{{product.productName}}</h1>
                     <p class="info">{{product.description}}</p>
@@ -48,13 +51,14 @@
                     [text]="'კალათში დამატება'"
                     [stylingMode]="'contained'"
                     (onClick)="addToCart()"
-                    [disabled]="addProductDisabled"
+                    [visible]="!addProductDisabled"
                     ></dx-button>
                     <dx-button
                     [type]="'default'"
-                    [text]="'შემატყობინე'"
+                    [text]="'შემატყობინე როცა შეივსება'"
                     [stylingMode]="'contained'"
                     (onClick)="notifyMe()"
+                    [visible]="addProductDisabled"
                     ></dx-button>
                 </div>
             </div>

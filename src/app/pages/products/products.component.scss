@@ -82,8 +82,6 @@ select{
     // background-color: white;
     height: fit-content;
     aspect-ratio: 4.5 / 4;
-    transition: all 0.4s ease;
-    transform: rotate();
     max-width: 430px;
     border: thin groove;
     background-color: white;
@@ -105,13 +103,25 @@ select{
 
 .card_content{
     color: #333;
-    margin:  .5rem .5rem 2rem;
+    //margin:  .5rem .5rem 2rem;
     padding: .5rem;
-    box-shadow: 0 .25rem 1 rem rgb(0 0 0 / .1);
-    margin:0;
     display: grid;
-    gap: 10px;
+    //gap: 10px;
     border-top: thin groove;
+
+    .cardTitleDiv{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow: hidden;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .cardTitleDiv.des{
+        font-size: 14px;
+        font-weight: 100;
+    }
 }
 
 .card_title{
@@ -160,8 +170,6 @@ select{
 
 .card_content > dx-button{
     align-self: flex-end;
-    // background-color: #333;
-    // color: whitesmoke;
 }
 
 .cart-icon {

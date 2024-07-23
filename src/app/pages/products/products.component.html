@@ -66,26 +66,30 @@
                 height="100%"
                 width="100%"
                 [showNavButtons]="true"
+                [showIndicator]="true"
                 (onContentReady)="setupGalleryClickHandler($event)"
+                (onItemClick)="productsDetails(product)"
                 >
                 </dx-gallery>
-                <span class="tag green" *ngIf="product.rest && product.rest > 2">მარაგშია</span>
+                <span class="tag green" *ngIf="product.rest && product.rest > 2">მარაგშია {{isAdmin ? ': ' + product.rest : ''}}</span>
                 <span class="tag black" *ngIf="product.rest && product.rest! > 0 && product.rest! < 3">დარჩენილია: {{product.rest}}</span>
                 <span class="tag coming" *ngIf="product.rest! <= 0 && product.comingSoon">გზაშია</span>
                 <span class="tag red" *ngIf="product.rest! <= 0 && !product.comingSoon">არ არის მარაგში</span>
             </div>
             
             <div class="card_content">
-                <h2 class="card_title" (click)="productsDetails(product)">{{product.productName}}</h2>
-                <!-- <p class="card_descritpion" (click)="productsDetails(product)">{{product.modelByYear.model?.make?.makeName + ' ' + product.modelByYear.model?.modelName}}</p> -->
-                <p class="card_descritpion" (click)="productsDetails(product)">{{product.description}}</p>
-                <div class="priceDiv">
+                <div class="cardTitleDiv" (click)="productsDetails(product)">
+                    {{product.productName}}
+                    
+                </div>
+                <div class="cardTitleDiv des" (click)="productsDetails(product)">
+                    {{product.description}}
+                </div>
+                <div class="priceDiv" (click)="productsDetails(product)">
                     <p class="card_price" *ngIf="product.discount" (click)="productsDetails(product)"><del>{{product.price}}₾</del>  {{product.price! * (1 - (product.discount / 100)) +'₾'}}</p>
                     <p class="card_price" *ngIf="!product.discount" (click)="productsDetails(product)">{{product.price}}₾</p>
                 </div>
-
                 <div class="prCs">
-                    <!-- <p class="coming" *ngIf="product.rest == 0 && product.comingSoon">გზაშია</p> -->
                     <dx-number-box
                     [visible]="true"
                     label="კალათშია"
@@ -102,7 +106,6 @@
                   [text]="product.isInCart ? 'კალათის ნახვა' : product.rest! > 0 ? 'კალათში დამატება' : 'შემატყობინე'"
                   [type]="product.rest! > 0 ? 'success' : 'default'"
                   [stylingMode]="'contained'"
-                  [className]="product.rest! > 0 ? 'blackBtn' : 'whiteBtn'"
                   (onClick)="product.rest! > 0 ? addToCart(product) : notifyMe(product)"
                   height="48"
                   >
@@ -110,7 +113,6 @@
             </div>
         </div>
     </div>
-    <!-- (onClick)="product.isInCart ? goToCart() : product.inStock ? addToCart(product) : notifyMe(product)" -->
     <dx-load-panel
     shadingColor="rgba(0,0,0,0.4)"
     [visible]="isLoading"

@@ -5,6 +5,7 @@ import { Make } from 'src/app/Dto\'s/make';
 import { Model } from 'src/app/Dto\'s/model';
 import { ModelByYear } from 'src/app/Dto\'s/modelByYear';
 import { Product } from 'src/app/Dto\'s/product';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ModelByYearService } from 'src/app/services/model-by-year.service';
 import { ModelService } from 'src/app/services/model.service';
@@ -52,6 +53,7 @@ export class ProductsComponent implements OnInit {
   toastVisible:boolean = false;
   toastType = "info";
   loadingText = 'Loading...';
+  isAdmin = false;
 
   
 
@@ -64,11 +66,15 @@ export class ProductsComponent implements OnInit {
 
 
   constructor(private productService:ProductsService,private modelService:ModelService, private modelsByYearService:ModelByYearService, 
-      private activatedRoute:ActivatedRoute, private cartService:CartService, private router:Router){}
+      private authService:AuthService, private cartService:CartService, private router:Router){}
 
   ngOnInit(): void {
     this.getModels();
     this.updateCart();
+    this.authService.isAdmin().subscribe({
+      next:(res)=>this.isAdmin = res,
+      error:(err)=> this.isAdmin = false
+    });
     
     const state = window.history.state;
     if (state.modelId && state.modelByYearId) {

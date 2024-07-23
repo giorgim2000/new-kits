@@ -15,7 +15,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   notifyPopupVisible = false;
   addProductDisabled = false;
   notifyMeBtnDisabled = false;
-  isHovered:boolean = false;
   restPopupVisible:boolean = false;
   productRestInfo: ProductRestWithStores[] = [];
 
@@ -63,9 +62,11 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.router.navigate(['/products']);
   }
 
-  showRestPopup(){
-    this.getProductRestInfo();
-    this.restPopupVisible = true;
+  showRestPopup(rest:number){
+    if(rest > 0){
+      this.getProductRestInfo();
+      this.restPopupVisible = true;
+    }
   }
 
   closeRestPopup(){
