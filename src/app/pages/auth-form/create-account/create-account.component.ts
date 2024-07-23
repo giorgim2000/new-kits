@@ -16,17 +16,34 @@ export class CreateAccountComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
+  // async onSubmit(e: Event) {
+  //   e.preventDefault();
+  //   this.loading = true;
+  //   const data = this.formData;
+  //   const result = await this.authService.createAccount(data);
+  //   this.loading = false;
+
+
+  //   if (result.isOk) {
+  //     notify("თქვენ წარმატებით გაიარეთ რეგისტრაცია!", 'success', 2000);
+  //     this.router.navigate(['auth', '/login']);
+  //   } else {
+  //     notify(result.message, 'error', 2000);
+  //   }
+  // }
+
   async onSubmit(e: Event) {
     e.preventDefault();
     this.loading = true;
-    const data = this.formData;
-    const result = await this.authService.createAccount(data);
-    this.loading = false;
 
+    // Ensure that formData is correctly configured
+    const result = await this.authService.createAccount(this.formData);
+
+    this.loading = false;
 
     if (result.isOk) {
       notify("თქვენ წარმატებით გაიარეთ რეგისტრაცია!", 'success', 2000);
-      this.router.navigate(['auth', '/login']);
+      this.router.navigate(['auth', 'login']);
     } else {
       notify(result.message, 'error', 2000);
     }

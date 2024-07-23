@@ -8,8 +8,8 @@ import { AuthResponseDto, IUserClaim, UserForAuthenticationDto } from '../Dto\'s
   providedIn: 'root'
 })
 export class AuthService {
-  url = "http://91.239.207.195:5000";
-  //url = "https://localhost:7210";
+  //url = "http://91.239.207.195:5000";
+  url = "https://localhost:7210";
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   User: any | null;
@@ -72,7 +72,39 @@ export class AuthService {
     return this.http.get<boolean>(this.url + "/api/Role");
   }
 
-  async createAccount(user:any) {
+  // async createAccount(user:any) {
+  //   try {
+  //     let header = new HttpHeaders({
+  //       'Content-Type': "application/json"
+  //     });
+  //     let options = {
+  //       headers: header
+  //     };
+      
+  //     // Send request
+  //     this.http.post(this.url + "/register", user, options)
+  //               .subscribe({
+  //                 next: (res) => {
+  //                   console.log(res);
+  //                 },
+  //                 error: (err) => {
+  //                   console.log(err);
+  //                 }
+  //               })
+  //     //this.router.navigate(['/create-account']);
+  //     return {
+  //       isOk: true
+  //     };
+  //   }
+  //   catch {
+  //     return {
+  //       isOk: false,
+  //       message: "Failed to create account"
+  //     };
+  //   }
+  // }
+
+  async createAccount(user: any) {
     try {
       let header = new HttpHeaders({
         'Content-Type': "application/json"
@@ -80,26 +112,19 @@ export class AuthService {
       let options = {
         headers: header
       };
-      
-      // Send request
-      this.http.post(this.url + "/register", user, options)
-                .subscribe({
-                  next: (res) => {
-                    console.log(res);
-                  },
-                  error: (err) => {
-                    console.log(err);
-                  }
-                })
-      //this.router.navigate(['/create-account']);
+
+      // Send request and wait for response
+      const response = await this.http.post(this.url + "/register", user, options).toPromise();
       return {
-        isOk: true
+        isOk: true,
+        response
       };
     }
-    catch {
+    catch (error) {
       return {
         isOk: false,
-        message: "Failed to create account"
+        message: "Failed to create account",
+        error
       };
     }
   }
