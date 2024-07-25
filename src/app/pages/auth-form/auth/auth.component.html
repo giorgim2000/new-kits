@@ -32,6 +32,13 @@
             </div>
         </form>
     </div>
-  </div>
-
-  <dx-toast [message]="toastMessage" [(visible)]="toastVisible" type="error"></dx-toast>
+</div>
+<dx-load-panel
+              shadingColor="rgba(0,0,0,0.4)"
+              [visible]="loading"
+              [showIndicator]="true"
+              [showPane]="true"
+              [shading]="true"
+              [hideOnOutsideClick]="false"
+              ></dx-load-panel>
+<dx-toast [message]="toastMessage" [(visible)]="toastVisible" type="error"></dx-toast>

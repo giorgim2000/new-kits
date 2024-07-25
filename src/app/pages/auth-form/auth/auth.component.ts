@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthResponseDto, UserForAuthenticationDto } from 'src/app/Dto\'s/User';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -12,10 +13,8 @@ import { AuthResponseDto, UserForAuthenticationDto } from 'src/app/Dto\'s/User';
 })
 export class AuthComponent {
   private returnUrl!: string;
-  
+  loading = false;
   loginForm!: FormGroup;
-  //errorMessage: string = '';
-  //showError!: boolean;
   toastMessage:string = "მომხმარებელი ან პაროლი არასწორია!";
   toastVisible:boolean = false;
 
@@ -35,27 +34,48 @@ export class AuthComponent {
     return this.loginForm.get(controlName)!.hasError(errorName)
   }
   
-  loginUser = (loginFormValue:any) => {
-    //this.showError = false;
-    const login = {... loginFormValue };
+  // loginUser = (loginFormValue:any) => {
+  //   const login = {... loginFormValue };
+  //   const userForAuth: UserForAuthenticationDto = {
+  //     username: login.username,
+  //     password: login.password
+  //   }
+  //   this.loading = true;
+  //   this.authService.loginUser('api/accounts/login', userForAuth)
+  //   .subscribe({
+  //     next: (res:AuthResponseDto) => {
+       
+  //      localStorage.setItem("token", res.token);
+  //      localStorage.setItem("username", userForAuth.username);
+  //      this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
+  //      this.router.navigate([this.returnUrl]);
+  //   },
+  //   error: (err: HttpErrorResponse) => {
+  //     console.log(err);
+  //     this.toastVisible = true;
+  //   }})
+  // }
+
+  loginUser = async (loginFormValue: any) => {
+    const login = { ...loginFormValue };
     const userForAuth: UserForAuthenticationDto = {
       username: login.username,
-      password: login.password
-    }
-    this.authService.loginUser('api/accounts/login', userForAuth)
-    .subscribe({
-      next: (res:AuthResponseDto) => {
-       console.log(res);
-       localStorage.setItem("token", res.token);
-       localStorage.setItem("username", userForAuth.username);
-       this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
-       this.router.navigate([this.returnUrl]);
-    },
-    error: (err: HttpErrorResponse) => {
+      password: login.password,
+    };
+    
+    this.loading = true;
+  
+    try {
+      const res = await firstValueFrom(this.authService.loginUser('api/accounts/login', userForAuth));
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('username', userForAuth.username);
+      this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
+      this.router.navigate([this.returnUrl]);
+    } catch (err) {
       console.log(err);
       this.toastVisible = true;
-      //this.errorMessage = err.message;
-      //this.showError = true;
-    }})
-  }
+    } finally {
+      this.loading = false;
+    }
+  };
 }
