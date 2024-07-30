@@ -27,6 +27,7 @@ export class Product{
     modelsByYearIds?:number[];
     isInCart?:boolean;
     quantityInCart?:number;
+    crDate!:Date;
 }
 
 export class CreateProduct{
