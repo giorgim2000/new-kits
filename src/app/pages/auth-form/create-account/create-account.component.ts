@@ -13,7 +13,6 @@ export class CreateAccountComponent {
   loading = false;
   formData: any = {};
   isCompany = false;
-
   constructor(private authService: AuthService, private router: Router) { }
 
   // async onSubmit(e: Event) {
