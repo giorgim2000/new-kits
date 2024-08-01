@@ -52,11 +52,13 @@
                     </dxi-item>
                     <dxi-item dataField="active"></dxi-item>
                     <dxi-item dataField="modelId"></dxi-item>
+                    <dxi-item dataField="lineNum"></dxi-item>
                 </dxi-item>
             </dxo-form>
         </dxo-editing>
         <dxo-selection mode="single"></dxo-selection>
 
+        <dxi-column dataType="number" dataField="lineNum" caption="რიგი" [allowEditing]="true"></dxi-column>
         <dxi-column dataType="string" dataField="name" caption="დასახელება" [allowEditing]="true">
             <dxi-validation-rule type="required"></dxi-validation-rule>
             <dxi-validation-rule type="stringLength" [max]="15" message="დასახელება არ უნდა აღემატებოდეს 15 ასოს"></dxi-validation-rule>

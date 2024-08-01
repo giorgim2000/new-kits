@@ -53,7 +53,6 @@ export class UsersPanelComponent implements OnInit, OnDestroy {
         error:(err) => console.error(err)
       })
     }
-      
   }
 
   onEditorPrep(e:any){

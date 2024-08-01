@@ -54,7 +54,6 @@ export class UserPanelComponent implements OnInit {
   ngOnInit(): void {
     this.updateMenulist();
     this.authService.authChanged.subscribe(res => {
-      console.log(res);
       this.updateMenulist();
     })
   }

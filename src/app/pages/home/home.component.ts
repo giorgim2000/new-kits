@@ -55,7 +55,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   getModels(){
     this.modelService.getModels().subscribe({
       next: (res)=>{
-        this.modelsDataSource = res;
+        this.modelsDataSource = res.sort((a:any, b:any) => {
+          if (a.lineNum == null && b.lineNum == null) {
+              return 0;
+          }
+          if (a.lineNum == null) {
+              return 1;
+          }
+          if (b.lineNum == null) {
+              return -1;
+          }
+          return a.lineNum - b.lineNum;
+      });
       },
       error: (err) => {
         console.error(err);
@@ -66,7 +77,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   getModelsByYear(id:number){
     this.modelByYearService.getModelsByYear(undefined, id).subscribe({
       next: (res)=>{
-        this.modelsDataSource = res;
+        this.modelsDataSource = res.sort((a:any, b:any) => {
+          if (a.lineNum == null && b.lineNum == null) {
+              return 0;
+          }
+          if (a.lineNum == null) {
+              return 1;
+          }
+          if (b.lineNum == null) {
+              return -1;
+          }
+          return a.lineNum - b.lineNum;
+      });
       },
       error: (err)=>{
         console.error(err);

@@ -54,12 +54,15 @@ export class ModelsComponent implements OnInit, OnDestroy {
     })
   }
 
-  createModels(file: File, isActive:boolean, name:string,makeId:number): void {
+  createModels(file: File, isActive:boolean, name:string,makeId:number, lineNum?:number): void {
     let formData = new FormData();
     formData.append('ModelName', name);
     formData.append('Active', String(isActive));
     formData.append('MakeId', String(makeId));
     formData.append('Image', file, file.name);
+
+    if(lineNum != null)
+      formData.append('LineNum', String(lineNum));
       
     this.modelService.postModel(formData).subscribe({
       next:(res)=>{
@@ -74,17 +77,16 @@ export class ModelsComponent implements OnInit, OnDestroy {
   onChangesSaved(e: any) {
     console.log(e);
     if(e.changes.length > 0 && e.changes[0].type === 'insert')
-      this.createModels(this.selectedFile!,e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId);
+      this.createModels(this.selectedFile!,e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId, e.changes[0].data.lineNum);
 
     if(this.editMode){
       if(e.changes.length > 0 && e.changes[0].type === 'update' && e.changes[0].data != undefined)
-        this.updateModel(e.changes[0].data.id, this.selectedFile, e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId);
+        this.updateModel(e.changes[0].data.id, this.selectedFile, e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId, e.changes[0].data.lineNum);
       else{
         if(this.selectedFile != null)
           this.updateModel(this.editingModelId!, this.selectedFile);
       }
     }
-    
     
     this.previewImageUrl = null;
     this.selectedFile = null;
@@ -92,7 +94,7 @@ export class ModelsComponent implements OnInit, OnDestroy {
     this.editingModelId = undefined;
   }
 
-  updateModel(id:number, file:File | null, active?:boolean, name?:string, makeId?:number):void{
+  updateModel(id:number, file:File | null, active?:boolean, name?:string, makeId?:number, lineNum?:number):void{
     let formData = new FormData();
     if(name != null)
       formData.append('ModelName', name);
@@ -105,6 +107,9 @@ export class ModelsComponent implements OnInit, OnDestroy {
 
     if(file != null)
       formData.append('Image', file, file.name);
+
+    if(lineNum != null)
+      formData.append('lineNum', String(lineNum));
 
     this.modelService.putModel(id, formData).subscribe({
       next:(res)=>{

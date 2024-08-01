@@ -15,6 +15,8 @@ export class ModelsByYearComponent implements OnInit, OnDestroy {
   models:Model[]=[];
   selectedFile!: File | null;
   previewImageUrl: string | ArrayBuffer | null = null;
+  editMode = false;
+  editingModelId : number | undefined;
   @ViewChild('fileUploader', { static: false }) DxFileUploader!: any;
   @ViewChild('modelByYearGrid') modelByYearGrid!: any;
 
@@ -55,13 +57,16 @@ export class ModelsByYearComponent implements OnInit, OnDestroy {
     })
   }
 
-  createModelsByYear(file: File, isActive:boolean, name:string, startYear:string,endYear:string,modelId:number): void {
+  createModelsByYear(file: File, isActive:boolean, name:string, startYear:string,endYear:string,modelId:number, lineNum?:number): void {
     let formData = new FormData();
     formData.append('Name', name);
     formData.append('startYear', startYear);
     formData.append('endYear', endYear);
     formData.append('Active', String(isActive));
     formData.append('ModelId', String(modelId));
+
+    if(lineNum != null)
+      formData.append('LineNum', String(lineNum));
 
     if(file != null)
       formData.append('Image', file, file.name);
@@ -78,22 +83,42 @@ export class ModelsByYearComponent implements OnInit, OnDestroy {
 
   onChangesSaved(e: any){
     if(e.changes.length > 0 && e.changes[0].type === 'insert')
-      this.createModelsByYear(this.selectedFile!, e.changes[0].data.active, e.changes[0].data.name, e.changes[0].data.startYear,e.changes[0].data.endYear,e.changes[0].data.modelId);
+      this.createModelsByYear(this.selectedFile!, e.changes[0].data.active, e.changes[0].data.name, e.changes[0].data.startYear,e.changes[0].data.endYear,e.changes[0].data.modelId, e.changes[0].data.lineNum);
     
-    if(e.changes.length > 0 && e.changes[0].type === 'update')
-      this.updateModelByYear(e.changes[0].data.id, this.selectedFile!, e.changes[0].data.active, e.changes[0].data.name, e.changes[0].data.startYear,e.changes[0].data.endYear,e.changes[0].data.modelId);
+    if(this.editMode){
+      if(e.changes.length > 0 && e.changes[0].type === 'update')
+        this.updateModelByYear(e.changes[0].data.id, this.selectedFile!, e.changes[0].data.active, e.changes[0].data.name, e.changes[0].data.startYear,e.changes[0].data.endYear,e.changes[0].data.modelId, e.changes[0].data.lineNum);
+      else{
+        if(this.selectedFile != null)
+          this.updateModelByYear(this.editingModelId!, this.selectedFile);
+      }  
+    }
     
     this.previewImageUrl = null;
     this.selectedFile = null;
+    this.editMode = false;
+    this.editingModelId = undefined;
   }
 
-  updateModelByYear(id:number, file: File, isActive:boolean, name:string, startYear:string, endYear:string, modelId:number) : void {
+  updateModelByYear(id:number, file: File | null, isActive?:boolean, name?:string, startYear?:string, endYear?:string, modelId?:number, lineNum?:number) : void {
     let formData = new FormData();
-    formData.append('Name', name);
-    formData.append('startYear', startYear);
-    formData.append('endYear', endYear);
-    formData.append('Active', String(isActive));
-    formData.append('ModelId', String(modelId));
+    if(name != null)
+      formData.append('Name', name);
+
+    if(startYear != null)
+      formData.append('startYear', startYear);
+
+    if(endYear != null)
+      formData.append('endYear', endYear);
+
+    if(isActive != null)
+      formData.append('Active', String(isActive));
+
+    if(modelId != null)
+      formData.append('ModelId', String(modelId));
+
+    if(lineNum != null)
+      formData.append('LineNum', String(lineNum));
 
     if(file != null)
       formData.append('Image', file, file.name);
@@ -120,8 +145,12 @@ export class ModelsByYearComponent implements OnInit, OnDestroy {
   }
 
   onEditorPrep(e:any){
-    if(!e.row.isNewRow && e.row.isEditing)
+    if(!e.row.isNewRow && e.row.isEditing){
+      this.editMode = true;
       this.previewImageUrl = e.row.data.imageUrl;
+      this.editingModelId = e.row.data.id;
+    }
+      
   }
 
   fileChanged(event: any) {

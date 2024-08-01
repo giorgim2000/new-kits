@@ -10,4 +10,5 @@ export class ModelByYear{
     endYear!: number;
     imageUrl?: string;
     active?:boolean;
+    lineNum?:number;
 }
