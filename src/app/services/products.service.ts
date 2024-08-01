@@ -29,7 +29,7 @@ export class ProductsService {
     if(modelByYearId != undefined)
       url += `&modelByYearId=${modelByYearId}`;
 
-    return this.http.get(url).pipe(map((res) =>{
+    return this.http.get(url).pipe(map((res) => {
       return res;
     }),
     catchError((error) => {

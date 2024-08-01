@@ -108,6 +108,9 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts(false, searchWord, modelId, modelByYearId).subscribe({
       next:(res)=>{
         this.displayProducts = res;
+        this.displayProducts.sort((a,b) => {
+          return a.crDate.valueOf() - b.crDate.valueOf();
+        });
         this.displayProducts.forEach((i : Product) => {
           i.quantityInCart = this.cartService.getProductQuantity(i.id!);
         });
