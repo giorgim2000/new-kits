@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { catchError, map, of, Subject } from 'rxjs';
 import { CreateOrderDto } from '../Dto\'s/order';
 
 @Injectable({
@@ -23,7 +23,20 @@ export class OrderService {
   }
 
   postOrder(order:CreateOrderDto){
-
+    let header = new HttpHeaders({
+      'Content-Type': "application/json"
+    });
+    let options = {
+      headers: header
+    };
+    return this.http.post(this.url + "/api/Orders", order, options)
+                    .pipe(map((res) =>{
+                      return res;
+                    }),
+                    catchError((error) => {
+                      console.log(error);
+                      return of(error);
+                    }))
   }
 
   putOrder(id:number, order:CreateOrderDto){

@@ -22,12 +22,43 @@ export class Order {
     invoiceId?:number;
 }
 
-export class OrderDto{
-
+export interface CreateOrderDto {
+    User?: OrderUserDto | null;
+    PaymentType?: PaymentType | null;
+    CreationTime?: Date | null;
+    DeliveryDate?: Date | null;
+    WithDelivery?: boolean | null;
+    StoreId?: number | null;
+    StoreName?: string | null;
+    Amount?: number | null;
+    OrderProducts?: CreateOrderProductDto[] | null;
 }
 
-export class CreateOrderDto{
+export interface OrderUserDto {
+    Id?: number | null;
+    FinaId?: number | null;
+    UserIdNumber?: string | null;
+    UserName?: string | null;
+    FirstName?: string | null;
+    LastName?: string | null;
+    Address?: string | null;
+    CompanyName?: string | null;
+    CompanyCode?: string | null;
+    IsCompany?: boolean | null;
+    Email?: string | null;
+    PhoneNumber?: string | null;
+    Resident?: boolean | null;
+    Registered?: boolean | null;
+}
 
+export interface CreateOrderProductDto {
+    ProductId?: number | null;
+    FinaId?: number | null;
+    Quantity?: number | null;
+    Discount?: number | null;
+    CustomWarranty?: number | null;
+    Price?: number | null;
+    TotalSum?: number | null;
 }
 
 export enum OrderStatus {
