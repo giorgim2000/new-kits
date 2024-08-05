@@ -1,5 +1,6 @@
 <div style="width: 100%; display: flex; justify-content: center; padding-bottom: 20px;">
     <dx-data-grid
+    #ordersGrid
     [dataSource]="orders"
     [wordWrapEnabled]="true"
     [showBorders]="true"
@@ -10,35 +11,70 @@
     keyExpr="id"
     [repaintChangesOnly]="true"
     [columnHidingEnabled]="true"
+    (onSelectionChanged)="selectionChange($event)"
+    (onRowPrepared)="rowPrepared($event)"
     >
       
       <dxo-selection mode="single"></dxo-selection>
+      <dxo-editing
+      mode="popup"
+      [allowAdding]="false"
+      [allowUpdating]="false"
+      [allowDeleting]="false"
+      >
+      </dxo-editing>
+      <dxo-load-panel [enabled]="true"></dxo-load-panel>
 
-      <dxi-column dataType="number" dataField="id" caption="საიდენთიფიკაციო"></dxi-column>
-      <dxi-column dataType="string" dataField="name" caption="დასახელება"></dxi-column>
-      <dxi-column dataType="string" dataField="address" caption="მისამართი"></dxi-column>
+      <dxo-toolbar>
+        <dxi-item>
+          <dx-button
+          type="success"
+          [text]="confirmBtnText"
+          [disabled]="confirmBtnDisabled"
+          (onClick)="confirmOrder()"
+          ></dx-button>
+        </dxi-item>
+        <dxi-item>
+          <dx-button
+          type="success"
+          text="მიტანის დამატება"
+          [disabled]="deliveryBtnDisabled"
+          (onClick)="deliveryPopupVisible()"
+          ></dx-button>
+        </dxi-item>
+        <dxi-item>
+          <dx-button
+          type="danger"
+          text="გაუქმება"
+          [disabled]="cancelBtnDisabled"
+          ></dx-button>
+        </dxi-item>
+       
+      </dxo-toolbar>
+
+      
+      <dxi-column dataType="date" dataField="creationTime" caption="შეკვეთის დრო"></dxi-column>
+      <dxi-column dataType="number" dataField="id" caption="ID"></dxi-column>
+      <dxi-column dataType="string" dataField="customerName" caption="შემკვეთი"></dxi-column>
+      <dxi-column dataType="string" dataField="customerCode" caption="შემკვეთის N"></dxi-column>
+      <dxi-column dataType="string" dataField="customerPhone" caption="შემკვეთის ტელ."></dxi-column>
+      <dxi-column dataType="string" dataField="statusString" caption="სტატუსი"></dxi-column>
+      <dxi-column dataType="number" dataField="status" visible="false"></dxi-column>
+      <dxi-column dataType="string" dataField="paymentTypeString" caption="გადახდა"></dxi-column>
+      <dxi-column dataType="number" dataField="paymentType" visible="false"></dxi-column>
+      <dxi-column dataType="number" dataField="discountAmount" caption="ფასდაკ."></dxi-column>
+      <dxi-column dataType="number" dataField="Amount" caption="თანხა"></dxi-column>
+      <dxi-column dataType="boolean" dataField="withDelivery" caption="მიტანა"></dxi-column>
+      <dxi-column dataType="string" dataField="storeName" caption="საწყობი"></dxi-column>
 
     </dx-data-grid>
 </div>
 
-<!-- <dx-popup
-minHeight="60%"
-minWidth="70%"
-[visible]="showProductRestPopup"
-(onHidden)="onPopupHidden()"
-title="პროდუქციის ნაშთი"
-[closeOnOutsideClick]="true"
->
-    <dx-data-grid
-    [dataSource]="productsRestDataSource"
-    [wordWrapEnabled]="true"
-    [showBorders]="true"
-    [showColumnLines]="true"
-    [showRowLines]="true"
-    keyExpr="id"
-    [repaintChangesOnly]="true"
-    [columnHidingEnabled]="true"
-    >
 
-    </dx-data-grid>
-</dx-popup> -->
+<dx-popup
+height="250px"
+width="min(450px, 100%)"
+[textContent]="questionPopupTxt"
+>
+
+</dx-popup>

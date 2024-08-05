@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, of, Subject } from 'rxjs';
-import { CreateOrderDto } from '../Dto\'s/order';
+import { CreateOrderDto, UpdateOrderDto } from '../Dto\'s/order';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,9 @@ export class OrderService {
   }
 
   getOrders(){
-
+    return this.http.get(this.url + "/api/Orders").pipe(map((res) => {
+      return res;
+    }))
   }
 
   postOrder(order:CreateOrderDto){
@@ -39,8 +41,22 @@ export class OrderService {
                     }))
   }
 
-  putOrder(id:number, order:CreateOrderDto){
+  putOrder(order:UpdateOrderDto){
+    let header = new HttpHeaders({
+      'Content-Type': "application/json"
+    });
+    let options = {
+      headers: header
+    };
 
+    return this.http.put(this.url + "/api/Orders", order, options)
+                    .pipe(map((res) =>{
+                      return res;
+                    }),
+                    catchError((error) => {
+                      console.log(error);
+                      return of(error);
+                    }))
   }
 
   removeOrder(id:number){

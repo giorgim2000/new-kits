@@ -35,7 +35,7 @@ export class ProductModelGridComponent implements OnInit, OnDestroy {
         next:(res)=>{
           this.dataSource = res
           this.modelByYearService.getModelsByYear().subscribe({
-            next:(res) => this.modelsByYear = res,
+            next:(result) => this.modelsByYear = result,
             error:(err)=> console.log(err)
           });
         },

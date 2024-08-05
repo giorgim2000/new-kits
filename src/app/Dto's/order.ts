@@ -10,8 +10,8 @@ export class Order {
     Phone?:string;
     CompanyName?:string;
     CompanyCode?:string;
-    status?: OrderStatus;
-    paymentType?: PaymentType;
+    status?: number;
+    paymentType?: number;
     orderProducts: OrdersProduct[] = [];
     discountAmount?: number;
     creationTime?: Date;
@@ -20,6 +20,42 @@ export class Order {
     storeId?: number;
     amount?: number;
     invoiceId?:number;
+}
+
+export class OrderDto{
+    id?:number;
+    customerName?:string;
+    customerCode?:string;
+    customerPhone?:string;
+    status?:OrderStatus;
+    paymentType?:PaymentType;
+    orderProducts?:OrderProductDto[];
+    discountAmount?:number;
+    delivery?:OrderDeliveryDto;
+    amount?:number;
+    creationTime?:Date;
+    withDelivery?:boolean;
+    storeName?:string;
+    invoiceUrl?:string;
+    statusString?:string;
+    paymentTypeString?:string;
+}
+
+export interface OrderProductDto{
+    orderProductId?:number;
+    quantity?:number;
+    product?:ProductDto;
+    discount?:number;
+    customWarranty?:number;
+    price?:number;
+    totalSum?:number;
+}
+
+export interface ProductDto{
+    id?:number;
+    finaId?:number;
+    finaCode?:string;
+    productName?:string;
 }
 
 export interface CreateOrderDto {
@@ -32,6 +68,21 @@ export interface CreateOrderDto {
     StoreName?: string | null;
     Amount?: number | null;
     OrderProducts?: CreateOrderProductDto[] | null;
+}
+
+export interface UpdateOrderDto{
+    orderId?:number;
+    orderStatus?:OrderStatus;
+    paymentType?:PaymentType;
+    delivery?:OrderDeliveryDto;
+}
+
+export interface OrderDeliveryDto{
+    from?:string;
+    to?:string;
+    deliveryPrice?:number;
+    deliveryDate?:Date;
+    courierId?:number;
 }
 
 export interface OrderUserDto {
