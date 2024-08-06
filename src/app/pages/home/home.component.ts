@@ -113,26 +113,3 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['products'], {state: {modelId: this.selectedModelId, modelByYearId: id}})
   }
 }
-
-//private _sanitizer: DomSanitizer
-// getImages(){
-  //   this._client.get('https://localhost:7210/api/Test').subscribe({
-  //         next: (res : any) => {
-  //           this.transformImage(res.imageString);
-  //         },
-  //         error: (err) => {
-  //           console.log(err);
-  //         }
-  //   })
-    
-  // }
-
-  // transformImage(b64:any[]){
-  //   b64.forEach(element => {
-  //     this.imgPath.push(this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + element));
-  //   });
-  // }
-
-// export interface ImageRes{
-//   ImageString:string;
-// }
