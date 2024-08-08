@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
     trigger('fadeInOut', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('900ms', style({ opacity: 1 })),
+        animate('700ms', style({ opacity: 1 })),
       ]),
       transition(':leave', [
         animate('0ms', style({ opacity: 0 })),
@@ -55,18 +55,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   getModels(){
     this.modelService.getModels().subscribe({
       next: (res)=>{
-        this.modelsDataSource = res.sort((a:any, b:any) => {
-          if (a.lineNum == null && b.lineNum == null) {
-              return 0;
-          }
-          if (a.lineNum == null) {
-              return 1;
-          }
-          if (b.lineNum == null) {
-              return -1;
-          }
-          return a.lineNum - b.lineNum;
-      });
+      //   this.modelsDataSource = res.sort((a:any, b:any) => {
+      //     if (a.lineNum == null && b.lineNum == null) {
+      //         return 0;
+      //     }
+      //     if (a.lineNum == null) {
+      //         return 1;
+      //     }
+      //     if (b.lineNum == null) {
+      //         return -1;
+      //     }
+      //     return a.lineNum - b.lineNum;
+      // });
+      this.modelsDataSource = res;
       },
       error: (err) => {
         console.error(err);
@@ -77,18 +78,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   getModelsByYear(id:number){
     this.modelByYearService.getModelsByYear(undefined, id).subscribe({
       next: (res)=>{
-        this.modelsDataSource = res.sort((a:any, b:any) => {
-          if (a.lineNum == null && b.lineNum == null) {
-              return 0;
-          }
-          if (a.lineNum == null) {
-              return 1;
-          }
-          if (b.lineNum == null) {
-              return -1;
-          }
-          return a.lineNum - b.lineNum;
-      });
+      //   this.modelsDataSource = res.sort((a:any, b:any) => {
+      //     if (a.lineNum == null && b.lineNum == null) {
+      //         return 0;
+      //     }
+      //     if (a.lineNum == null) {
+      //         return 1;
+      //     }
+      //     if (b.lineNum == null) {
+      //         return -1;
+      //     }
+      //     return a.lineNum - b.lineNum;
+      // });
+      this.modelsDataSource = res;
       },
       error: (err)=>{
         console.error(err);

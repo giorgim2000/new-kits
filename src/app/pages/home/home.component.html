@@ -42,8 +42,8 @@
             <div class="panelHeading">
                 <h2>რა მოდელია შენი ლექსუსი?</h2>
             </div>
-            <ul [@fadeInList]>
-                <li *ngFor="let item of modelsDataSource">
+            <ul>
+                <li *ngFor="let item of modelsDataSource" @fadeInOut>
                     <a (click)="item.modelName != null ? modelClick(item.id!, item.modelName) : modelByYearClick(item.id)">
                         <img src="{{item.imageUrl}}" alt="{{item.modelName ?? item.modelByYearName}}">
                         <div>{{item.modelName ?? item.modelByYearName}}</div>

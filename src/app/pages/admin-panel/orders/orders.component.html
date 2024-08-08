@@ -49,6 +49,9 @@
           [disabled]="cancelBtnDisabled"
           ></dx-button>
         </dxi-item>
+        <dxi-item type="buttons">
+          <dxi-button name="invoice" icon="document"></dxi-button>
+        </dxi-item>
        
       </dxo-toolbar>
 
@@ -66,7 +69,17 @@
       <dxi-column dataType="number" dataField="Amount" caption="თანხა"></dxi-column>
       <dxi-column dataType="boolean" dataField="withDelivery" caption="მიტანა"></dxi-column>
       <dxi-column dataType="string" dataField="storeName" caption="საწყობი"></dxi-column>
+      <dxi-column dataType="string" dataField="invoiceUrl" caption="ინვოისი" cellTemplate="invoiceTemp"></dxi-column>
 
+      <div *dxTemplate="let data of 'invoiceTemp'">
+        <a [href]="data.value" target="_blank">
+          <img src="../../../../assets/more.png" alt="">
+        </a>
+        <img
+          [src]="data.value"
+          alt="Picture of {{ data.data.FirstName }} {{ data.data.LastName }}"
+        />
+      </div>
     </dx-data-grid>
 </div>
 

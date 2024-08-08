@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { map, catchError, of, BehaviorSubject, Subject, Observable } from 'rxjs';
 import { AuthResponseDto, IUserClaim, UserForAuthenticationDto } from '../Dto\'s/User';
+import { ApiUrlExtractorService } from './api-url-extractor.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,11 @@ export class AuthService {
     return localStorage.getItem('token') != null && localStorage.getItem('username') != null;
   }
 
-  constructor(private router:Router,private http:HttpClient) {
-    
+  constructor(private router:Router,private http:HttpClient, private adressExtractor:ApiUrlExtractorService) {
+    adressExtractor.getApiUrl().subscribe({
+      next:(res:any) => this.url = res,
+      error:(err) => console.log(err)
+    })
   }    
   
   //private envUrl: EnvironmentUrlService
