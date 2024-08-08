@@ -58,14 +58,14 @@
     </div>
     
     <div class="product-grid" [@fadeInList]>
-        <p *ngIf="displayProducts.length == 0 && !isLoading" style="align-self: center; justify-self: center;">პროდუქცია ვერ მოიძებნა...</p>
+        <p *ngIf="displayProducts.length == 0 && !isLoading" style="display: flex; width: 100%; justify-content: center; align-self: center;">პროდუქცია ვერ მოიძებნა...</p>
         <div class="card" *ngFor="let product of displayProducts">
             <div style="position: relative;">
                 <dx-gallery
                 [dataSource]="product.imageUrls!"
                 height="100%"
                 width="100%"
-                [showNavButtons]="true"
+                [showNavButtons]="false"
                 [showIndicator]="true"
                 (onContentReady)="setupGalleryClickHandler($event)"
                 (onItemClick)="productsDetails(product)"

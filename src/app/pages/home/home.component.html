@@ -43,7 +43,11 @@
                 <h2>რა მოდელია შენი ლექსუსი?</h2>
             </div>
             <ul>
+<<<<<<< HEAD
                 <li *ngFor="let item of modelsDataSource" @fadeInOut>
+=======
+                <li *ngFor="let item of modelsDataSource" [@fadeInOut]>
+>>>>>>> 3ef9327234ab05e1cab066070b859d3f39954e24
                     <a (click)="item.modelName != null ? modelClick(item.id!, item.modelName) : modelByYearClick(item.id)">
                         <img src="{{item.imageUrl}}" alt="{{item.modelName ?? item.modelByYearName}}">
                         <div>{{item.modelName ?? item.modelByYearName}}</div>
