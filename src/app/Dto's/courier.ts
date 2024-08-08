@@ -1,8 +1,8 @@
 export interface CourierDto{
-    id?:number;
-    firstname?:string;
-    lastname?:string;
-    phoneNumber?:string;
-    courierIdNumber?:string;
+    Id?:number;
+    FirstName?:string;
+    LastName?:string;
+    PhoneNumber?:string;
+    CourierIdNumber?:string;
 }
 

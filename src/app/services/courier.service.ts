@@ -38,8 +38,8 @@ export class CourierService {
     return this.http.post(this.url + '/api/Couriers', {input});
   }
 
-  putCourier(id:number, input:CourierDto){
-    return this.http.put(this.url + `/api/Couriers/${id}`, {input});
+  putCourier(input:CourierDto){
+    return this.http.put(this.url + `/api/Couriers/${input.Id}`, {input});
   }
 
   removeCourier(id:number){

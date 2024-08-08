@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CourierDto } from 'src/app/Dto\'s/courier';
 import { CourierService } from 'src/app/services/courier.service';
 
@@ -10,6 +10,7 @@ import { CourierService } from 'src/app/services/courier.service';
 export class CouriersComponent implements OnInit, OnDestroy {
   couriers:CourierDto[] = [];
   courier:CourierDto | undefined;
+  @ViewChild('courierGrid') courierGrid!: any;
 
   constructor(private courierService:CourierService){}
 
@@ -27,17 +28,28 @@ export class CouriersComponent implements OnInit, OnDestroy {
     })
   }
 
+  createCourier(courier:CourierDto){
+    this.courierService.postCourier(courier).subscribe({
+      next:(res) => this.courierGrid.instance.refresh(),
+      error:(err) => console.log(err)
+    })
+  }
+
+  updateCourier(courier:CourierDto){
+    this.courierService.putCourier(courier).subscribe({
+      next:(res) => this.courierGrid.instance.refresh(),
+      error:(err) => console.log(err)
+    })
+  }
+
   onChangesSaved(e: any) {
-    if(e.changes.length > 0 && e.changes[0].type === 'insert'){
-      //create
-    }
+    console.log(e);
+    if(e.changes.length > 0 && e.changes[0].type === 'insert')
+      this.createCourier({FirstName:e.changes[0].data.firstname,LastName:e.changes[0].data.lastname,PhoneNumber:e.changes[0].data.phoneNumber,CourierIdNumber:e.changes[0].data.courierIdNumber});
     
     if(e.changes.length > 0 && e.changes[0].type === 'update'){
-      if(e.changes[0].data != undefined){
-        // this.makeName = e.changes[0].data.makeName;
-        // this.editingActive = e.changes[0].data.active;
-      }
-      //update
+      if(e.changes[0].data != undefined)
+        this.updateCourier({FirstName:e.changes[0].data.firstname,LastName:e.changes[0].data.lastname,PhoneNumber:e.changes[0].data.phoneNumber,CourierIdNumber:e.changes[0].data.courierIdNumber});
     }
   }
 
