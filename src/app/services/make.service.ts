@@ -2,21 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, map, takeUntil, catchError, of, Observable } from 'rxjs';
 import { Make } from '../Dto\'s/make';
-import { ApiUrlExtractorService } from './api-url-extractor.service';
+import { UrlS } from 'src/assets/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MakeService {
   //url = "http://91.239.207.195:5000";
-  url = "https://localhost:7210";
+  //url = "https://localhost:7210";
+  url = UrlS.url2;
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private http:HttpClient, private adressExtractor:ApiUrlExtractorService) {
-    adressExtractor.getApiUrl().subscribe({
-      next:(res:any) => this.url = res,
-      error:(err) => console.log(err)
-    })}
+  constructor(private http:HttpClient) {}
 
   ngOnDestroy() {
     this.unsubscribe$.next();
@@ -36,7 +33,6 @@ export class MakeService {
   }
 
   postMake(formData: FormData): Observable<any> {
-    console.log(formData);
     return this.http.post<any>(this.url + `/api/Makes`, formData);
   }
 

@@ -11,6 +11,7 @@ export class StoresComponent implements OnInit, OnDestroy {
   storesDataSource : Store[]= [];
   productsRestDataSource : any[]=[];
   showProductRestPopup : boolean = false;
+  isloading = false;
   
   constructor(private service:StoresService){}
 
@@ -23,23 +24,40 @@ export class StoresComponent implements OnInit, OnDestroy {
   }
 
   getData(){
+    this.isloading = true;
     this.service.getStores().subscribe({
       next:(res : any)=>{
-        this.storesDataSource = res.stores;
+        this.storesDataSource = res;
+        this.isloading = false;
       },
       error:(err)=>{
         console.log(err);
+        this.isloading = false;
       }
     })
   }
 
-
+  getRestData(storeId:number){
+    this.isloading = true;
+    this.service.getStoreProductsRest(storeId).subscribe({
+      next:(res:any) =>{
+        this.productsRestDataSource = res;
+        this.isloading = false;
+      },
+      error:(err)=>{
+        console.log(err);
+        this.isloading = false;
+      }
+    })
+  }
 
   showProducts = (e:any)=>{
+    this.getRestData(e.row.data.id);
     this.showProductRestPopup = true;
   }
 
   onPopupHidden(){
+    this.productsRestDataSource = [];
     this.showProductRestPopup = false;
   }
 }

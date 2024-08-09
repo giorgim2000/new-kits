@@ -1,4 +1,5 @@
 import { User } from "./User";
+import { Courier } from "./courier";
 import { OrdersProduct } from "./product";
 
 export class Order {
@@ -135,14 +136,7 @@ export class Delivery {
     courierId?: number;
 }
 
-export class Courier {
-    id?: number;
-    firstName?: string;
-    lastName?: string;
-    courierIdNumber?: string;
-    phoneNumber?: string;
-    deliveries?: Delivery[];
-}
+
 
 export interface IUserOrder{
     orderId?:number;

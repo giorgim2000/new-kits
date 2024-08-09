@@ -2,21 +2,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, catchError, map, of } from 'rxjs';
 import { CreateProduct } from '../Dto\'s/product';
-import { ApiUrlExtractorService } from './api-url-extractor.service';
+import { UrlS } from 'src/assets/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
   //url = "http://91.239.207.195:5000";
-  url = "https://localhost:7210";
+  //url = "https://localhost:7210";
+  url = UrlS.url2;
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private http:HttpClient, private adressExtractor:ApiUrlExtractorService) {
-    adressExtractor.getApiUrl().subscribe({
-      next:(res:any) => this.url = res,
-      error:(err) => console.log(err)
-    })}
+  constructor(private http:HttpClient) {}
 
   ngOnDestroy() {
     this.unsubscribe$.next();

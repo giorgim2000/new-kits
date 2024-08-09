@@ -53,7 +53,7 @@ export class MainMenuComponent implements OnInit {
     location: `41.776281, 44.778695`
   }]
 
-  constructor(private router:Router, private screen:ScreenManagerService, private authService:AuthService) { }
+  constructor(private router:Router, private screen:ScreenManagerService, private authService:AuthService) {}
 
   ngOnInit(): void {
     this.updateDrawer();

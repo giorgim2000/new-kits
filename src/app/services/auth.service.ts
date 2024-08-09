@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { map, catchError, of, BehaviorSubject, Subject, Observable } from 'rxjs';
 import { AuthResponseDto, IUserClaim, UserForAuthenticationDto } from '../Dto\'s/User';
-import { ApiUrlExtractorService } from './api-url-extractor.service';
+import { UrlS } from 'src/assets/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   //url = "http://91.239.207.195:5000";
-  url = "https://localhost:7210";
+  //url = "https://localhost:7210";
+  url = UrlS.url2;
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   User: any | null;
@@ -20,12 +21,7 @@ export class AuthService {
     return localStorage.getItem('token') != null && localStorage.getItem('username') != null;
   }
 
-  constructor(private router:Router,private http:HttpClient, private adressExtractor:ApiUrlExtractorService) {
-    adressExtractor.getApiUrl().subscribe({
-      next:(res:any) => this.url = res,
-      error:(err) => console.log(err)
-    })
-  }    
+  constructor(private router:Router,private http:HttpClient) {}    
   
   //private envUrl: EnvironmentUrlService
 

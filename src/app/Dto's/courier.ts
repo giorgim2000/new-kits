@@ -1,8 +1,19 @@
+import { Delivery } from "./order";
+
 export interface CourierDto{
     Id?:number;
-    FirstName?:string;
-    LastName?:string;
-    PhoneNumber?:string;
-    CourierIdNumber?:string;
+    firstName?:string;
+    lastName?:string;
+    phoneNumber?:string;
+    courierIdNumber?:string;
+}
+
+export class Courier {
+    id?: number;
+    firstName?: string;
+    lastName?: string;
+    courierIdNumber?: string;
+    phoneNumber?: string;
+    deliveries?: Delivery[];
 }
 

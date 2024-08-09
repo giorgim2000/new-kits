@@ -27,13 +27,13 @@
       </dxo-editing>
       
       <dxo-selection mode="single"></dxo-selection>
-
+      <dxo-load-panel [enabled]="true"></dxo-load-panel>
       <dxi-column dataType="string" dataField="id" caption="Id" [allowEditing]="false"></dxi-column>
-      <dxi-column dataType="string" dataField="firstname" caption="სახელი" [allowEditing]="true">
+      <dxi-column dataType="string" dataField="firstName" caption="სახელი" [allowEditing]="true">
         <dxi-validation-rule type="required"></dxi-validation-rule>
         <dxi-validation-rule type="stringLength" [max]="20" message="სახელი არ უნდა აღემატებოდეს 15 ასოს"></dxi-validation-rule>
       </dxi-column>
-      <dxi-column dataType="string" dataField="lastname" caption="გვარი" [allowEditing]="true">
+      <dxi-column dataType="string" dataField="lastName" caption="გვარი" [allowEditing]="true">
         <dxi-validation-rule type="required"></dxi-validation-rule>
         <dxi-validation-rule type="stringLength" [max]="20" message="გვარი არ უნდა აღემატებოდეს 15 ასოს"></dxi-validation-rule>
       </dxi-column>
@@ -44,6 +44,10 @@
       <dxi-column dataType="string" dataField="phoneNumber" caption="მობილური" [allowEditing]="true">
         <dxi-validation-rule type="required"></dxi-validation-rule>
         <dxi-validation-rule type="stringLength" [min]="9" [max]="9" message="მობილური ნომერი შედგება 9 ციფრისგან!"></dxi-validation-rule>
+      </dxi-column>
+      <dxi-column type="buttons" width="70">
+        <dxi-button name="edit" icon="edit"></dxi-button>
+        <dxi-button name="delete" icon="trash"></dxi-button>
       </dxi-column>
     </dx-data-grid>
 </div>

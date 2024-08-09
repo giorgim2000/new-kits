@@ -43,13 +43,19 @@ export class CouriersComponent implements OnInit, OnDestroy {
   }
 
   onChangesSaved(e: any) {
-    console.log(e);
-    if(e.changes.length > 0 && e.changes[0].type === 'insert')
-      this.createCourier({FirstName:e.changes[0].data.firstname,LastName:e.changes[0].data.lastname,PhoneNumber:e.changes[0].data.phoneNumber,CourierIdNumber:e.changes[0].data.courierIdNumber});
+    this.courier = e.changes[0].data;
+    if(e.changes.length > 0 && e.changes[0].type === 'insert'){
+      const courierToCreate : CourierDto = e.changes[0].data;
+      this.createCourier(courierToCreate);
+    }
+      //this.createCourier({FirstName:e.changes[0].data.firstname,LastName:e.changes[0].data.lastname,PhoneNumber:e.changes[0].data.phoneNumber,CourierIdNumber:e.changes[0].data.courierIdNumber});
     
     if(e.changes.length > 0 && e.changes[0].type === 'update'){
-      if(e.changes[0].data != undefined)
-        this.updateCourier({FirstName:e.changes[0].data.firstname,LastName:e.changes[0].data.lastname,PhoneNumber:e.changes[0].data.phoneNumber,CourierIdNumber:e.changes[0].data.courierIdNumber});
+      if(e.changes[0].data != undefined){
+        var courierToUpdate:CourierDto = e.changes[0].data;
+        this.updateCourier(courierToUpdate);
+      }
+        //this.updateCourier({firstName:e.changes[0].data.firstname,lastName:e.changes[0].data.lastname,phoneNumber:e.changes[0].data.phoneNumber,courierIdNumber:e.changes[0].data.courierIdNumber});
     }
   }
 

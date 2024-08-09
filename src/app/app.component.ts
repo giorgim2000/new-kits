@@ -1,5 +1,4 @@
 import { Component, HostBinding } from '@angular/core';
-import { ScreenManagerService } from './services/screen-manager.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +6,9 @@ import { ScreenManagerService } from './services/screen-manager.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'body-kits';
+  title = 'BodyKits.ge';
 
-  constructor(){}
+  constructor(){
+    
+  }
 }

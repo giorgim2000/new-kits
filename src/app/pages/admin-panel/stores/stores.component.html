@@ -10,11 +10,12 @@
     keyExpr="id"
     [repaintChangesOnly]="true"
     [columnHidingEnabled]="true"
+    
     >
       
       <dxo-selection mode="single"></dxo-selection>
-
-      <dxi-column dataType="number" dataField="id" caption="საიდენთიფიკაციო"></dxi-column>
+      <dxo-load-panel [enabled]="true"></dxo-load-panel>
+      <dxi-column dataType="number" dataField="id" caption="ID"></dxi-column>
       <dxi-column dataType="string" dataField="name" caption="დასახელება"></dxi-column>
       <dxi-column dataType="string" dataField="address" caption="მისამართი"></dxi-column>
       <dxi-column type="buttons" caption="პროდუქტები">
@@ -34,7 +35,7 @@ minWidth="70%"
 [visible]="showProductRestPopup"
 (onHidden)="onPopupHidden()"
 title="პროდუქციის ნაშთი"
-[closeOnOutsideClick]="true"
+[hideOnOutsideClick]="true"
 >
     <dx-data-grid
     [dataSource]="productsRestDataSource"
@@ -46,6 +47,15 @@ title="პროდუქციის ნაშთი"
     [repaintChangesOnly]="true"
     [columnHidingEnabled]="true"
     >
-
+      <dxo-load-panel [enabled]="true"></dxo-load-panel>
     </dx-data-grid>
 </dx-popup>
+
+<dx-load-panel
+    shadingColor="rgba(0,0,0,0.4)"
+    [visible]="isloading"
+    [showIndicator]="true"
+    [showPane]="true"
+    [shading]="true"
+    [hideOnOutsideClick]="false"
+    ></dx-load-panel>
