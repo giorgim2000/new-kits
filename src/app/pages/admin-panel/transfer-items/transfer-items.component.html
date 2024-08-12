@@ -22,16 +22,55 @@
         </dxo-editing>
 
         <dxo-toolbar>
-            <dxi-item>
+            <dxi-item
+            location="before"
+            >
+                <dx-date-box
+                label="-დან"
+                [(value)]="fromDate!"
+                ></dx-date-box>
+                <dx-date-box
+                label="-მდე"
+                [(value)]="toDate!"
+                ></dx-date-box>
+            </dxi-item>
+            <dxi-item
+            location="before"
+            >
+                <dx-check-box
+                [(value)]="completed"
+                text="გადატანილი"
+                ></dx-check-box>
+                <dx-check-box
+                [(value)]="completed"
+                text="გადასატანი"
+                ></dx-check-box>
+            </dxi-item>
+            <dxi-item
+            location="center"
+            >
+                <dx-select-box
+                [dataSource]="stores"
+                valueExpr="id"
+                displayExpr="name"
+                ></dx-select-box>
+            </dxi-item>
+            <dxi-item
+            location="after"
+            >
                 <dx-button
                 text="გადატანილია"
+                (onClick)="confirmStatus()"
+                stylingMode="contained"
+                type="success"
                 ></dx-button>
             </dxi-item>
-            <dxi-item>
+            <!-- <dxi-item>
                 <dx-button
                 text="წაშლა"
+                (onClick)="deActivateItems()"
                 ></dx-button>
-            </dxi-item>
+            </dxi-item> -->
         </dxo-toolbar>
 
         <dxo-selection mode="multiple"></dxo-selection>
