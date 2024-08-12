@@ -9,8 +9,9 @@ export class User{
     active:boolean;
     userPriceType:number;
     fullName?:string;
+    consigDays?:number;
 
-    constructor(id:number,username:string,userIdNumber:string,firstname:string,lastname:string,phoneNumber:string,email:string,active:boolean,userPriceType:number){
+    constructor(id:number,username:string,userIdNumber:string,firstname:string,lastname:string,phoneNumber:string,email:string,active:boolean,userPriceType:number,consigDays:number){
         this.id = id;
         this.username = username;
         this.firstName = firstname;
@@ -20,6 +21,7 @@ export class User{
         this.email = email;
         this.active = active;
         this.userPriceType = userPriceType;
+        this.consigDays = consigDays;
         this.fullName = `${this.firstName} ${this.lastName}`;
     }
 }

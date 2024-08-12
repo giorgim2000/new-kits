@@ -46,6 +46,8 @@
         </dxi-item>
         <dxi-item dataField="userPriceType">
         </dxi-item>
+          <dxi-item dataField="consigDays">
+          </dxi-item>
           <dxi-item dataField="active">
           </dxi-item>
         </dxi-item>
@@ -71,6 +73,9 @@
     <dxi-column dataType="string" dataField="email" [allowEditing]="true" caption="ფოსტა">
         <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
+    <dxi-column dataType="number" dataField="consigDays" [allowEditing]="true" caption="კონსიგნაცია" [visible]="false">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
     <dxi-column dataType="string" dataField="userPriceType" [allowEditing]="true" caption="მომხმარებლის ტიპი">
         <dxo-lookup
         [dataSource]="userPriceTypeDataSource"

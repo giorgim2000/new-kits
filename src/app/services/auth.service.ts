@@ -9,8 +9,6 @@ import { UrlS } from 'src/assets/config';
   providedIn: 'root'
 })
 export class AuthService {
-  //url = "http://91.239.207.195:5000";
-  //url = "https://localhost:7210";
   url = UrlS.url2;
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
@@ -21,7 +19,7 @@ export class AuthService {
     return localStorage.getItem('token') != null && localStorage.getItem('username') != null;
   }
 
-  constructor(private router:Router,private http:HttpClient) {}    
+  constructor(private router:Router,private http:HttpClient) {}
   
   //private envUrl: EnvironmentUrlService
 
@@ -153,8 +151,9 @@ export class AuthService {
     localStorage.removeItem("token");
     localStorage.removeItem('username');
     this.sendAuthStateChangeNotification(false);
-    if(this.router.url.startsWith('/admin-panel') || this.router.url.startsWith('/products'))
-      this.router.navigate(['home']);
+    location.reload();
+    // if(this.router.url.startsWith('/admin-panel') || this.router.url.startsWith('/products'))
+    //   this.router.navigate(['home']);
   }
 }
 

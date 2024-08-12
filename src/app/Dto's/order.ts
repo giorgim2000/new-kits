@@ -16,8 +16,10 @@ export class Order {
     orderProducts: OrdersProduct[] = [];
     discountAmount?: number;
     creationTime?: Date;
+    withDelivery?:boolean;
     deliveryDate?: Date;
     deliveryId?: number;
+    delivery?:Delivery;
     storeId?: number;
     amount?: number;
     invoiceId?:number;
@@ -59,16 +61,16 @@ export interface ProductDto{
     productName?:string;
 }
 
-export interface CreateOrderDto {
+export class CreateOrderDto {
     User?: OrderUserDto | null;
     PaymentType?: PaymentType | null;
     CreationTime?: Date | null;
     DeliveryDate?: Date | null;
     WithDelivery?: boolean | null;
     StoreId?: number | null;
-    StoreName?: string | null;
     Amount?: number | null;
     OrderProducts?: CreateOrderProductDto[] | null;
+    Delivery?: OrderDeliveryDto | null;
 }
 
 export interface UpdateOrderDto{
@@ -84,6 +86,7 @@ export interface OrderDeliveryDto{
     deliveryPrice?:number;
     deliveryDate?:Date;
     courierId?:number;
+    cityId?:number;
 }
 
 export interface OrderUserDto {
@@ -99,7 +102,6 @@ export interface OrderUserDto {
     IsCompany?: boolean | null;
     Email?: string | null;
     PhoneNumber?: string | null;
-    Resident?: boolean | null;
     Registered?: boolean | null;
 }
 
@@ -134,9 +136,26 @@ export class Delivery {
     orderId?: number;
     courier?: Courier;
     courierId?: number;
+    city?:City;
+    cityId?:number;
 }
 
+export class City{
+    id?:number;
+    name?:string;
+    deliveryPrice?:number;
+}
 
+export class CreateCityDto{
+    name?:string;
+    deliveryPrice?:number;
+}
+
+export class UpdateCityDto{
+    id!:number;
+    name?:string;
+    deliveryPrice?:number;
+}
 
 export interface IUserOrder{
     orderId?:number;

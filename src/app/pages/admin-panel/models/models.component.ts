@@ -75,7 +75,6 @@ export class ModelsComponent implements OnInit, OnDestroy {
   }
 
   onChangesSaved(e: any) {
-    console.log(e);
     if(e.changes.length > 0 && e.changes[0].type === 'insert')
       this.createModels(this.selectedFile!,e.changes[0].data.active, e.changes[0].data.modelName, e.changes[0].data.makeId, e.changes[0].data.lineNum);
 

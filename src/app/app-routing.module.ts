@@ -31,6 +31,9 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { CouriersComponent } from './pages/admin-panel/couriers/couriers.component';
 import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
 import { UsersOrdersGridComponent } from './components/users-orders-grid/users-orders-grid.component';
+import { TransferItemsComponent } from './pages/admin-panel/transfer-items/transfer-items.component';
+import { FinaSyncComponent } from './pages/admin-panel/fina-sync/fina-sync.component';
+import { CitiesComponent } from './pages/admin-panel/cities/cities.component';
 
 const routes: Routes = [
   {
@@ -106,6 +109,18 @@ const routes: Routes = [
       {
         path: 'couriers',
         component: CouriersComponent
+      },
+      {
+        path: 'transfer-items',
+        component: TransferItemsComponent
+      },
+      {
+        path: 'cities',
+        component:CitiesComponent
+      },
+      {
+        path: 'fina-sync',
+        component: FinaSyncComponent
       }
     ],
     canActivate: [AuthGuardService]
@@ -136,7 +151,8 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
     MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, 
-    ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent, CheckoutComponent, CouriersComponent, MyOrdersComponent, UsersOrdersGridComponent
+    ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent, CheckoutComponent, CouriersComponent, MyOrdersComponent, UsersOrdersGridComponent,
+    TransferItemsComponent, FinaSyncComponent, CitiesComponent
   ],
   providers:[AuthService, ScreenManagerService, ModelService, AuthGuardService]
 })

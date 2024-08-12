@@ -17,7 +17,10 @@ export class AdminPanelComponent implements OnInit {
     { name: 'შეკვეთები', selected: false },
     { name: 'მომხმარებლები', selected: false },
     { name: 'საწყობები', selected: false },
-    { name: 'კურიერები', selected: false }
+    { name: 'კურიერები', selected: false },
+    { name: 'შიდა გადაზიდვები', selected: false },
+    { name: 'ფინას სინქრონიზაცია', selected: false },
+    { name: 'მიტანის ფასები', selected: false }
   ]
   currentMenuItem = this.menuItems[0];
 
@@ -42,6 +45,12 @@ export class AdminPanelComponent implements OnInit {
       this.router.navigate(['admin-panel', 'stores']);
     else if(this.currentMenuItem.name === 'კურიერები')
       this.router.navigate(['admin-panel', 'couriers']);
+    else if(this.currentMenuItem.name === 'შიდა გადაზიდვები')
+      this.router.navigate(['admin-panel', 'transfer-items']);
+    else if(this.currentMenuItem.name === 'ფინას სინქრონიზაცია')
+      this.router.navigate(['admin-panel', 'fina-sync']);
+    else if(this.currentMenuItem.name === 'მიტანის ფასები')
+      this.router.navigate(['admin-panel', 'cities']);
   }
 
   constructor(private router:Router, private screen : ScreenManagerService) { }

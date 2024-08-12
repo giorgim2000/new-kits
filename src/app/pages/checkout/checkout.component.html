@@ -64,15 +64,7 @@
     </dx-popup>
 </div> -->
 
-<dx-scroll-view height="100%" width="100%" class="with-footer single-card">
-    <div class="checkDiv" style="display: flex;">
-        <div class="dx-card content">
-            <div class="header">
-              <img src="../../../assets/logo2.jpg" height="60px" alt="" id="logo">
-            </div>
-            <div class="panel-content">
-              <h2 style="display: ruby-text;">შეკვეთა</h2>
-              <dx-form [formData]="order">
+<!-- <dx-form [formData]="order">
                   <dxi-item [colCount]="1" [colSpan]="1">
                       <dx-select-box
                       [dataSource]="buyerTypes"
@@ -118,7 +110,7 @@
                       </dxi-item>
                       
                   </dxi-item>
-              </dx-form>
+              </dx-form> -->
               <!-- <div class="form">
                   <div>
                       <dx-text-box label="სახელი"></dx-text-box>
@@ -129,33 +121,139 @@
                       <dx-text-box label="მობილური"></dx-text-box>
                   </div>
               </div> -->
-              <dx-popup
-              [visible]="productsPopupVisible"
-              (onHidden)="popupHidden()"
-              width="90%"
-              height="80%"
-              >
-                  <dx-data-grid
-                  [dataSource]="selectedProducts"
-                  [showBorders]="true"
-                  >
-                      <dxi-column dataField="name" caption="დასახელება"></dxi-column>
-                      <dxi-column dataField="price" caption="ფასი"></dxi-column>
-                      <dxi-column dataField="quantity" caption="რაოდენობა"></dxi-column>
-                  </dx-data-grid>
-              </dx-popup>
+
+
+
+
+
+<dx-scroll-view height="100%" width="100%" class="with-footer single-card">
+    <div class="checkDiv" style="display: flex;">
+        <div class="dx-card content">
+            <div class="header" style="border-bottom: groove; display: flex; flex-direction: column; gap: 8px; align-items: center;">
+                <!-- <img src="../../../assets/Logo.png" height="60px" alt="" id="logo"> -->
+                <h2>შეკვეთა</h2>
+            </div>
+            <div class="panel-content">
+                <div class="switchDiv">
+                    <label>ფიზიკური პირი</label>
+                    <dx-switch (onValueChanged)="switchChange($event)" [disabled]="switchDisabled" switchedOnText=" " switchedOffText=" " [(value)]="switchVal"></dx-switch>
+                    <label>იურიდიული პირი</label>
+                  </div>
+                <div>
+                    <dx-text-box
+                     label="სახელი" 
+                     *ngIf="!isCompany"
+                     [(value)]="firstName"
+                     width="48%"
+                     height="2.5rem"
+                     ></dx-text-box>
+                    <dx-text-box
+                     label="გვარი" 
+                     *ngIf="!isCompany"
+                     [(value)]="lastName"
+                     width="48%"
+                     height="2.5rem"
+                     ></dx-text-box>
+                    <dx-text-box 
+                    label="კომპანიის დასახელება" 
+                    *ngIf="isCompany"
+                    [(value)]="companyName"
+                    width="48%"
+                    height="2.5rem"
+                    ></dx-text-box>
+                    <dx-text-box 
+                    label="კომპანიის კოდი" 
+                    *ngIf="isCompany"
+                    [(value)]="companyCode"
+                    width="48%"
+                    height="2.5rem"
+                    ></dx-text-box>
+                </div>
+                <div>
+                    <dx-text-box 
+                    label="პირადი N" 
+                    *ngIf="!isCompany"
+                    [(value)]="userIdNumber"
+                    width="31%"
+                    height="2.5rem"
+                    >
+                    </dx-text-box>
+                    <dx-text-box 
+                    label="მობილური"
+                    [(value)]="phone"
+                    [width]="boxWidth"
+                    height="2.5rem"
+                    ></dx-text-box>
+                    <dx-select-box
+                    [items]="stores"
+                    [(value)]="selectedStore"
+                    displayExpr="name"
+                    label="მაღაზია"
+                    [width]="boxWidth"
+                    height="2.5rem"
+                    ></dx-select-box>
+                </div>
+                <div>
+                    <dx-select-box
+                    [dataSource]="paymentTypes"
+                    displayExpr="name"
+                    valueExpr="id"
+                    [(value)]="selectedPaymentType"
+                    (onValueChanged)="paymentTypeChange($event)"
+                    width="48%"
+                    label="გადახდის ტიპი"
+                    height="2.5rem"
+                    ></dx-select-box>
+                    <dx-select-box
+                    [items]="deliveryType"
+                    [(value)]="selectedDeliveryType"
+                    (onValueChanged)="deliveryValChange($event)"
+                    width="48%"
+                    label="მიტანის ტიპი"
+                    height="2.5rem"
+                    ></dx-select-box>
+                </div>
+                <div>
+                    <dx-text-box
+                    label="მისამართი"
+                    [disabled]="selectedDeliveryType != deliveryType[0]"
+                    [(value)]="toAddress"
+                    width="48%"
+                    height="2.5rem"
+                    ></dx-text-box>
+                    <dx-select-box
+                    [disabled]="selectedDeliveryType != deliveryType[0]"
+                    label="ქალაქი"
+                    [items]="cities"
+                    width="48%"
+                    valueExpr="id"
+                    [displayExpr]="cityDisplay"
+                    [(value)]="cityId"
+                    height="2.5rem"
+                    ></dx-select-box>
+                </div>
+                <div class="btnDiv">
+                    <dx-button text="პროდუქცია" (onClick)="getProducts()" width="48%" height="2.5rem">პროდუქცია</dx-button>
+                    <dx-button type="success" (onClick)="confirmOrder()" width="48%" height="2.5rem">დადასტურება</dx-button>
+                </div>
+              
+              
+              
             </div>
         </div>
         <div class="dx-card content">
             <div class="header" style="border-bottom: groove;">
                 <h2>ჩვენი პირობები</h2>
             </div>
-            <div class="panel-content">
+            <div class="info-content">
                 <div>
                     <h3>ადგილზე მიტანა/რეგიონებში გაგზავნა:</h3>
-                    <p>- რუსთავში მიწოდება 10₾ (კურიერს).</p>
-                    <p>- თბილისში მიწოდება 10₾ (კურიერს).</p>
-                    <p>- რეგიონებში გაგზავნა 15₾-დან.</p>
+                    <div *ngFor="let city of cities">
+                        <p>- {{city.name}} მიწოდება <b>{{city.deliveryPrice}}₾</b> (კურიერს).</p>
+                    </div>
+                    <!-- <p>- თბილისში მიწოდება <b>{{deliveryPrices.tbilisi}}₾</b> (კურიერს).</p>
+                    <p>- რუსთავში მიწოდება <b>{{deliveryPrices.rustavi}}₾</b> (კურიერს).</p>
+                    <p>- რეგიონებში გაგზავნა <b>{{deliveryPrices.regions}}₾-დან</b>.</p> -->
                 </div>
                 <div>
                     <h3>საწყობიდან გატანა:</h3>
@@ -172,6 +270,23 @@
     
     
 </dx-scroll-view>
+
+<dx-popup
+              [visible]="productsPopupVisible"
+              (onHidden)="popupHidden()"
+              width="90%"
+              height="80%"
+              [closeOnOutsideClick]="true"
+              >
+                  <dx-data-grid
+                  [dataSource]="selectedProducts"
+                  [showBorders]="true"
+                  >
+                      <dxi-column dataField="name" caption="დასახელება"></dxi-column>
+                      <dxi-column dataField="price" caption="ფასი"></dxi-column>
+                      <dxi-column dataField="quantity" caption="რაოდენობა"></dxi-column>
+                  </dx-data-grid>
+              </dx-popup>
 
 <dx-toast [message]="toastMessage" [(visible)]="toastVisible" type="success"></dx-toast>
 

@@ -11,14 +11,21 @@
     // max-height: 737px !important;
     // padding: calc((100vh - 685px) / 2) 0;
   }
+
+  .checkDiv{
+    width: 100%;
+    height: 100% !important;
+  }
   
   .single-card {
     .dx-card {
-      width: 500px;
-      margin: auto auto;
-      padding: 40px;
+      width: 725px;
+      margin: 0px auto;
+      padding: 20px;
       flex-grow: 0;
       background: #e8e8e8;
+      max-height: 100% !important;
+      height: 520px;
   
       :host-context(.screen-x-small) & {
         width: 100%;
@@ -34,10 +41,6 @@
         margin-bottom: 20px;
         display: flex;
         justify-content: center;
-
-        img{
-          border-radius: 50%;
-        }
   
         .title {
           color: black;
@@ -53,6 +56,40 @@
       }
     }
   }
+
+  .panel-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    height: calc(100% - 86px);
+
+    div{
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    .btnDiv{
+      margin-top: auto;
+    }
+  }
+
+  .switchDiv{
+    display: flex;
+    width: 75%;
+    justify-content: space-evenly;
+    margin: 5px auto;
+
+    label{
+        font-size: 13px;
+        font-weight: 500;
+    }
+}
+
+dx-text-box, dx-select-box{
+  margin-top: 0 !important;
+}
 
   @media screen and (max-width:530px){
     .single-card{

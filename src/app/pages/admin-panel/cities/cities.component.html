@@ -1,0 +1,38 @@
+<div style="width: 100%; display: flex; justify-content: center; padding-bottom: 20px;">
+    <dx-data-grid
+    #citiesGrid
+    [dataSource]="cities"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="100%"
+    [columnHidingEnabled]="true"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    (onSaved)="onChangesSaved($event)"
+    (onRowRemoving)="removeItem($event)"
+    >
+        <dxo-load-panel [enabled]="true"></dxo-load-panel>
+        <dxo-editing
+        mode="popup"
+        [allowAdding]="true"
+        [allowUpdating]="true"
+        [allowDeleting]="true"
+        >
+        </dxo-editing>
+
+        <dxo-selection mode="single"></dxo-selection>
+
+        <dxi-column dataType="number" dataField="id" [visible]="false"></dxi-column>
+        <dxi-column dataType="string" dataField="name" caption="დასახელება"></dxi-column>
+        <dxi-column dataType="string" dataField="deliveryPrice" caption="მიტანის ფასი"></dxi-column>
+
+        <dxi-column type="buttons" width="70">
+            <dxi-button name="edit" icon="edit"></dxi-button>
+            <dxi-button name="delete" icon="trash"></dxi-button>
+          </dxi-column>
+    </dx-data-grid>
+</div>
+
+

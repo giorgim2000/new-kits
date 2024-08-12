@@ -1,1 +1,53 @@
-<p>transfer-items works!</p>
+<div style="width: 100%; display: flex; justify-content: center; padding-bottom: 20px;">
+    <dx-data-grid
+    #trItemsGrid
+    [dataSource]="trItems"
+    [wordWrapEnabled]="true"
+    [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    width="100%"
+    [columnHidingEnabled]="true"
+    keyExpr="id"
+    [repaintChangesOnly]="true"
+    (onRowRemoving)="remove($event)"
+    >
+        <dxo-load-panel [enabled]="true"></dxo-load-panel>
+        <dxo-editing
+        mode="popup"
+        [allowAdding]="false"
+        [allowUpdating]="false"
+        [allowDeleting]="true"
+        >
+        </dxo-editing>
+
+        <dxo-toolbar>
+            <dxi-item>
+                <dx-button
+                text="გადატანილია"
+                ></dx-button>
+            </dxi-item>
+            <dxi-item>
+                <dx-button
+                text="წაშლა"
+                ></dx-button>
+            </dxi-item>
+        </dxo-toolbar>
+
+        <dxo-selection mode="multiple"></dxo-selection>
+
+        <dxi-column dataType="number" dataField="id" [visible]="false"></dxi-column>
+        <dxi-column dataType="date" dataField="crDate" caption="თარიღი"></dxi-column>
+        <dxi-column dataField="date" cellTemplate="dueDate" caption="ვადა"></dxi-column>
+        <dxi-column dataType="string" dataField="productCode" caption="კოდი"></dxi-column>
+        <dxi-column dataType="string" dataField="productName" caption="დასახელება"></dxi-column>
+        <dxi-column dataType="string" dataField="storeName" caption="მაღაზია"></dxi-column>
+        <dxi-column dataType="string" dataField="storeAddress" caption="მისამართი"></dxi-column>
+
+        <dxi-column type="buttons" width="70">
+            <dxi-button name="delete" icon="trash"></dxi-button>
+        </dxi-column>
+    </dx-data-grid>
+</div>
+
+
