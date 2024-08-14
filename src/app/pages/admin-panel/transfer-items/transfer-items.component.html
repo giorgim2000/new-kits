@@ -11,6 +11,7 @@
     keyExpr="id"
     [repaintChangesOnly]="true"
     (onRowRemoving)="remove($event)"
+    (onSelectionChanged)="selectionChange($event)"
     >
         <dxo-load-panel [enabled]="true"></dxo-load-panel>
         <dxo-editing
@@ -21,41 +22,51 @@
         >
         </dxo-editing>
 
-        <dxo-toolbar>
+        <dxo-toolbar [className]="'toolbarDiv'">
             <dxi-item
             location="before"
+            width="200px"
+            locateInMenu="auto"
             >
-                <dx-date-box
-                label="-დან"
-                [(value)]="fromDate!"
-                ></dx-date-box>
-                <dx-date-box
-                label="-მდე"
-                [(value)]="toDate!"
-                ></dx-date-box>
+                <dx-date-range-box
+                width="220px"
+                startDateLabel="-დან"
+                endDateLabel="-მდე"
+                [(startDate)]="fromDate!"
+                [(endDate)]="toDate!"
+                ></dx-date-range-box>
             </dxi-item>
             <dxi-item
+            locateInMenu="auto"
             location="before"
             >
                 <dx-check-box
                 [(value)]="completed"
                 text="გადატანილი"
                 ></dx-check-box>
+            </dxi-item>
+            <dxi-item
+            locateInMenu="auto"
+            location="before"
+            >
                 <dx-check-box
-                [(value)]="completed"
+                [(value)]="notCompleted"
                 text="გადასატანი"
                 ></dx-check-box>
             </dxi-item>
             <dxi-item
-            location="center"
+            locateInMenu="auto"
+            location="before"
             >
                 <dx-select-box
                 [dataSource]="stores"
                 valueExpr="id"
                 displayExpr="name"
+                label="მაღაზია"
                 ></dx-select-box>
             </dxi-item>
             <dxi-item
+            locateInMenu="auto"
             location="after"
             >
                 <dx-button
@@ -89,4 +100,5 @@
     </dx-data-grid>
 </div>
 
+<dx-toast [message]="toastMessage" [(visible)]="toastVisible" type="success"></dx-toast>
 

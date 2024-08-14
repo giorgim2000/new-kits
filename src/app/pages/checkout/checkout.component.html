@@ -141,29 +141,29 @@
                   </div>
                 <div>
                     <dx-text-box
+                    [visible]="!isCompany"
                      label="სახელი" 
-                     *ngIf="!isCompany"
                      [(value)]="firstName"
                      width="48%"
                      height="2.5rem"
                      ></dx-text-box>
                     <dx-text-box
+                    [visible]="!isCompany"
                      label="გვარი" 
-                     *ngIf="!isCompany"
                      [(value)]="lastName"
                      width="48%"
                      height="2.5rem"
                      ></dx-text-box>
                     <dx-text-box 
+                    [visible]="isCompany"
                     label="კომპანიის დასახელება" 
-                    *ngIf="isCompany"
                     [(value)]="companyName"
                     width="48%"
                     height="2.5rem"
                     ></dx-text-box>
                     <dx-text-box 
+                    [visible]="isCompany"
                     label="კომპანიის კოდი" 
-                    *ngIf="isCompany"
                     [(value)]="companyCode"
                     width="48%"
                     height="2.5rem"
@@ -172,9 +172,9 @@
                 <div>
                     <dx-text-box 
                     label="პირადი N" 
-                    *ngIf="!isCompany"
+                    [visible]="!isCompany"
                     [(value)]="userIdNumber"
-                    width="31%"
+                    [width]="boxWidth"
                     height="2.5rem"
                     >
                     </dx-text-box>
@@ -286,7 +286,7 @@
                       <dxi-column dataField="price" caption="ფასი"></dxi-column>
                       <dxi-column dataField="quantity" caption="რაოდენობა"></dxi-column>
                   </dx-data-grid>
-              </dx-popup>
+</dx-popup>
 
 <dx-toast [message]="toastMessage" [(visible)]="toastVisible" type="success"></dx-toast>
 

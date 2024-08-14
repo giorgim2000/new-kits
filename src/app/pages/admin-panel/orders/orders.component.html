@@ -74,11 +74,12 @@
       <div *dxTemplate="let data of 'invoiceTemp'">
         <a [href]="data.value" target="_blank">
           <img src="../../../../assets/more.png" alt="">
-        </a>
+        
         <img
           [src]="data.value"
           alt="Picture of {{ data.data.FirstName }} {{ data.data.LastName }}"
         />
+      </a>
       </div>
     </dx-data-grid>
 </div>
@@ -89,5 +90,4 @@ height="250px"
 width="min(450px, 100%)"
 [textContent]="questionPopupTxt"
 >
-
 </dx-popup>

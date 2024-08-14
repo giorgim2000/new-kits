@@ -15,11 +15,14 @@
   .checkDiv{
     width: 100%;
     height: 100% !important;
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
   }
   
   .single-card {
     .dx-card {
-      width: 725px;
+      width: calc((100% - 50px) / 2);
       margin: 0px auto;
       padding: 20px;
       flex-grow: 0;
@@ -91,11 +94,84 @@ dx-text-box, dx-select-box{
   margin-top: 0 !important;
 }
 
-  @media screen and (max-width:530px){
-    .single-card{
-      .dx-card{
-        width: 94%;
-      }
-    }
+@media screen and (max-width:1025px){
+  .checkDiv{
+    flex-direction: column;
+    margin-top: 15px;
+    padding-inline: 8px;
   }
 
+  .single-card {
+    .dx-card {
+      width: calc((100% - 16px));
+    }
+  }
+}
+
+// @media screen and (max-width:530px){
+//   .single-card{
+//     .dx-card{
+//       width: 94%;
+//     }
+//   }
+// }
+
+// @media screen and (max-width:1200px){
+//   .checkDiv{
+//     padding-inline: 8px;
+//   }
+
+//   .single-card {
+//     .dx-card {
+//       width: 500px;
+//       padding: 10px;
+//       flex-grow: 0;
+//       background: #e8e8e8;
+//       max-height: 100% !important;
+//       height: 520px;
+//     }
+//   }
+// }
+
+// @media screen and (max-width:1025px){
+//   .checkDiv{
+//     flex-direction: column;
+//     margin-top: 15px;
+//     padding-inline: 8px;
+//   }
+
+//   .single-card {
+//     .dx-card {
+//       width: 750px;
+//       padding: 10px;
+//       flex-grow: 0;
+//       background: #e8e8e8;
+//       max-height: 100% !important;
+//       height: 520px;
+//     }
+//   }
+// }
+
+// @media screen and (max-width:800px){
+//   .checkDiv{
+//     padding-inline: 5px;
+//   }
+
+//   .single-card {
+//     .dx-card {
+//       width: 730px;
+//     }
+//   }
+// }
+
+// @media screen and (max-width:800px){
+//   .checkDiv{
+//     padding-inline: 5px;
+//   }
+
+//   .single-card {
+//     .dx-card {
+//       width: 98%;
+//     }
+//   }
+// }

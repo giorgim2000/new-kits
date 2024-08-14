@@ -92,7 +92,7 @@ export class CheckoutComponent implements OnInit {
     this.storeService.getStores().subscribe({
       next:(res:any) => 
         {
-          this.stores = res;
+          this.stores = res.stores;
           this.selectedStore = this.stores[0];
         },
       error:(err)=>console.log(err)

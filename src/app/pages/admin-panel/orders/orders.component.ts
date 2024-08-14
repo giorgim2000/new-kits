@@ -43,13 +43,14 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   confirmOrder(){
+    console.log(this.selectedRow);
     var confirmedOrder : UpdateOrderDto = {orderId: this.selectedRow?.id, orderStatus: OrderStatus.Pending};
     if(this.delivery != null)
       confirmedOrder.delivery = this.delivery;
 
-    this.orderService.putOrder(confirmedOrder).subscribe({
-      next:(res) => this.ordersGrid.instance.refresh()
-    })
+    // this.orderService.putOrder(confirmedOrder).subscribe({
+    //   next:(res) => this.ordersGrid.instance.refresh()
+    // })
   }
 
   selectionChange(e:any){
