@@ -63,30 +63,33 @@ select{
 }
 
 .product-grid{
-    // display: grid;
-    // grid-template-columns: 
-    //     repeat(auto-fit, minmax(16rem, 1fr));
-    // gap: 1.69rem;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 
+        repeat(auto-fit, minmax(200px, 380px));
     gap: 1.69rem;
-    justify-content: flex-start;
+
+    // display: flex;
+    // flex-wrap: wrap;
+    // gap: 1.69rem;
+    // justify-content: flex-start;
 }
 
 .card{
-    // aspect-ratio: 4.5/4;
-    // transition: all 0.4s ease;
-    // transform: rotate();
-    // max-width: 430px;
-    // border: thin groove;
-    // background-color: white;
-    height: fit-content;
-    aspect-ratio: 4.5 / 4;
-    max-width: 430px;
+    aspect-ratio: 4/5;
+    transition: all 0.4s ease;
+    transform: rotate();
+    //max-width: 430px;
     border: thin groove;
     background-color: white;
-    flex: 1 1 260px; /* Ensure items are flexible but have a base size */
-    box-sizing: border-box;
+    //height: 420px;
+    //aspect-ratio: 4.5 / 4;
+
+    //max-width: 430px;
+    //width: 300px;
+    //border: thin groove;
+    //background-color: white;
+    //flex: 1 1 260px; /* Ensure items are flexible but have a base size */
+    //box-sizing: border-box;
 }
 
 .card:hover{
