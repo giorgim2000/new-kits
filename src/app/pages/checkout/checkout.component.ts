@@ -92,7 +92,7 @@ export class CheckoutComponent implements OnInit {
     this.storeService.getStores().subscribe({
       next:(res:any) => 
         {
-          this.stores = res.stores;
+          this.stores = res;
           this.selectedStore = this.stores[0];
         },
       error:(err)=>console.log(err)
@@ -152,11 +152,26 @@ export class CheckoutComponent implements OnInit {
       this.boxWidth = '31%';
   }
 
+  calculateTotal(items:any[]): number {
+    return items.reduce((sum, item) => {
+      return sum + (item.price * item.quantity);
+    }, 0);
+  }
+
   confirmOrder(){
+    if(!this.authService.loggedIn){
+      
+    }
+    
     this.order.StoreId = this.selectedStore!.id;
     this.order.PaymentType = this.selectedPaymentType;
-    if(this.order.WithDelivery)
-      this.order.Delivery!.from = this.selectedStore!.address
+    this.order.Amount = this.calculateTotal(this.selectedProducts);
+    if(this.order.WithDelivery){
+      this.order.Delivery!.from = this.selectedStore!.address;
+      this.order.Delivery!.to = this.toAddress;
+      this.order.Delivery!.cityId = this.cityId;
+    }
+      
 
     this.toastVisible = true;
     console.log(this.order);

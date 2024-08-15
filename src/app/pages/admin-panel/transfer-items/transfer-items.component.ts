@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { StoresService } from 'src/app/services/stores.service';
 import { TrItemsService } from 'src/app/services/tr-items.service';
 
@@ -8,6 +8,7 @@ import { TrItemsService } from 'src/app/services/tr-items.service';
   styleUrl: './transfer-items.component.scss'
 })
 export class TransferItemsComponent implements OnInit, OnDestroy{
+  @ViewChild('trItemsGrid') trGrid!: any;
   trItems :any[] = [];
   fromDate : Date | undefined;
   toDate : Date | undefined;
@@ -18,6 +19,10 @@ export class TransferItemsComponent implements OnInit, OnDestroy{
   stores : any[] = [];
   dateRange:any[]=[];
   selectedRowKeys : number[] = [];
+
+  toastMessage:string = "გადასატანი პროდუქციის სტატუსი შეცვლილია!";
+  toastVisible:boolean = false;
+  toastType = "success";
 
 
   constructor(private trService:TrItemsService, private storeService:StoresService){}
@@ -80,12 +85,12 @@ export class TransferItemsComponent implements OnInit, OnDestroy{
           orderId: 1005,
           productId: 2005,
       }
-  ];
+    ];
   }
 
   getStores(){
     this.storeService.getStores().subscribe({
-      next:(res:any) => this.stores = res.stores,
+      next:(res:any) => this.stores = res,
       error:(err)=>console.log(err)
     })
   }
@@ -93,14 +98,18 @@ export class TransferItemsComponent implements OnInit, OnDestroy{
   confirmStatus(){
     this.trService.updateTrItems({ids:this.selectedRowKeys, transferStatus: true}).subscribe({
       next: (res) => {
-        //Toast and refresh
+        this.toastVisible = true;
+        this.getTrItems();
       }
     })
   }
 
   selectionChange(e:any){
-    console.log(e);
     this.selectedRowKeys = e.selectedRowKeys;
+  }
+
+  refreshGrid(){
+    this.getTrItems();
   }
 
   remove(e:any){
