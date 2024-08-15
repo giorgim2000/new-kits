@@ -6,6 +6,7 @@ export interface CourierDto{
     lastName?:string;
     phoneNumber?:string;
     courierIdNumber?:string;
+    carNumber?:string;
 }
 
 export class Courier {
@@ -14,6 +15,7 @@ export class Courier {
     lastName?: string;
     courierIdNumber?: string;
     phoneNumber?: string;
+    carNumber?:string;
     deliveries?: Delivery[];
 }
 

@@ -7,6 +7,7 @@ import { Store } from 'src/app/Dto\'s/product';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CityService } from 'src/app/services/city.service';
+import { OrderService } from 'src/app/services/order.service';
 import { StoresService } from 'src/app/services/stores.service';
 import { deliveryPrice } from 'src/assets/config';
 
@@ -49,7 +50,8 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  constructor(public authService:AuthService, private router:Router, private cartService:CartService,private cityService:CityService,private storeService:StoresService){}
+  constructor(public authService:AuthService, private router:Router, private cartService:CartService,
+    private cityService:CityService,private storeService:StoresService, private orderService:OrderService){}
 
   ngOnInit():void {
     if(this.authService.loggedIn){
@@ -173,12 +175,28 @@ export class CheckoutComponent implements OnInit {
     }
       
 
-    this.toastVisible = true;
+    
     console.log(this.order);
     // this.cartService.clearCart();
     // setTimeout(() => {
     //   this.router.navigate(['/home']);
     // }, 1500);
     
+    this.orderService.postOrder(this.order).subscribe({
+      next:(res) =>{
+        console.log(res);
+        this.showToast("success", "შეკვეთა წარმატებით განხორციელდა, დაელოდეთ ინვოისს, რომელიც მოგივათ სმს-ის სახით ...");
+      },
+      error:(err)=>{
+        console.log(err);
+        this.showToast("success", "დაფიქსირდა შეცდომა!");
+      }
+    });
+  }
+
+  showToast(type:string,message:string){
+    this.toastType = type;
+    this.toastMessage = message;
+    this.toastVisible = true;
   }
 }

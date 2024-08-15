@@ -146,6 +146,7 @@
                      [(value)]="firstName"
                      width="48%"
                      height="2.5rem"
+                     [readOnly]="authService.loggedIn"
                      ></dx-text-box>
                     <dx-text-box
                     [visible]="!isCompany"
@@ -153,6 +154,7 @@
                      [(value)]="lastName"
                      width="48%"
                      height="2.5rem"
+                     [readOnly]="authService.loggedIn"
                      ></dx-text-box>
                     <dx-text-box 
                     [visible]="isCompany"
@@ -160,6 +162,7 @@
                     [(value)]="companyName"
                     width="48%"
                     height="2.5rem"
+                    [readOnly]="authService.loggedIn"
                     ></dx-text-box>
                     <dx-text-box 
                     [visible]="isCompany"
@@ -167,6 +170,7 @@
                     [(value)]="companyCode"
                     width="48%"
                     height="2.5rem"
+                    [readOnly]="authService.loggedIn"
                     ></dx-text-box>
                 </div>
                 <div>
@@ -176,6 +180,7 @@
                     [(value)]="userIdNumber"
                     [width]="boxWidth"
                     height="2.5rem"
+                    [readOnly]="authService.loggedIn"
                     >
                     </dx-text-box>
                     <dx-text-box 
@@ -183,6 +188,7 @@
                     [(value)]="phone"
                     [width]="boxWidth"
                     height="2.5rem"
+                    [readOnly]="authService.loggedIn"
                     ></dx-text-box>
                     <dx-select-box
                     [items]="stores"

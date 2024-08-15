@@ -45,6 +45,10 @@
         <dxi-validation-rule type="required"></dxi-validation-rule>
         <dxi-validation-rule type="stringLength" [min]="9" [max]="9" message="მობილური ნომერი შედგება 9 ციფრისგან!"></dxi-validation-rule>
       </dxi-column>
+      <dxi-column dataType="string" dataField="carNumber" caption="მანქანის N" [allowEditing]="true">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+        <dxi-validation-rule type="stringLength" [min]="9" [max]="9" message="მანქანის ნომერი შედგება 9 ციფრისგან!"></dxi-validation-rule>
+      </dxi-column>
       <dxi-column type="buttons" width="70">
         <dxi-button name="edit" icon="edit"></dxi-button>
         <dxi-button name="delete" icon="trash"></dxi-button>
