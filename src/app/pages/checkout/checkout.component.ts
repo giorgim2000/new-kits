@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom, timeout } from 'rxjs';
 import { IUserClaim, User } from 'src/app/Dto\'s/User';
@@ -17,7 +17,7 @@ import { deliveryPrice } from 'src/assets/config';
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss'
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
   userInfo : IUserClaim[] = [];
   stores: Store[] = [];
   cities: City[] = [];
@@ -52,6 +52,12 @@ export class CheckoutComponent implements OnInit {
 
   constructor(public authService:AuthService, private router:Router, private cartService:CartService,
     private cityService:CityService,private storeService:StoresService, private orderService:OrderService){}
+
+  ngOnDestroy(): void {
+    this.cityService.ngOnDestroy();
+    this.storeService.ngOnDestroy();
+    this.orderService.ngOnDestroy();
+  }
 
   ngOnInit():void {
     if(this.authService.loggedIn){
@@ -162,13 +168,33 @@ export class CheckoutComponent implements OnInit {
 
   confirmOrder(){
     if(!this.authService.loggedIn){
-      
+      this.order.User = this.order.User || {};
+      this.order.User.Registered = false;
+      this.order.User.Address = this.toAddress;
+      this.order.User.PhoneNumber = this.phone;
+      this.order.User.IsCompany = this.isCompany;
+      this.order.User.Resident = true;
+      if(this.isCompany){
+        this.order.User.CompanyName = this.companyName;
+        this.order.User.CompanyCode = this.companyCode;
+      }else{
+        this.order.User.FirstName = this.firstName;
+        this.order.User.LastName = this.lastName;
+        this.order.User.UserIdNumber = this.userIdNumber;
+      }
     }
     
     this.order.StoreId = this.selectedStore!.id;
     this.order.PaymentType = this.selectedPaymentType;
     this.order.Amount = this.calculateTotal(this.selectedProducts);
+    //this.order.CreationTime = null;
+    //this.order.DeliveryDate = null;
+    this.order.OrderProducts = this.selectedProducts.map(i => ({
+      ProductId: i.id, FinaId: i.finaId, Quantity: i.quantity, Price:i.price,Discount:i.discount, CustomWarranty:i.customWarranty, TotalSum:i.quantity * i.price
+    }));
+
     if(this.order.WithDelivery){
+      this.order.Delivery = this.order.Delivery || {};
       this.order.Delivery!.from = this.selectedStore!.address;
       this.order.Delivery!.to = this.toAddress;
       this.order.Delivery!.cityId = this.cityId;
@@ -177,15 +203,16 @@ export class CheckoutComponent implements OnInit {
 
     
     console.log(this.order);
-    // this.cartService.clearCart();
-    // setTimeout(() => {
-    //   this.router.navigate(['/home']);
-    // }, 1500);
+    
     
     this.orderService.postOrder(this.order).subscribe({
       next:(res) =>{
-        console.log(res);
         this.showToast("success", "შეკვეთა წარმატებით განხორციელდა, დაელოდეთ ინვოისს, რომელიც მოგივათ სმს-ის სახით ...");
+        console.log(res);
+        this.cartService.clearCart();
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 3000);
       },
       error:(err)=>{
         console.log(err);

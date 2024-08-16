@@ -146,7 +146,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addToCart(product:Product){
-    this.cartService.addToCart({id: product.id!, name:product.productName!, price:product.price!, quantity: product.quantityInCart && product.quantityInCart > 0 ? product.quantityInCart : 1});
+    this.cartService.addToCart({id: product.id!, finaId:product.finaId, name:product.productName!, price:product.price!, discount:product.discount, customWarranty: product.warranty, quantity: product.quantityInCart && product.quantityInCart > 0 ? product.quantityInCart : 1});
     this.updateCart();
     this.displayProducts.find(i => i.id == product.id)!.quantityInCart = this.cartService.getProductQuantity(product.id!);
     this.showToast("პროდუქტი დამატებულია კალათში", 'success');

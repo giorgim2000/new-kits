@@ -103,6 +103,7 @@ export interface OrderUserDto {
     Email?: string | null;
     PhoneNumber?: string | null;
     Registered?: boolean | null;
+    Resident?:boolean | null;
 }
 
 export interface CreateOrderProductDto {

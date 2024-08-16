@@ -93,10 +93,13 @@ export class ProductModel{
 }
 
 export class CartProduct{
-    id!:number;
-    name!:string;
-    price!:number;
-    quantity!:number;
+    id?:number;
+    finaId?:number;
+    name?:string;
+    price?:number;
+    quantity?:number;
+    discount?:number;
+    customWarranty?:number;
     imageUrls?:string[];
 }
 

@@ -26,7 +26,7 @@ export class CartComponent {
   loadCart() {
     this.cart = this.cartService.getCart();
     for (let index = 0; index < this.cart.length; index++) {
-      this.productImageService.getProductImages(this.cart[index].id).subscribe({
+      this.productImageService.getProductImages(this.cart[index].id!).subscribe({
         next:(res:any)=>{
           console.log(res);
           if(res){
@@ -49,7 +49,7 @@ export class CartComponent {
   getTotalPrice(){
     var sum = 0;
     if(this.cart.length > 0)
-      this.cart.forEach(i => sum += (i.price * i.quantity));
+      this.cart.forEach(i => sum += (i.price! * i.quantity!));
 
     return sum;
   }

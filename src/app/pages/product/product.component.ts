@@ -49,7 +49,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   addToCart(){
-    this.cartService.addToCart({id:this.product.id!, name:this.product.productName!, price:this.product.price!, quantity: this.product.quantityInCart && this.product.quantityInCart > 0 ? this.product.quantityInCart : 1})
+    this.cartService.addToCart({id:this.product.id!, finaId:this.product.finaId, name:this.product.productName!, discount:this.product.discount,customWarranty:this.product.warranty, price:this.product.price!, quantity: this.product.quantityInCart && this.product.quantityInCart > 0 ? this.product.quantityInCart : 1})
     this.updateCart();
   }
 
