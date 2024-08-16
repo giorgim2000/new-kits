@@ -18,10 +18,11 @@
       <dxo-selection mode="single"></dxo-selection>
       <dxo-editing
       mode="popup"
-      [allowAdding]="false"
+      [allowAdding]="true"
       [allowUpdating]="false"
       [allowDeleting]="false"
       >
+        
       </dxo-editing>
       <dxo-load-panel [enabled]="true"></dxo-load-panel>
 
@@ -49,8 +50,8 @@
           [disabled]="cancelBtnDisabled"
           ></dx-button>
         </dxi-item>
-        <dxi-item type="buttons">
-          <dxi-button name="invoice" icon="document"></dxi-button>
+        <dxi-item>
+          <!-- <dx-button name="add" icon="add"></dx-button> -->
         </dxi-item>
        
       </dxo-toolbar>
@@ -71,15 +72,11 @@
       <dxi-column dataType="string" dataField="storeName" caption="საწყობი"></dxi-column>
       <dxi-column dataType="string" dataField="invoiceUrl" caption="ინვოისი" cellTemplate="invoiceTemp"></dxi-column>
 
+
       <div *dxTemplate="let data of 'invoiceTemp'">
         <a [href]="data.value" target="_blank">
           <img src="../../../../assets/more.png" alt="">
-        
-        <img
-          [src]="data.value"
-          alt="Picture of {{ data.data.FirstName }} {{ data.data.LastName }}"
-        />
-      </a>
+        </a>
       </div>
     </dx-data-grid>
 </div>

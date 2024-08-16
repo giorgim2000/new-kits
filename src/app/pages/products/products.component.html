@@ -57,10 +57,10 @@
         </div>
     </div>
     
-    <div class="product-grid" [@fadeInList]>
+    <div class="product-grid" [@fadeInOut]>
         <p *ngIf="displayProducts.length == 0 && !isLoading" style="display: flex; width: 100%; justify-content: center; align-self: center;">პროდუქცია ვერ მოიძებნა...</p>
         <div class="card" *ngFor="let product of displayProducts">
-            <div style="position: relative;">
+            <div style="position: relative; height: 200px;">
                 <dx-gallery
                 [dataSource]="product.imageUrls!"
                 height="100%"
@@ -103,13 +103,14 @@
                     </dx-number-box>
                 </div>
                 <dx-button
+                class="mainBtn"
                   [text]="product.isInCart ? 'კალათის ნახვა' : product.rest! > 0 ? 'კალათში დამატება' : 'შემატყობინე'"
                   [type]="product.rest! > 0 ? 'success' : 'default'"
                   [stylingMode]="'contained'"
                   (onClick)="product.rest! > 0 ? addToCart(product) : notifyMe(product)"
                   height="48"
-                  >
-                  </dx-button>
+                >
+                </dx-button>
             </div>
         </div>
     </div>

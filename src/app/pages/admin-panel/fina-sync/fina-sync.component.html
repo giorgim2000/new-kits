@@ -13,4 +13,13 @@
     ></dx-button>
 </div>
 
+<dx-load-panel
+    shadingColor="rgba(0,0,0,0.4)"
+    [visible]="isLoading"
+    [showIndicator]="true"
+    [showPane]="true"
+    [shading]="true"
+    [hideOnOutsideClick]="false"
+    ></dx-load-panel>
+
 <dx-toast [message]="toastMessage" [(visible)]="toastVisible" [type]="toastType"></dx-toast>

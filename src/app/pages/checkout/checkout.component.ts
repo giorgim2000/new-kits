@@ -9,7 +9,6 @@ import { CartService } from 'src/app/services/cart.service';
 import { CityService } from 'src/app/services/city.service';
 import { OrderService } from 'src/app/services/order.service';
 import { StoresService } from 'src/app/services/stores.service';
-import { deliveryPrice } from 'src/assets/config';
 
 
 @Component({
@@ -34,7 +33,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   toastMessage:string = "შეკვეთა წარმატებით განხორციელდა!";
   toastVisible:boolean = false;
   toastType = "info";
-  deliveryPrices = deliveryPrice;
+  //deliveryPrices = deliveryPrice;
   selectedStore : Store | undefined;
   firstName = "";
   lastName = "";
@@ -187,8 +186,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.order.StoreId = this.selectedStore!.id;
     this.order.PaymentType = this.selectedPaymentType;
     this.order.Amount = this.calculateTotal(this.selectedProducts);
-    //this.order.CreationTime = null;
-    //this.order.DeliveryDate = null;
     this.order.OrderProducts = this.selectedProducts.map(i => ({
       ProductId: i.id, FinaId: i.finaId, Quantity: i.quantity, Price:i.price,Discount:i.discount, CustomWarranty:i.customWarranty, TotalSum:i.quantity * i.price
     }));

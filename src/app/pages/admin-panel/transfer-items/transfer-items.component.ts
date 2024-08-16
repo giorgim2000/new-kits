@@ -10,8 +10,8 @@ import { TrItemsService } from 'src/app/services/tr-items.service';
 export class TransferItemsComponent implements OnInit, OnDestroy{
   @ViewChild('trItemsGrid') trGrid!: any;
   trItems :any[] = [];
-  fromDate : Date | undefined;
-  toDate : Date | undefined;
+  toDate : Date = new Date();
+  fromDate : Date = new Date(new Date().setDate(this.toDate.getDate() - 30));
   completed? : boolean = true;
   notCompleted? : boolean = true;
   orderId?:number;

@@ -34,6 +34,7 @@
                 endDateLabel="-მდე"
                 [(startDate)]="fromDate!"
                 [(endDate)]="toDate!"
+                [showClearButton]="true"
                 ></dx-date-range-box>
             </dxi-item>
             <dxi-item
@@ -70,7 +71,7 @@
             location="after"
             >
                 <dx-button
-                text="გადატანილია"
+                text="გადატანა"
                 (onClick)="confirmStatus()"
                 stylingMode="contained"
                 type="success"
@@ -80,7 +81,7 @@
             locateInMenu="auto"
             location="after"
             >
-                <dxi-button icon="refresh" [onClick]="refreshGrid"></dxi-button>
+                <dx-button [icon]="'refresh'" (onClick)="refreshGrid()"></dx-button>
             </dxi-item>
             <!-- <dxi-item>
                 <dx-button

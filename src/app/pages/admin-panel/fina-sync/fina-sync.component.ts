@@ -11,6 +11,7 @@ export class FinaSyncComponent implements OnInit, OnDestroy {
   toastMessage = "";
   toastVisible = false;
   toastType : ToastType = "success";
+  isLoading = false;
 
   constructor(private syncService: FinaSyncService){}
 
@@ -22,13 +23,17 @@ export class FinaSyncComponent implements OnInit, OnDestroy {
   }
 
   productSync(){
+    this.isLoading = true;
     this.syncService.productSync().subscribe({
       next:(res) =>{
+        this.isLoading = false;
         this.toastMessage = "სინქრონიზაცია წარმატებით განხორციელდა!";
+        this.toastType = "success";
         this.toastVisible = true;
       },
       error:(err)=>{
         console.log(err);
+        this.isLoading = false;
         this.toastMessage = `დაფიქსირდა შეცდომა - ${err}`;
         this.toastType = "error";
         this.toastVisible = true;
@@ -37,13 +42,17 @@ export class FinaSyncComponent implements OnInit, OnDestroy {
   }
 
   storeSync(){
+    this.isLoading = true;
     this.syncService.storeSync().subscribe({
       next:(res) =>{
+        this.isLoading = false;
         this.toastMessage = "სინქრონიზაცია წარმატებით განხორციელდა!";
+        this.toastType = "success";
         this.toastVisible = true;
       },
       error:(err)=>{
         console.log(err);
+        this.isLoading = false;
         this.toastMessage = `დაფიქსირდა შეცდომა - ${err}`;
         this.toastType = "error";
         this.toastVisible = true;
