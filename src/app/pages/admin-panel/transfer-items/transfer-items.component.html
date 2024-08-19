@@ -12,6 +12,7 @@
     [repaintChangesOnly]="true"
     (onRowRemoving)="remove($event)"
     (onSelectionChanged)="selectionChange($event)"
+    (onRowPrepared)="rowPrepared($event)"
     >
         <dxo-load-panel [enabled]="true"></dxo-load-panel>
         <dxo-editing
@@ -25,11 +26,11 @@
         <dxo-toolbar [className]="'toolbarDiv'">
             <dxi-item
             location="before"
-            width="200px"
+            width="250px"
             locateInMenu="auto"
             >
                 <dx-date-range-box
-                width="220px"
+                width="250px"
                 startDateLabel="-დან"
                 endDateLabel="-მდე"
                 [(startDate)]="fromDate!"
@@ -95,7 +96,7 @@
 
         <dxi-column dataType="number" dataField="id" [visible]="false"></dxi-column>
         <dxi-column dataType="date" dataField="crDate" caption="თარიღი"></dxi-column>
-        <dxi-column dataField="date" cellTemplate="dueDate" caption="ვადა"></dxi-column>
+        <dxi-column dataType="date" dataField="dueDate" caption="ვადა"></dxi-column>
         <dxi-column dataType="string" dataField="productCode" caption="კოდი"></dxi-column>
         <dxi-column dataType="string" dataField="productName" caption="დასახელება"></dxi-column>
         <dxi-column dataType="string" dataField="storeName" caption="მაღაზია"></dxi-column>

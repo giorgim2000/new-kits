@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { UrlS } from 'src/assets/config';
@@ -19,9 +19,7 @@ export class TrItemsService {
   }
   
   getItems(query:GetTrItemQuery){
-    var header = new HttpHeaders();
-    header.append("input", JSON.stringify(query));
-    return this.http.get(this.url + "/api/transferItems", {headers: header});
+    return this.http.post(this.url + "/api/transferItems/Get", query);
   }
 
   postTrItem(item:CreateTrItemDto){

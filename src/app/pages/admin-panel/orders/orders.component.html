@@ -63,21 +63,19 @@
       <dxi-column dataType="string" dataField="customerCode" caption="შემკვეთის N"></dxi-column>
       <dxi-column dataType="string" dataField="customerPhone" caption="შემკვეთის ტელ."></dxi-column>
       <dxi-column dataType="string" dataField="statusString" caption="სტატუსი"></dxi-column>
-      <dxi-column dataType="number" dataField="status" visible="false"></dxi-column>
+      <dxi-column dataType="number" dataField="status" [visible]="false"></dxi-column>
       <dxi-column dataType="string" dataField="paymentTypeString" caption="გადახდა"></dxi-column>
-      <dxi-column dataType="number" dataField="paymentType" visible="false"></dxi-column>
+      <dxi-column dataType="number" dataField="paymentType" [visible]="false"></dxi-column>
       <dxi-column dataType="number" dataField="discountAmount" caption="ფასდაკ."></dxi-column>
-      <dxi-column dataType="number" dataField="Amount" caption="თანხა"></dxi-column>
+      <dxi-column dataType="number" dataField="amount" caption="თანხა"></dxi-column>
       <dxi-column dataType="boolean" dataField="withDelivery" caption="მიტანა"></dxi-column>
       <dxi-column dataType="string" dataField="storeName" caption="საწყობი"></dxi-column>
-      <dxi-column dataType="string" dataField="invoiceUrl" caption="ინვოისი" cellTemplate="invoiceTemp"></dxi-column>
+      <dxi-column type="buttons" width="70">
+        <dxi-button name="invoiceUrl" icon="info" [onClick]="goToPdf"></dxi-button>
+        <dxi-button name="delivery" icon="info" [onClick]="deliveryPopup"></dxi-button>
+      </dxi-column>
 
-
-      <div *dxTemplate="let data of 'invoiceTemp'">
-        <a [href]="data.value" target="_blank">
-          <img src="../../../../assets/more.png" alt="">
-        </a>
-      </div>
+      
     </dx-data-grid>
 </div>
 
@@ -85,6 +83,29 @@
 <dx-popup
 height="250px"
 width="min(450px, 100%)"
-[textContent]="questionPopupTxt"
+[textContent]="popupText"
+[visible]="popupVisible"
 >
+
+</dx-popup>
+
+
+<dx-popup
+height="250px"
+width="min(450px, 100%)"
+[textContent]="popupText"
+[visible]="popupVisible"
+(onShowing)="delPopupShowing()"
+[closeOnOutsideClick]="true"
+[showCloseButton]="true"
+>
+  <div class="deliveryPopupDiv">
+    <dx-select-box
+    [dataSource]="couriers"
+    [(value)]="selectedCourier"
+    ></dx-select-box>
+    <dx-button
+    (onClick)="appendCourier()"
+    ></dx-button>
+  </div>
 </dx-popup>

@@ -10,7 +10,8 @@ import { TrItemsService } from 'src/app/services/tr-items.service';
 export class TransferItemsComponent implements OnInit, OnDestroy{
   @ViewChild('trItemsGrid') trGrid!: any;
   trItems :any[] = [];
-  toDate : Date = new Date();
+  today = new Date();
+  toDate : Date = new Date(new Date().setDate(this.today.getDate() + 1));
   fromDate : Date = new Date(new Date().setDate(this.toDate.getDate() - 30));
   completed? : boolean = true;
   notCompleted? : boolean = true;
@@ -36,10 +37,9 @@ export class TransferItemsComponent implements OnInit, OnDestroy{
   }
 
   getTrItems(){
+    console.log(this.completed);
     this.trService.getItems({fromDate: this.fromDate, toDate: this.toDate, completed: this.completed, notCompleted: this.notCompleted, orderId: this.orderId, storeId: this.storeId})
                   .subscribe({next:(res:any) => this.trItems = res, error:(err) => console.log(err)});
-
-    // this.trItems = [
     //   {
     //       id:1,
     //       crDate: new Date('2024-01-01'),
@@ -95,11 +95,21 @@ export class TransferItemsComponent implements OnInit, OnDestroy{
     })
   }
 
+  rowPrepared(e:any){
+    if(e.rowType == "data"){
+      if(e.data.transferred)
+        e.rowElement.style.background = "rgb(92, 184, 92)";
+      else
+        e.rowElement.style.background = "rgb(233, 233, 32)";
+    }
+  }
+
   confirmStatus(){
-    this.trService.updateTrItems({ids:this.selectedRowKeys, transferStatus: true}).subscribe({
+    this.trService.updateTrItems({ids:this.selectedRowKeys, transferred: true}).subscribe({
       next: (res) => {
+        this.refreshGrid();
+        this.trGrid.instance.clearSelection();
         this.toastVisible = true;
-        this.getTrItems();
       },
       error: (err) =>{
         console.log(err);

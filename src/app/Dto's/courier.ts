@@ -61,5 +61,5 @@ export class CreateTrItemDto{
 
 export class UpdateTrItemsDto{
     ids?:number[];
-    transferStatus?:boolean;
+    transferred?:boolean;
 }

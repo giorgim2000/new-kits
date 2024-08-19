@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CreateOrderDto, OrderDeliveryDto, OrderDto, OrderStatus, PaymentType, UpdateOrderDto } from 'src/app/Dto\'s/order';
+import { CourierService } from 'src/app/services/courier.service';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -16,10 +17,14 @@ export class OrdersComponent implements OnInit, OnDestroy {
   cancelBtnDisabled = true;
   deliveryBtnDisabled = true;
   delivery : OrderDeliveryDto | undefined;
-  questionPopupTxt:string|undefined;
+  popupText:string|undefined;
+  popupVisible = false;
+  deliveryPopupVisible = false;
+  couriers = [];
+  selectedCourier:any;
   
 
-  constructor(private orderService:OrderService){}
+  constructor(private orderService:OrderService, private courierService:CourierService){}
 
   ngOnInit(): void {
     this.getOrders();
@@ -45,12 +50,14 @@ export class OrdersComponent implements OnInit, OnDestroy {
   confirmOrder(){
     console.log(this.selectedRow);
     var confirmedOrder : UpdateOrderDto = {orderId: this.selectedRow?.id, orderStatus: OrderStatus.Pending};
-    if(this.delivery != null)
-      confirmedOrder.delivery = this.delivery;
+    if(this.selectedRow?.withDelivery && this.selectedRow.delivery?.courierId == null){
+      this.deliveryPopupVisible = true;
+      return;
+    }
 
-    // this.orderService.putOrder(confirmedOrder).subscribe({
-    //   next:(res) => this.ordersGrid.instance.refresh()
-    // })
+    this.orderService.putOrder(confirmedOrder).subscribe({
+      next:(res) => this.ordersGrid.instance.refresh()
+    })
   }
 
   selectionChange(e:any){
@@ -94,7 +101,26 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   }
 
-  deliveryPopupVisible(){
+  goToPdf(e:any){
+    const url = e.row.data.invoiceUrl;
+    if (url) {
+      window.open(url, '_blank');
+    } else {
+      console.error('URL is not available');
+    }
+  }
 
+  deliveryPopup(){
+    this.deliveryPopupVisible = true;
+  }
+
+  delPopupShowing(){
+    this.courierService.getCouriers().subscribe({
+      next:(res) => this.couriers = res
+    });
+  }
+
+  appendCourier(){
+    
   }
 }
