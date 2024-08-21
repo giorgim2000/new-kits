@@ -81,6 +81,7 @@ export interface UpdateOrderDto{
 }
 
 export interface OrderDeliveryDto{
+    id?:number;
     from?:string;
     to?:string;
     deliveryPrice?:number;

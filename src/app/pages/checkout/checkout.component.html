@@ -257,9 +257,6 @@
                     <div *ngFor="let city of cities">
                         <p>- {{city.name}} მიწოდება <b>{{city.deliveryPrice}}₾</b> (კურიერს).</p>
                     </div>
-                    <!-- <p>- თბილისში მიწოდება <b>{{deliveryPrices.tbilisi}}₾</b> (კურიერს).</p>
-                    <p>- რუსთავში მიწოდება <b>{{deliveryPrices.rustavi}}₾</b> (კურიერს).</p>
-                    <p>- რეგიონებში გაგზავნა <b>{{deliveryPrices.regions}}₾-დან</b>.</p> -->
                 </div>
                 <div>
                     <h3>საწყობიდან გატანა:</h3>
@@ -294,5 +291,5 @@
                   </dx-data-grid>
 </dx-popup>
 
-<dx-toast [message]="toastMessage" [(visible)]="toastVisible" type="success"></dx-toast>
+<dx-toast [message]="toastMessage" [(visible)]="toastVisible" [type]="toastType"></dx-toast>
 

@@ -45,6 +45,10 @@ export class CourierService {
     return this.http.put(this.url + `/api/Couriers/${input.Id}`, {input});
   }
 
+  addCourierToDelivery(deliveryId:number,courierId:number){
+    return this.http.get(this.url + `/api/Delivery/${deliveryId}/${courierId}`);
+  }
+
   removeCourier(id:number){
     return this.http.delete(this.url + `/api/Couriers/${id}`);
   }

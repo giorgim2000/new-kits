@@ -40,7 +40,7 @@
           type="success"
           text="მიტანის დამატება"
           [disabled]="deliveryBtnDisabled"
-          (onClick)="deliveryPopupVisible()"
+          (onClick)="deliveryPopup()"
           ></dx-button>
         </dxi-item>
         <dxi-item>
@@ -59,7 +59,7 @@
       
       <dxi-column dataType="date" dataField="creationTime" caption="შეკვეთის დრო"></dxi-column>
       <dxi-column dataType="number" dataField="id" caption="ID"></dxi-column>
-      <dxi-column dataType="string" dataField="customerName" caption="შემკვეთი"></dxi-column>
+      <dxi-column dataType="string" dataField="CustomerName" caption="შემკვეთი"></dxi-column>
       <dxi-column dataType="string" dataField="customerCode" caption="შემკვეთის N"></dxi-column>
       <dxi-column dataType="string" dataField="customerPhone" caption="შემკვეთის ტელ."></dxi-column>
       <dxi-column dataType="string" dataField="statusString" caption="სტატუსი"></dxi-column>
@@ -70,9 +70,8 @@
       <dxi-column dataType="number" dataField="amount" caption="თანხა"></dxi-column>
       <dxi-column dataType="boolean" dataField="withDelivery" caption="მიტანა"></dxi-column>
       <dxi-column dataType="string" dataField="storeName" caption="საწყობი"></dxi-column>
-      <dxi-column type="buttons" width="70">
+      <dxi-column type="buttons" width="70" caption="ინვოისი">
         <dxi-button name="invoiceUrl" icon="info" [onClick]="goToPdf"></dxi-button>
-        <dxi-button name="delivery" icon="info" [onClick]="deliveryPopup"></dxi-button>
       </dxi-column>
 
       
@@ -80,32 +79,39 @@
 </div>
 
 
-<dx-popup
+<!-- <dx-popup
 height="250px"
 width="min(450px, 100%)"
 [textContent]="popupText"
 [visible]="popupVisible"
 >
 
-</dx-popup>
+</dx-popup> -->
 
 
 <dx-popup
-height="250px"
-width="min(450px, 100%)"
-[textContent]="popupText"
-[visible]="popupVisible"
-(onShowing)="delPopupShowing()"
+height="200px"
+width="min(350px, 100%)"
+title="კურიერის მიმაგრება"
+[visible]="deliveryPopupVisible"
 [closeOnOutsideClick]="true"
 [showCloseButton]="true"
+(onHidden)="deliveryPopupClosed()"
 >
   <div class="deliveryPopupDiv">
     <dx-select-box
     [dataSource]="couriers"
     [(value)]="selectedCourier"
+    [displayExpr]="displayCourierInfo"
+    valueExpr="id"
+    label="კურიერი"
+    height="42"
     ></dx-select-box>
     <dx-button
+    type="success"
     (onClick)="appendCourier()"
-    ></dx-button>
+    >შენახვა</dx-button>
   </div>
 </dx-popup>
+
+<dx-toast [message]="toastMessage" [(visible)]="toastVisible" [type]="toastType"></dx-toast>

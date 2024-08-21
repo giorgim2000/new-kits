@@ -32,7 +32,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   selectedDeliveryType = this.deliveryType[1];
   toastMessage:string = "შეკვეთა წარმატებით განხორციელდა!";
   toastVisible:boolean = false;
-  toastType = "info";
+  toastType : any= "info";
   //deliveryPrices = deliveryPrice;
   selectedStore : Store | undefined;
   firstName = "";
@@ -196,16 +196,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.order.Delivery!.to = this.toAddress;
       this.order.Delivery!.cityId = this.cityId;
     }
-      
-
-    
-    console.log(this.order);
-    
     
     this.orderService.postOrder(this.order).subscribe({
       next:(res) =>{
         this.showToast("success", "შეკვეთა წარმატებით განხორციელდა, დაელოდეთ ინვოისს, რომელიც მოგივათ სმს-ის სახით ...");
-        console.log(res);
         this.cartService.clearCart();
         setTimeout(() => {
           this.router.navigate(['/home']);
@@ -213,7 +207,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       },
       error:(err)=>{
         console.log(err);
-        this.showToast("success", "დაფიქსირდა შეცდომა!");
+        this.showToast("warning", "დაფიქსირდა შეცდომა!");
       }
     });
   }
