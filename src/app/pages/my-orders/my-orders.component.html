@@ -6,13 +6,54 @@
     [showBorders]="true"
     [showColumnLines]="true"
     [showRowLines]="true"
-    width="80%"
+    width="96%"
     keyExpr="id"
     [repaintChangesOnly]="true"
     [columnHidingEnabled]="true"
+    [showBorders]="true"
     [title]="'ჩემი შეკვეთები'"
     noDataText="შეკვეთები ცარიელია"
+    (onSelectionChanged)="selectionChange($event)"
+    (onRowPrepared)="rowPrepared($event)"
     >
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-editing
+        mode="popup"
+        [allowAdding]="false"
+        [allowUpdating]="false"
+        [allowDeleting]="false"
+        ></dxo-editing>
+        <dxo-load-panel [enabled]="true"></dxo-load-panel>
 
+        <dxo-toolbar>
+            <dxi-item location="after">
+              <dx-button
+              type="danger"
+              text="გაუქმება"
+              [disabled]="cancelBtnDisabled"
+              (onClick)="cancelOrder()"
+              ></dx-button>
+            </dxi-item>
+        </dxo-toolbar>
+
+        <dxi-column dataType="string" dataField="statusString" caption="სტატუსი"></dxi-column>
+        <dxi-column dataType="date" dataField="creationTime" caption="თარიღი"></dxi-column>
+        <dxi-column dataType="number" dataField="id" caption="ID" [visible]="false"></dxi-column>
+        <dxi-column dataType="string" dataField="customerName" caption="შემკვეთი" [visible]="false"></dxi-column>
+        <dxi-column dataType="number" dataField="customerId" caption="შემკვეთის ID" [visible]="false"></dxi-column>
+        <dxi-column dataType="string" dataField="customerCode" caption="შემკვეთის N" [visible]="false"></dxi-column>
+        <dxi-column dataType="string" dataField="customerPhone" caption="მობილური"></dxi-column>
+        <dxi-column dataType="number" dataField="status" [visible]="false"></dxi-column>
+        <dxi-column dataType="string" dataField="paymentTypeString" caption="გადახდის ტიპი"></dxi-column>
+        <dxi-column dataType="number" dataField="paymentType" [visible]="false"></dxi-column>
+        <dxi-column dataType="number" dataField="discountAmount" caption="ფასდაკ."></dxi-column>
+        <dxi-column dataType="number" dataField="amount" caption="თანხა"></dxi-column>
+        <dxi-column dataType="boolean" dataField="withDelivery" caption="მიტანა"></dxi-column>
+        <dxi-column dataType="string" dataField="storeName" caption="საწყობი"></dxi-column>
+        <dxi-column type="buttons" width="70" caption="ინვოისი">
+        <dxi-button name="invoiceUrl" icon="info" [onClick]="goToPdf"></dxi-button>
+        </dxi-column>
     </dx-data-grid>
 </div>
+
+<dx-toast [message]="toastMessage" [(visible)]="toastVisible" type="info"></dx-toast>

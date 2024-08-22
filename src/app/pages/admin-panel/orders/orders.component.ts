@@ -65,7 +65,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     
 
     this.orderService.putOrder(confirmedOrder).subscribe({
-      next:(res) => this.ordersGrid.instance.refresh()
+      next:(res) => this.getOrders()
     })
   }
 

@@ -13,6 +13,8 @@
     [columnHidingEnabled]="true"
     (onSelectionChanged)="selectionChange($event)"
     (onRowPrepared)="rowPrepared($event)"
+    noDataText="შეკვეთები ცარიელია"
+    [title]="'შეკვეთები'"
     >
       
       <dxo-selection mode="single"></dxo-selection>
@@ -59,9 +61,10 @@
       
       <dxi-column dataType="date" dataField="creationTime" caption="შეკვეთის დრო"></dxi-column>
       <dxi-column dataType="number" dataField="id" caption="ID"></dxi-column>
-      <dxi-column dataType="string" dataField="CustomerName" caption="შემკვეთი"></dxi-column>
+      <dxi-column dataType="number" dataField="customerId" caption="შემკვეთის ID" [visible]="false"></dxi-column>
+      <dxi-column dataType="string" dataField="customerName" caption="შემკვეთი"></dxi-column>
       <dxi-column dataType="string" dataField="customerCode" caption="შემკვეთის N"></dxi-column>
-      <dxi-column dataType="string" dataField="customerPhone" caption="შემკვეთის ტელ."></dxi-column>
+      <dxi-column dataType="string" dataField="customerPhone" caption="მობილური"></dxi-column>
       <dxi-column dataType="string" dataField="statusString" caption="სტატუსი"></dxi-column>
       <dxi-column dataType="number" dataField="status" [visible]="false"></dxi-column>
       <dxi-column dataType="string" dataField="paymentTypeString" caption="გადახდა"></dxi-column>

@@ -62,6 +62,6 @@ export class OrderService {
   }
 
   removeOrder(id:number){
-
+    return this.http.delete(this.url + `/api/Orders/${id}`);
   }
 }

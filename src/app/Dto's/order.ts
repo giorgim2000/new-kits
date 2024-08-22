@@ -27,6 +27,7 @@ export class Order {
 
 export class OrderDto{
     id?:number;
+    customerId?:number;
     customerName?:string;
     customerCode?:string;
     customerPhone?:string;
