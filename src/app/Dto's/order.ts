@@ -69,7 +69,6 @@ export class CreateOrderDto {
     DeliveryDate?: Date | null;
     WithDelivery?: boolean | null;
     StoreId?: number | null;
-    Amount?: number | null;
     OrderProducts?: CreateOrderProductDto[] | null;
     Delivery?: OrderDeliveryDto | null;
 }

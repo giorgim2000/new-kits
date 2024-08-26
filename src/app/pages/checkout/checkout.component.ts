@@ -159,12 +159,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.boxWidth = '31%';
   }
 
-  calculateTotal(items:any[]): number {
-    return items.reduce((sum, item) => {
-      return sum + (item.price * item.quantity);
-    }, 0);
-  }
-
   confirmOrder(){
     if(!this.authService.loggedIn){
       this.order.User = this.order.User || {};
@@ -185,7 +179,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     
     this.order.StoreId = this.selectedStore!.id;
     this.order.PaymentType = this.selectedPaymentType;
-    this.order.Amount = this.calculateTotal(this.selectedProducts);
     this.order.OrderProducts = this.selectedProducts.map(i => ({
       ProductId: i.id, FinaId: i.finaId, Quantity: i.quantity, Price:i.price,Discount:i.discount, CustomWarranty:i.customWarranty, TotalSum:i.quantity * i.price
     }));

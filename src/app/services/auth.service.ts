@@ -15,40 +15,12 @@ export class AuthService {
   User: any | null;
   private authChangeSub = new Subject<boolean>()
   public authChanged = this.authChangeSub.asObservable();
+
   get loggedIn():boolean{
     return localStorage.getItem('token') != null && localStorage.getItem('username') != null;
   }
 
-  constructor(private router:Router,private http:HttpClient) {}
-  
-  //private envUrl: EnvironmentUrlService
-
-  // logIn(email: string, password: string){
-  //   let result = {isOk: false, data: ''};
-    
-  //   return this.http.post<any>("https://localhost:7210/login", {UserName: email, Password: password}, { withCredentials: true })
-  //       .pipe(
-  //         map(resp => {
-  //           if(resp){
-  //             result.isOk = true;
-  //             this.User = {UserName: resp.username};
-  //             this.isLoggedInSubject.next(true);
-  //             return result;
-  //           }
-
-  //           return {isOk:false,data:''};
-  //         }),
-  //         catchError(error => {
-  //           if(error.status === 401)
-  //             result.data = 'სახელი ან პაროლი არასწორია!';
-  //           else
-  //             result.data = 'სერვისთან დაკავშირება ვერ მოხერხდა!';
-            
-  //           result.isOk = false;
-  //           return of(result);
-  //         })
-  //       );
-  // }
+  constructor(private router:Router, private http:HttpClient) {}
 
   public loginUser = (route: string, body: UserForAuthenticationDto) => {
     return this.http.post<AuthResponseDto>(this.url + "/login", body);
@@ -69,38 +41,6 @@ export class AuthService {
   isAdmin(): Observable<boolean> {
     return this.http.get<boolean>(this.url + "/api/Role");
   }
-
-  // async createAccount(user:any) {
-  //   try {
-  //     let header = new HttpHeaders({
-  //       'Content-Type': "application/json"
-  //     });
-  //     let options = {
-  //       headers: header
-  //     };
-      
-  //     // Send request
-  //     this.http.post(this.url + "/register", user, options)
-  //               .subscribe({
-  //                 next: (res) => {
-  //                   console.log(res);
-  //                 },
-  //                 error: (err) => {
-  //                   console.log(err);
-  //                 }
-  //               })
-  //     //this.router.navigate(['/create-account']);
-  //     return {
-  //       isOk: true
-  //     };
-  //   }
-  //   catch {
-  //     return {
-  //       isOk: false,
-  //       message: "Failed to create account"
-  //     };
-  //   }
-  // }
 
   async createAccount(user: any) {
     try {
@@ -151,10 +91,29 @@ export class AuthService {
     localStorage.removeItem("token");
     localStorage.removeItem('username');
     this.sendAuthStateChangeNotification(false);
+    
+    const isGuarded = this.isAdminGuardedRoute(this.router.url);
+
+  if (isGuarded) {
+    // If the route is guarded, redirect to the login or home page
+    this.router.navigate(['/login-form']);
+  } else {
+    // If the route is not guarded, just reload the page
     location.reload();
-    // if(this.router.url.startsWith('/admin-panel') || this.router.url.startsWith('/products'))
-    //   this.router.navigate(['home']);
   }
+  }
+
+  private isAdminGuardedRoute(url: string): boolean {
+    const guardedRoutes = [
+      '/admin-panel'
+    ];
+  
+    return guardedRoutes.some(route => url.startsWith(route));
+  }
+
+  // isTokenActive(){
+  //   return this.http.get(this.url + "/api/role/tokenactive");
+  // }
 }
 
 
