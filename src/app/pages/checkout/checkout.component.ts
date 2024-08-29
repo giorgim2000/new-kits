@@ -42,7 +42,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   companyCode = "";
   phone = "";
   toAddress = "";
-  cityId = 1;
+  city : City = {};
   switchDisabled = false;
   switchVal : boolean = false;
   boxWidth = '31%';
@@ -187,7 +187,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.order.Delivery = this.order.Delivery || {};
       this.order.Delivery!.from = this.selectedStore!.address;
       this.order.Delivery!.to = this.toAddress;
-      this.order.Delivery!.cityId = this.cityId;
+      this.order.Delivery!.cityId = this.city.id;
     }
     
     this.orderService.postOrder(this.order).subscribe({

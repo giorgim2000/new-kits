@@ -52,7 +52,6 @@ export interface OrderProductDto{
     discount?:number;
     customWarranty?:number;
     price?:number;
-    totalSum?:number;
 }
 
 export interface ProductDto{
@@ -78,6 +77,9 @@ export interface UpdateOrderDto{
     orderStatus?:OrderStatus;
     paymentType?:PaymentType;
     delivery?:OrderDeliveryDto;
+    withDelivery?:boolean;
+    storeId?:number;
+    orderProducts?:CreateOrderProductDto[];
 }
 
 export interface OrderDeliveryDto{
