@@ -51,7 +51,7 @@ export class ProductsComponent implements OnInit {
   isLoading=false;
   toastMessage:string = "";
   toastVisible:boolean = false;
-  toastType = "info";
+  toastType : any = "info";
   loadingText = 'Loading...';
   isAdmin = false;
 
@@ -146,18 +146,25 @@ export class ProductsComponent implements OnInit {
   }
 
   addToCart(product:Product){
-    this.cartService.addToCart({id: product.id!, finaId:product.finaId, name:product.productName!, price:product.price!, discount:product.discount, customWarranty: product.warranty, quantity: product.quantityInCart && product.quantityInCart > 0 ? product.quantityInCart : 1});
+    this.cartService.addToCart({id: product.id!, finaId:product.finaId, name:product.productName!, price:product.price!, 
+                                discount:product.discount, customWarranty: product.warranty, 
+                                quantity: product.quantityInCart && product.quantityInCart > 0 ? product.quantityInCart : this.cartService.getProductQuantity(product.id!) == 0 ? 1 : 0});
     this.updateCart();
-    this.displayProducts.find(i => i.id == product.id)!.quantityInCart = this.cartService.getProductQuantity(product.id!);
-    this.showToast("პროდუქტი დამატებულია კალათში", 'success');
+    var inCartQuantity = this.cartService.getProductQuantity(product.id!);
+    if(inCartQuantity != 0){
+      this.displayProducts.find(i => i.id == product.id)!.quantityInCart = inCartQuantity;
+      this.showToast("პროდუქტი დამატებულია კალათში", 'success');
+    }else{
+      this.showToast("პროდუქტი ამოღებულია კალათიდან", 'info');
+    }
   }
 
   notifyMe(product:any){
     this.notifyPopupVisible = true;
   }
 
-  productQuantityChange(e:any,product:any){
-
+  productQuantityChange(e:any,product:Product){
+    product.quantityInCart = e.value;
   }
 
   productsDetails(product:any){
@@ -192,7 +199,7 @@ export class ProductsComponent implements OnInit {
 
   showToast(msg: string, type: string) {
     this.toastMessage = msg;
-    //this.toastType = type;
+    this.toastType = type;
     this.toastVisible = true;
   }
 }

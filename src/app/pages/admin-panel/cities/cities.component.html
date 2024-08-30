@@ -12,6 +12,7 @@
     [repaintChangesOnly]="true"
     (onSaved)="onChangesSaved($event)"
     (onRowRemoving)="removeItem($event)"
+    noDataText="ცხრილი ცარიელია"
     >
         <dxo-load-panel [enabled]="true"></dxo-load-panel>
         <dxo-editing
@@ -22,6 +23,7 @@
         >
         </dxo-editing>
 
+        <dxo-paging [pageSize]="50"></dxo-paging>
         <dxo-selection mode="single"></dxo-selection>
 
         <dxi-column dataType="number" dataField="id" [visible]="false" [allowEditing]="false"></dxi-column>

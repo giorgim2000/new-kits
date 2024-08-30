@@ -14,6 +14,7 @@
     (onRowRemoving)="removeProduct($event)"
     (onEditorPreparing)="onEditorPrep($event)"
     (onCellPrepared)="addPercentToNum($event)"
+    noDataText="ცხრილი ცარიელია"
     >
       <!-- <dxo-toolbar>
         <dxi-item name="addRowButton" location="after"></dxi-item>
@@ -22,6 +23,7 @@
       <dxo-filter-row
         [visible]="true"
       ></dxo-filter-row>
+      <dxo-paging [pageSize]="50"></dxo-paging>
       <dxo-editing
       mode="popup"
       [allowAdding]="true"

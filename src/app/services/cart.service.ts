@@ -23,13 +23,18 @@ export class CartService {
   }
 
   addToCart(product:CartProduct) {
-    const cart = this.getCart();
+    let cart = this.getCart();
     var prod = cart.find((i:any) => i.id == product.id);
     if(prod == undefined)
       cart.push(product);
-    else
+    else if(prod.quantity == product.quantity)
       prod.quantity += 1;
+    else if(product.quantity == 0)
+      cart = cart.filter((item : CartProduct) => item.id !== product.id);
+    else
+      prod.quantity = product.quantity;
     
+
     localStorage.setItem(this.storageKey, JSON.stringify(cart));
   }
 

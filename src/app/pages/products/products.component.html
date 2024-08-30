@@ -99,6 +99,7 @@
                     height="2.5rem"
                     [(value)]="product.quantityInCart!"
                     [min]="0"
+                    (onValueChanged)="productQuantityChange($event, product)"
                     >
                     </dx-number-box>
                 </div>
@@ -148,6 +149,6 @@ title="შემატყობინე"
 </div>
 </dx-popup>
 
-<dx-toast [message]="toastMessage" [(visible)]="toastVisible" type="success"></dx-toast>
+<dx-toast [message]="toastMessage" [(visible)]="toastVisible" [type]="toastType"></dx-toast>
 
 

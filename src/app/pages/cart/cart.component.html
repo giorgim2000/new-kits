@@ -26,6 +26,14 @@
     <p id="cartTitle">კალათა</p>
   </div>
   <div class="shopping-cart">
+    <div class="cart-item">
+      <div class="cart-item-details header">
+        <div class="cart-item-name">დასახელება</div>
+        <div class="cart-item-quantity">რაოდენობა</div>
+        <div class="cart-item-price">ფასი</div>
+        <div class="cart-item-total">სულ</div>
+      </div>
+    </div>
     <div class="cart-list">
       <dx-list [dataSource]="cart" selectionMode="none" noDataText="კალათა ცარიელია">
         <div *dxTemplate="let item of 'item'">
@@ -44,10 +52,10 @@
               <div class="cart-item-quantity">
                 <dx-number-box [(value)]="item.quantity" [min]="1" (onValueChanged)="updateQuantity(item, $event.value)" [showSpinButtons]="true"></dx-number-box>
               </div>
-              <div class="cart-item-price">{{ item.price }}₾</div>
-              <div class="cart-item-total">{{ item.price * item.quantity }}₾</div>
+              <div class="cart-item-price">{{ item.discount > 0 ? item.price * (1 - item.discount / 100) : item.price }}₾</div>
+              <div class="cart-item-total">{{ item.discount > 0 ? (item.price * (1 - item.discount / 100)) * item.quantity : item.price * item.quantity}}₾</div>
+              <dx-button icon="trash" (onClick)="removeProduct(item.id)"></dx-button>
             </div>
-            <dx-button icon="trash" (onClick)="removeProduct(item.id)"></dx-button>
           </div>
         </div>
       </dx-list>

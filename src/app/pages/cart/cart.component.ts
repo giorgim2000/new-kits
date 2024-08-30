@@ -28,7 +28,6 @@ export class CartComponent {
     for (let index = 0; index < this.cart.length; index++) {
       this.productImageService.getProductImages(this.cart[index].id!).subscribe({
         next:(res:any)=>{
-          console.log(res);
           if(res){
             this.cart[index].imageUrls = [];
             for (let i = 0; i < res.length; i++) {
@@ -43,18 +42,19 @@ export class CartComponent {
   }
 
   updateScreen(){
-    this.isLarge = this.screen.sizes['screen-large'];
+    this.isLarge = this.screen.sizes['screen-large'] || this.screen.sizes['screen-medium'] || this.screen.sizes['screen-small'];
   }
 
   getTotalPrice(){
     var sum = 0;
     if(this.cart.length > 0)
-      this.cart.forEach(i => sum += (i.price! * i.quantity!));
+      this.cart.forEach(i => sum += i.discount != null && i.discount > 0 ? (i.price! * (1 - i.discount! / 100)) * i.quantity! : (i.price! * i.quantity!));
 
     return sum;
   }
 
   updateQuantity(product:any, e:any){
+    product.quantity = e;
     this.cartService.addToCart(product);
   }
 

@@ -13,6 +13,7 @@
     (onSaved)="onChangesSaved($event)"
     (onRowRemoving)="removeCourier($event)"
     (onEditorPreparing)="onEditorPrep($event)"
+    noDataText="ცხრილი ცარიელია"
     >
       <dxo-editing
       mode="popup"
@@ -26,6 +27,7 @@
         ></dx-popup>
       </dxo-editing>
       
+      <dxo-paging [pageSize]="50"></dxo-paging>
       <dxo-selection mode="single"></dxo-selection>
       <dxo-load-panel [enabled]="true"></dxo-load-panel>
       <dxi-column dataType="string" dataField="id" caption="Id" [allowEditing]="false"></dxi-column>

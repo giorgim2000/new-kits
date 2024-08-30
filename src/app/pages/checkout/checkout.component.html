@@ -285,8 +285,11 @@
                   [showBorders]="true"
                   >
                       <dxi-column dataField="name" caption="დასახელება"></dxi-column>
-                      <dxi-column dataField="price" caption="ფასი"></dxi-column>
+                      <dxi-column dataField="price" caption="ფასი" [calculateDisplayValue]="priceCell"></dxi-column>
+                      <dxi-column dataField="discount" caption="ფასდაკლება" [calculateDisplayValue]="percentCell"></dxi-column>
                       <dxi-column dataField="quantity" caption="რაოდენობა"></dxi-column>
+                      <dxi-column caption="სულ" [calculateDisplayValue]="sumCell"></dxi-column>
+
                   </dx-data-grid>
 </dx-popup>
 

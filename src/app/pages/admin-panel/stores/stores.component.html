@@ -10,10 +10,11 @@
     keyExpr="id"
     [repaintChangesOnly]="true"
     [columnHidingEnabled]="true"
-    
+    noDataText="ცხრილი ცარიელია"
     >
       
       <dxo-selection mode="single"></dxo-selection>
+      <dxo-paging [pageSize]="50"></dxo-paging>
       <dxo-load-panel [enabled]="true"></dxo-load-panel>
       <dxi-column dataType="number" dataField="id" caption="ID"></dxi-column>
       <dxi-column dataType="string" dataField="name" caption="დასახელება"></dxi-column>

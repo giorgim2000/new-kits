@@ -116,7 +116,7 @@ export interface CreateOrderProductDto {
     Discount?: number | null;
     CustomWarranty?: number | null;
     Price?: number | null;
-    TotalSum?: number | null;
+//    TotalSum?: number | null;
 }
 
 export enum OrderStatus {

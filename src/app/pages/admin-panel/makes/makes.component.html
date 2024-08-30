@@ -13,6 +13,7 @@
     (onSaved)="onChangesSaved($event)"
     (onRowRemoving)="removeMake($event)"
     (onEditorPreparing)="onEditorPrep($event)"
+    noDataText="ცხრილი ცარიელია"
     >
       <dxo-editing
       mode="popup"
@@ -55,6 +56,7 @@
       </dxo-editing>
       
       <dxo-selection mode="single"></dxo-selection>
+      <dxo-paging [pageSize]="50"></dxo-paging>
       <dxo-load-panel [enabled]="true"></dxo-load-panel>
       <dxi-column dataType="string" dataField="makeName" caption="მარკა" [allowEditing]="true">
         <dxi-validation-rule type="required"></dxi-validation-rule>

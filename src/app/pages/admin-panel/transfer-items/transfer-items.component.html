@@ -13,8 +13,10 @@
     (onRowRemoving)="remove($event)"
     (onSelectionChanged)="selectionChange($event)"
     (onRowPrepared)="rowPrepared($event)"
+    noDataText="ცხრილი ცარიელია"
     >
         <dxo-load-panel [enabled]="true"></dxo-load-panel>
+        <dxo-paging [pageSize]="50"></dxo-paging>
         <dxo-editing
         mode="popup"
         [allowAdding]="false"

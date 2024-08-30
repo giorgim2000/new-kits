@@ -180,7 +180,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.order.StoreId = this.selectedStore!.id;
     this.order.PaymentType = this.selectedPaymentType;
     this.order.OrderProducts = this.selectedProducts.map(i => ({
-      ProductId: i.id, FinaId: i.finaId, Quantity: i.quantity, Price:i.price,Discount:i.discount, CustomWarranty:i.customWarranty, TotalSum:i.quantity * i.price
+      ProductId: i.id, FinaId: i.finaId, Quantity: i.quantity, Price:i.price,Discount:i.discount, CustomWarranty:i.customWarranty
     }));
 
     if(this.order.WithDelivery){
@@ -188,21 +188,39 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.order.Delivery!.from = this.selectedStore!.address;
       this.order.Delivery!.to = this.toAddress;
       this.order.Delivery!.cityId = this.city.id;
-    }
+      this.order.Delivery.deliveryPrice = this.city.deliveryPrice;
+    }else
+      this.order.Delivery = null;
     
     this.orderService.postOrder(this.order).subscribe({
       next:(res) =>{
+        console.log(res);
         this.showToast("success", "შეკვეთა წარმატებით განხორციელდა, დაელოდეთ ინვოისს, რომელიც მოგივათ სმს-ის სახით ...");
         this.cartService.clearCart();
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 3000);
+        // setTimeout(() => {
+        //   this.router.navigate(['/home']);
+        // }, 5000);
       },
       error:(err)=>{
         console.log(err);
         this.showToast("warning", "დაფიქსირდა შეცდომა!");
       }
     });
+  }
+
+  percentCell = (e:any)=>{
+    return `${e.discount}%`
+  }
+
+  priceCell = (e:any)=>{
+    return e.price + "₾";
+  }
+
+  sumCell = (e:any) =>{
+    if(e.discount > 0)
+      return e.price * e.quantity * (1 - (e.discount / 100)) + "₾";
+
+    return e.price * e.quantity + "₾";
   }
 
   showToast(type:string,message:string){

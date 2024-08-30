@@ -14,7 +14,9 @@
     (onSaved)="onChangesSaved($event)"
     (onRowRemoving)="removeModelByYear($event)"
     (onEditorPreparing)="onEditorPrep($event)"
+    noDataText="ცხრილი ცარიელია"
     >
+        <dxo-paging [pageSize]="50"></dxo-paging>
         <dxo-editing
         mode="popup"
         [allowAdding]="true"
