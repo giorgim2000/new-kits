@@ -269,8 +269,6 @@
             </div>
         </div>
     </div>
-    
-    
 </dx-scroll-view>
 
 <dx-popup
@@ -291,6 +289,21 @@
                       <dxi-column caption="სულ" [calculateDisplayValue]="sumCell"></dxi-column>
 
                   </dx-data-grid>
+</dx-popup>
+
+<dx-popup
+[visible]="checkOutPopupVisible"
+width="min(320px, 100%)"
+height="200px"
+title="შეკვეთა"
+[textContent]="checkOutPopupText"
+(onHidden)="checkOutPopupHidden()"
+>
+    <dx-button
+    [type]="checkOutBtnType"
+    [text]="checkOutBtnText"
+    (onClick)="checkOutBtnClicked()"
+    ></dx-button>
 </dx-popup>
 
 <dx-toast [message]="toastMessage" [(visible)]="toastVisible" [type]="toastType"></dx-toast>

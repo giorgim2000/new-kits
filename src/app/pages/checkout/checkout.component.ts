@@ -47,6 +47,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   switchVal : boolean = false;
   boxWidth = '31%';
 
+  checkOutPopupVisible = false;
+  checkOutPopupText = "";
+  checkOutBtnType : any = 'success';
+  checkOutBtnText = 'დახურვა';
+
 
 
   constructor(public authService:AuthService, private router:Router, private cartService:CartService,
@@ -194,18 +199,22 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     
     this.orderService.postOrder(this.order).subscribe({
       next:(res) =>{
-        console.log(res);
-        this.showToast("success", "შეკვეთა წარმატებით განხორციელდა, დაელოდეთ ინვოისს, რომელიც მოგივათ სმს-ის სახით ...");
-        this.cartService.clearCart();
-        // setTimeout(() => {
-        //   this.router.navigate(['/home']);
-        // }, 5000);
+        if(res == false)
+          this.showCheckoutPopup("შეკვეთის გაკეთება ვერ მოხერხდა!", "default");
+        else
+          this.showCheckoutPopup("შეკვეთა წარმატებით განხორციელდა, დაელოდეთ ინვოისს, რომელიც მოგივათ სმს-ის სახით ...", "success");
       },
       error:(err)=>{
         console.log(err);
-        this.showToast("warning", "დაფიქსირდა შეცდომა!");
+        this.showCheckoutPopup("შეკვეთის გაკეთება ვერ მოხერხდა!", "default");
       }
     });
+  }
+
+  showCheckoutPopup(text:string,btnType:string){
+    this.checkOutPopupText = text;
+    this.checkOutBtnType = btnType;
+    this.checkOutPopupVisible = true;
   }
 
   percentCell = (e:any)=>{
@@ -221,6 +230,18 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       return e.price * e.quantity * (1 - (e.discount / 100)) + "₾";
 
     return e.price * e.quantity + "₾";
+  }
+
+  checkOutBtnClicked(){
+    this.checkOutPopupVisible = false;
+    if(this.checkOutBtnType == 'success'){
+      this.cartService.clearCart();
+      this.router.navigate(['/home']);
+    }
+  }
+
+  checkOutPopupHidden(){
+    this.checkOutPopupVisible = false;
   }
 
   showToast(type:string,message:string){

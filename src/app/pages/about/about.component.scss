@@ -1,6 +1,11 @@
 .aboutDiv{
-    width: 100vw;
-    padding: 12px 22px;
+    width: 100%;
+    padding: 60px 22px;
+    background-image: url(../../../assets/aboutCover.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: calc(100vh - 230px);
+    position: absolute;
 
     h2{
         position: absolute;
@@ -21,14 +26,17 @@
     }
 
     .pDiv{
-        width: 80%;
+        width: 50%;
         margin-inline: auto;
         display: flex;
         justify-content: center;
+        position: relative;
+        left: 30%;
 
         p{
             width: 80%;
             font-size: 16px;
+            color: whitesmoke;
         }
     }
 }

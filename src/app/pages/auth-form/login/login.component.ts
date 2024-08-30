@@ -33,6 +33,7 @@ export class LoginComponent {
     //     console.log("CHUCHLIKA");
     //   }
     // });
+    console.log(this.formData);
   }
 
   onCreateAccountClick = () => {

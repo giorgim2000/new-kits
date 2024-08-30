@@ -42,7 +42,7 @@ export class CreateAccountComponent {
 
     if (result.isOk) {
       notify("თქვენ წარმატებით გაიარეთ რეგისტრაცია!", 'success', 2000);
-      this.router.navigate(['auth', 'login']);
+      this.router.navigate(['auth', 'signin']);
     } else {
       notify(result.message, 'error', 2000);
     }
