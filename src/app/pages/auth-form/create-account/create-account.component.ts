@@ -41,10 +41,10 @@ export class CreateAccountComponent {
     this.loading = false;
 
     if (result.isOk) {
-      notify("თქვენ წარმატებით გაიარეთ რეგისტრაცია!", 'success', 2000);
+      await notify("თქვენ წარმატებით გაიარეთ რეგისტრაცია!", 'success', 2000);
       this.router.navigate(['auth', 'signin']);
     } else {
-      notify(result.message, 'error', 2000);
+      notify("დაფიქსირდა შეცდომა!", 'error', 2000);
     }
   }
 

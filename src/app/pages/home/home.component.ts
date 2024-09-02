@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   modelString = "";
   modelVisible = false;
   selectedModelId:number|undefined;
+  coverImageUrl: string = '../../../assets/MainCover.jpg';
 
   constructor(private router:Router, private modelService:ModelService, private modelByYearService:ModelByYearService) { }
 
@@ -55,19 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   getModels(){
     this.modelService.getModels().subscribe({
       next: (res)=>{
-      //   this.modelsDataSource = res.sort((a:any, b:any) => {
-      //     if (a.lineNum == null && b.lineNum == null) {
-      //         return 0;
-      //     }
-      //     if (a.lineNum == null) {
-      //         return 1;
-      //     }
-      //     if (b.lineNum == null) {
-      //         return -1;
-      //     }
-      //     return a.lineNum - b.lineNum;
-      // });
-      this.modelsDataSource = res;
+        this.modelsDataSource = res;
       },
       error: (err) => {
         console.error(err);
@@ -91,14 +80,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   displayModels(){
     this.getModels();
     this.modelVisible = false;
+    this.coverImageUrl = '../../../assets/MainCover.jpg'; 
     this.selectedModelId = undefined;
   }
 
-  modelClick(id:number, modelName:string){
+  modelClick(id:number, modelName:string, coverImageUrl?:string){
     this.selectedModelId = id;
     this.getModelsByYear(id);
     this.modelString = modelName;
     this.modelVisible = true;
+    if (coverImageUrl) {
+      this.coverImageUrl = coverImageUrl;
+    } else {
+      this.coverImageUrl = '../../../assets/MainCover.jpg';
+    }
   }
 
   modelByYearClick(id:number){

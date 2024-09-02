@@ -68,7 +68,7 @@ export class AuthComponent {
     try {
       const res = await firstValueFrom(this.authService.loginUser('api/accounts/login', userForAuth));
       localStorage.setItem('token', res.token);
-      localStorage.setItem('username', userForAuth.username);
+      localStorage.setItem('username', userForAuth.username.toLowerCase());
       await this.authService.sendAuthStateChangeNotification(true);
       this.router.navigate([this.returnUrl]);
     } catch (err) {

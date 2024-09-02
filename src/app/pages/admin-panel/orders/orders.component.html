@@ -13,6 +13,7 @@
     [columnHidingEnabled]="true"
     (onSelectionChanged)="selectionChange($event)"
     (onRowPrepared)="rowPrepared($event)"
+    (onCellPrepared)="cellPrepared($event)"
     noDataText="შეკვეთები ცარიელია"
     [title]="'შეკვეთები'"
     >
@@ -30,7 +31,16 @@
       <dxo-paging [pageSize]="50"></dxo-paging>
 
       <dxo-toolbar>
-        <dxi-item>
+        <dxi-item
+        location="before"
+        locateInMenu="auto"
+        >
+          <dx-button
+          icon="add"
+          (onClick)="addOrderPopupVisible()"
+          ></dx-button>
+        </dxi-item>
+        <dxi-item locateInMenu="auto">
           <dx-button
           type="success"
           [text]="confirmBtnText"
@@ -38,7 +48,7 @@
           (onClick)="confirmOrder()"
           ></dx-button>
         </dxi-item>
-        <dxi-item>
+        <dxi-item locateInMenu="auto">
           <dx-button
           type="success"
           text="მიტანის დამატება"
@@ -46,17 +56,13 @@
           (onClick)="deliveryPopup()"
           ></dx-button>
         </dxi-item>
-        <dxi-item>
+        <dxi-item locateInMenu="auto">
           <dx-button
           type="danger"
           text="გაუქმება"
           [disabled]="cancelBtnDisabled"
           ></dx-button>
         </dxi-item>
-        <dxi-item>
-          <!-- <dx-button name="add" icon="add"></dx-button> -->
-        </dxi-item>
-       
       </dxo-toolbar>
 
       
@@ -70,12 +76,14 @@
       <dxi-column dataType="number" dataField="status" [visible]="false"></dxi-column>
       <dxi-column dataType="string" dataField="paymentTypeString" caption="გადახდა"></dxi-column>
       <dxi-column dataType="number" dataField="paymentType" [visible]="false"></dxi-column>
-      <dxi-column dataType="number" dataField="discountAmount" caption="ფასდაკ."></dxi-column>
       <dxi-column dataType="number" dataField="amount" caption="თანხა"></dxi-column>
       <dxi-column dataType="boolean" dataField="withDelivery" caption="მიტანა"></dxi-column>
       <dxi-column dataType="string" dataField="storeName" caption="საწყობი"></dxi-column>
       <dxi-column type="buttons" width="70" caption="ინვოისი">
         <dxi-button name="invoiceUrl" icon="info" [onClick]="goToPdf"></dxi-button>
+      </dxi-column>
+      <dxi-column type="buttons" width="70" caption="პროდუქტები">
+        <dxi-button name="products" icon="info" [onClick]="orderProducts"></dxi-button>
       </dxi-column>
 
       
@@ -118,5 +126,34 @@ title="კურიერის მიმაგრება"
   </div>
 </dx-popup>
 
+<dx-popup
+              [visible]="productsPopupVisible"
+              (onHidden)="popupHidden()"
+              width="90%"
+              height="80%"
+              [closeOnOutsideClick]="true"
+              >
+                  <dx-data-grid
+                  [dataSource]="selectedProducts"
+                  [showBorders]="true"
+                  >
+                      <dxi-column dataField="name" caption="დასახელება"></dxi-column>
+                      <dxi-column dataField="price" caption="ფასი" [calculateDisplayValue]="priceCell"></dxi-column>
+                      <dxi-column dataField="discount" caption="ფასდაკლება" [calculateDisplayValue]="percentCell"></dxi-column>
+                      <dxi-column dataField="quantity" caption="რაოდენობა"></dxi-column>
+                      <dxi-column caption="სულ" [calculateDisplayValue]="sumCell"></dxi-column>
 
+                  </dx-data-grid>
+</dx-popup>
+
+<app-add-order [addOrderPopupVisible]="addOrderPopup" (closePopup)="closeAddOrderPopup()"></app-add-order>
 <dx-toast [message]="toastMessage" [(visible)]="toastVisible" [type]="toastType"></dx-toast>
+
+<dx-load-panel
+              shadingColor="rgba(0,0,0,0.4)"
+              [visible]="loading"
+              [showIndicator]="true"
+              [showPane]="true"
+              [shading]="true"
+              [hideOnOutsideClick]="false"
+              ></dx-load-panel>

@@ -12,6 +12,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   @ViewChild('ordersGrid') ordersGrid!: any;
   orders:OrderDto[]=[];
   selectedRow:OrderDto | undefined;
+  selectedProducts : any[] = [];
   confirmBtnDisabled = true;
   confirmBtnText : string = "შეკვეთის მიღება";
   cancelBtnDisabled = true;
@@ -26,7 +27,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
   toastType:any = 'success';
   toastMessage:any = '';
   toastVisible = false;
-  
+
+  addOrderPopup = false;
+  productsPopupVisible = false;
+  loading = false;
 
   constructor(private orderService:OrderService, private courierService:CourierService){}
 
@@ -60,12 +64,14 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   confirmOrder(){
-    console.log(this.selectedRow);
-    var confirmedOrder : UpdateOrderDto = {orderId: this.selectedRow?.id, orderStatus: OrderStatus.Pending};
-    
+    let orderStatus = this.selectedRow?.status == OrderStatus.Recieved ? OrderStatus.Confirmed : OrderStatus.Finished;
+    var confirmedOrder : UpdateOrderDto = {orderId: this.selectedRow?.id, orderStatus: orderStatus};
 
     this.orderService.putOrder(confirmedOrder).subscribe({
-      next:(res) => this.getOrders()
+      next:(res) => {
+        this.getOrders();
+        this.ordersGrid.instance.refresh();
+      }
     })
   }
 
@@ -74,7 +80,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     if(e.selectedRowsData[0].status == 0){
       this.cancelBtnDisabled = false;
       this.confirmBtnDisabled = false;
-      this.confirmBtnText = "შეკვეთის მიღება";
+      this.confirmBtnText = "დადასტურება";
       if(this.selectedRow?.withDelivery){
         this.deliveryBtnDisabled = false;
         if(this.selectedRow.delivery?.courierId == null){
@@ -87,7 +93,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
       this.cancelBtnDisabled = false;
       this.confirmBtnDisabled = false;
       this.deliveryBtnDisabled = true;
-      this.confirmBtnText = "დადასტურება";
+      this.confirmBtnText = "დასრულება";
     }else if(e.selectedRowsData[0].status == 2){
       this.deliveryBtnDisabled = true;
       this.cancelBtnDisabled = true;
@@ -96,10 +102,18 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }else if(e.selectedRowsData[0].status == 3){
       this.deliveryBtnDisabled = true;
       this.cancelBtnDisabled = true;
-      this.confirmBtnDisabled = false;
-      this.confirmBtnText = "შეკვეთის აღდგენა";
+      this.confirmBtnDisabled = true;
+      //this.confirmBtnText = "შეკვეთის აღდგენა";
       this.deliveryBtnDisabled = true;
     }
+  }
+
+  addOrderPopupVisible(){
+    this.addOrderPopup = true;
+  }
+
+  closeAddOrderPopup(){
+    this.addOrderPopup = false;
   }
 
   rowPrepared(e:any){
@@ -118,6 +132,37 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   }
 
+  cellPrepared(e:any){
+    // console.log(e);
+    // if(e.rowType == 'data' && e.columnIndex == 5){
+    //   if(e.text == "Recieved")
+    //     e.cellElement.style.background = "white";
+
+    //   if(e.text.toLowerCase() == "confirmed")
+    //     e.cellElement.style.background = "rgb(233, 233, 32)";
+
+    //   if(e.text.toLowerCase() == "finished")
+    //     e.cellElement.style.background = "rgb(22, 160, 22)";
+
+    //   if(e.text.toLowerCase() == "cancelled")
+    //     e.cellElement.style.background = "rgb(207, 207, 207)";
+    // }
+
+    // if(e.rowType == 'data' && e.columnIndex == 6){
+    //   if(e.text == "Cash")
+    //     e.displayValue = "ქეში";
+
+    //   if(e.text == "Transfer")
+    //     e.displayValue = "გადარიცხვა";
+
+    //   if(e.text.toLowerCase() == "card")
+    //     e.displayValue = "ბარათი";
+
+    //   if(e.text.toLowerCase() == "consig")
+    //     e.displayValue = "კონსიგნაცია";
+    // }
+  }
+
   goToPdf = (e:any) => {
     const url = e.row.data.invoiceUrl;
     if (url) {
@@ -125,6 +170,18 @@ export class OrdersComponent implements OnInit, OnDestroy {
     } else {
       this.showToast('warning', 'შეკვეთა არ არის დადასტურებული!');
     }
+  }
+
+  orderProducts = (e:any) =>{
+    this.getOrderProducts(e.row.data.id);
+    this.productsPopupVisible = true;
+  }
+
+  getOrderProducts(id:number){
+    this.orderService.getOrderProducts(id).subscribe({
+      next:(res:any) => this.selectedProducts = res,
+      error:(err) => console.log(err)
+    });
   }
 
   deliveryPopup(){
@@ -168,5 +225,28 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.toastType = type;
     this.toastMessage = message;
     this.toastVisible = true;
+  }
+
+  checkOutPopupHidden(){
+    this.productsPopupVisible = false;
+  }
+
+  percentCell = (e:any)=>{
+    return `${e.discount}%`
+  }
+
+  priceCell = (e:any)=>{
+    return e.price + "₾";
+  }
+
+  sumCell = (e:any) =>{
+    if(e.discount > 0)
+      return e.price * e.quantity * (1 - (e.discount / 100)) + "₾";
+
+    return e.price * e.quantity + "₾";
+  }
+
+  popupHidden(){
+    this.productsPopupVisible = false;
   }
 }

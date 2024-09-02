@@ -143,6 +143,7 @@
                     <dx-text-box
                     [visible]="!isCompany"
                      label="სახელი" 
+                     labelMode="outside"
                      [(value)]="firstName"
                      width="48%"
                      height="2.5rem"
@@ -254,18 +255,25 @@
                 <div>
                     <h3>ადგილზე მიტანა/რეგიონებში გაგზავნა:</h3>
                     <div *ngFor="let city of cities">
-                        <p>- {{city.name}} მიწოდება <b>{{city.deliveryPrice}}₾</b> (კურიერს).</p>
+                        <p>- მიწოდება {{city.name}}ს მაშტაბით - <b>{{city.deliveryPrice}}₾</b> (კურიერს).</p>
+                    </div>
+                    <div>
+                        <p>
+                           - რეგიონებში მიწოდების პირობები და ფასი განისაზღვრება ინდივიდუალურად. 
+                           &nbsp; აღნიშნული ინფორმაციის დასაზუსტებლად დაგიკავშირდებათ ჩვენი გაყიდვების მენეჯერი
+                           &nbsp; პროდუქციის სახეობების, რაოდენობის და მიწოდების ადგილის შესაბამისად. 
+                        </p>
                     </div>
                 </div>
                 <div>
                     <h3>საწყობიდან გატანა:</h3>
-                    <p>- ისანი, (მოსკოვის გამზირი 15).</p>
-                    <p>- რუსთავი (მშვიდობის ქ 2. (ვაზის მიმდებარედ)).</p>
+                    <p>- ქ. თბილისი, დიღმის მასივი, შალვა გოგიძის ქ. N5</p>
+                    <p>- ქ. ბათუმი, აეროპორტის გზატკეცილი N241ა</p>
                 </div>
-                <div>
+                <!-- <div>
                     <h3>გადაცვლა/უკან დაბრუნება</h3>
                     <p>- 7 კალენდარული დღის ვადაში</p>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -293,17 +301,20 @@
 
 <dx-popup
 [visible]="checkOutPopupVisible"
-width="min(320px, 100%)"
-height="200px"
+width="min(375px, 100%)"
+height="275px"
 title="შეკვეთა"
-[textContent]="checkOutPopupText"
 (onHidden)="checkOutPopupHidden()"
 >
-    <dx-button
-    [type]="checkOutBtnType"
-    [text]="checkOutBtnText"
-    (onClick)="checkOutBtnClicked()"
-    ></dx-button>
+    <div class="popupDiv">
+        <p>{{checkOutPopupText}}</p>
+        <dx-button
+        [type]="checkOutBtnType"
+        [text]="checkOutBtnText"
+        (onClick)="checkOutBtnClicked()"
+        ></dx-button>
+    </div>
+    
 </dx-popup>
 
 <dx-toast [message]="toastMessage" [(visible)]="toastVisible" [type]="toastType"></dx-toast>

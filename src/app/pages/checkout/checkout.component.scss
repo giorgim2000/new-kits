@@ -122,6 +122,19 @@ dx-text-box, dx-select-box{
   }
 }
 
+.popupDiv{
+  width: 100%;
+  height: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  p{
+    height: 55%;
+    font-size: 16px;
+  }
+}
+
 // @media screen and (max-width:530px){
 //   .single-card{
 //     .dx-card{

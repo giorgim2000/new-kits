@@ -1,9 +1,15 @@
 dx-toolbar{
-    height: 70px !important;
+    height: 90px !important;
     background: whitesmoke;
     padding-right: 10px;
     border-bottom: thin groove;
 }
+
+:root{
+    .dx-toolbar-items-container{
+        height: 100% !important;
+    }
+} 
 
 dxi-item{
     display: flex;

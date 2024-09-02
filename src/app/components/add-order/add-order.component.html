@@ -1,0 +1,114 @@
+<dx-popup
+title="შეკვეთის დამატება"
+[showTitle]="true"
+width="100%"
+height="100%"
+[visible]="addOrderPopupVisible"
+(onShowing)="popupShown()"
+(onHidden)="popupHidden()"
+[showCloseButton]="true"
+[closeOnOutsideClick]="true"
+>
+    <div class="mainDiv">
+        <div class="panel-content">
+            <div class="switchDiv">
+                <label>ფიზიკური პირი</label>
+                <dx-switch (onValueChanged)="switchChange($event)" [disabled]="switchDisabled" switchedOnText=" " switchedOffText=" " [(value)]="switchVal"></dx-switch>
+                <label>იურიდიული პირი</label>
+              </div>
+            <div>
+                <dx-text-box
+                [visible]="!isCompany"
+                 label="სახელი" 
+                 [(value)]="firstName"
+                 width="48%"
+                 height="2.5rem"
+                 ></dx-text-box>
+                <dx-text-box
+                [visible]="!isCompany"
+                 label="გვარი" 
+                 [(value)]="lastName"
+                 width="48%"
+                 height="2.5rem"
+                 ></dx-text-box>
+                <dx-text-box 
+                [visible]="isCompany"
+                label="კომპანიის დასახელება" 
+                [(value)]="companyName"
+                width="48%"
+                height="2.5rem"
+                ></dx-text-box>
+                <dx-text-box 
+                [visible]="isCompany"
+                label="კომპანიის კოდი" 
+                [(value)]="companyCode"
+                width="48%"
+                height="2.5rem"
+                ></dx-text-box>
+            </div>
+            <div>
+                <dx-text-box 
+                label="პირადი N" 
+                [visible]="!isCompany"
+                [(value)]="userIdNumber"
+                height="2.5rem"
+                >
+                </dx-text-box>
+                <dx-text-box 
+                label="მობილური"
+                [(value)]="phone"
+                height="2.5rem"
+                ></dx-text-box>
+                <dx-select-box
+                [items]="stores"
+                [(value)]="selectedStore"
+                displayExpr="name"
+                label="მაღაზია"
+                height="2.5rem"
+                ></dx-select-box>
+            </div>
+            <div>
+                <dx-select-box
+                [dataSource]="paymentTypes"
+                displayExpr="name"
+                valueExpr="id"
+                [(value)]="selectedPaymentType"
+                (onValueChanged)="paymentTypeChange($event)"
+                width="48%"
+                label="გადახდის ტიპი"
+                height="2.5rem"
+                ></dx-select-box>
+                <dx-select-box
+                [items]="deliveryType"
+                [(value)]="selectedDeliveryType"
+                (onValueChanged)="deliveryValChange($event)"
+                width="48%"
+                label="მიტანის ტიპი"
+                height="2.5rem"
+                ></dx-select-box>
+            </div>
+            <div>
+                <dx-text-box
+                label="მისამართი"
+                [disabled]="selectedDeliveryType != deliveryType[0]"
+                [(value)]="toAddress"
+                width="48%"
+                height="2.5rem"
+                ></dx-text-box>
+                <dx-select-box
+                [disabled]="selectedDeliveryType != deliveryType[0]"
+                label="ქალაქი"
+                [items]="cities"
+                width="48%"
+                [displayExpr]="cityDisplay"
+                [(value)]="city"
+                height="2.5rem"
+                ></dx-select-box>
+            </div>
+            <div class="btnDiv">
+                <dx-button text="პროდუქცია" (onClick)="getProducts()" width="48%" height="2.5rem">პროდუქცია</dx-button>
+                <dx-button type="success" (onClick)="confirmOrder()" width="48%" height="2.5rem">დადასტურება</dx-button>
+            </div>
+        </div>
+    </div>
+</dx-popup>

@@ -4,6 +4,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { map, catchError, of, BehaviorSubject, Subject, Observable } from 'rxjs';
 import { AuthResponseDto, IUserClaim, UserForAuthenticationDto } from '../Dto\'s/User';
 import { UrlS } from 'src/assets/config';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
     return localStorage.getItem('token') != null && localStorage.getItem('username') != null;
   }
 
-  constructor(private router:Router, private http:HttpClient) {}
+  constructor(private router:Router, private http:HttpClient, private cartService:CartService) {}
 
   public loginUser = (route: string, body: UserForAuthenticationDto) => {
     return this.http.post<AuthResponseDto>(this.url + "/login", body);
@@ -91,6 +92,7 @@ export class AuthService {
     localStorage.removeItem("token");
     localStorage.removeItem('username');
     this.sendAuthStateChangeNotification(false);
+    this.cartService.clearCart();
     
     const isGuarded = this.isAdminGuardedRoute(this.router.url);
 

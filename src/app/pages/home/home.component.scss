@@ -10,13 +10,14 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-image: url(../../../assets/MainCover.jpg);
+    //background-image: url(../../../assets/MainCover.jpg);
     padding-bottom: 0;
     padding-top: 0;
     margin-bottom: 0;
     height: 300px;
     display: flex;
     align-items: center;
+    transition: background-image 0.5s ease-in-out, opacity 0.5s ease-in-out;
 
     .textContainer{
         text-align: center;

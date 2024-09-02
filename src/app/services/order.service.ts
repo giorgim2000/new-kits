@@ -26,6 +26,10 @@ export class OrderService {
     }))
   }
 
+  getOrderProducts(id:number){
+    return this.http.get(this.url + `/api/Orders/GetOrderProducts/${id}`);
+  }
+
   postOrder(order:CreateOrderDto){
     let header = new HttpHeaders({
       'Content-Type': "application/json"

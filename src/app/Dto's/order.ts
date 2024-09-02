@@ -34,7 +34,6 @@ export class OrderDto{
     status?:OrderStatus;
     paymentType?:PaymentType;
     orderProducts?:OrderProductDto[];
-    discountAmount?:number;
     delivery?:OrderDeliveryDto;
     amount?:number;
     creationTime?:Date;
@@ -120,7 +119,7 @@ export interface CreateOrderProductDto {
 }
 
 export enum OrderStatus {
-    Recieved, Pending, Finished, Cancelled
+    Recieved, Confirmed, Finished, Cancelled
 }
 
 export enum PaymentType {

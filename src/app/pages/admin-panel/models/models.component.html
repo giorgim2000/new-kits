@@ -26,8 +26,8 @@
       <dxo-popup
         title="რედაქტირება"
         [showTitle]="true"
-        [width]="700"
-        [height]="475"
+        width="min(880,100%)"
+        height="min(600, 100%)"
         [onHidden]="onPopupHidden"
         [closeOnOutsideClick]="true"
         [showCloseButton]="true"
@@ -52,6 +52,19 @@
               </dx-file-uploader>
             </div>
           </dxi-item>
+          <dxi-item dataField="coverImageUrl">
+            <div *dxTemplate="let data of 'editCoverCellTemplate'">
+              <img #uploadedCoverImage class="uploadedImage" [src]="previewCoverImageUrl" height="50px"/>
+              <dx-file-uploader
+                [multiple]="false"
+                accept="image/*"
+                [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
+                uploadMode="useForm"
+                (onValueChanged)="coverFileChanged($event)"
+              >
+              </dx-file-uploader>
+            </div>
+          </dxi-item>
           <dxi-item dataField="active">
             <dxi-validation-rule type="required"></dxi-validation-rule>
           </dxi-item>
@@ -72,8 +85,9 @@
       <dxi-validation-rule type="stringLength" [max]="15" message="დასახელება არ უნდა აღემატებოდეს 15 ასოს"></dxi-validation-rule>
     </dxi-column>
     <dxi-column dataField="imageUrl" cellTemplate="cellTemplate"  [allowEditing]="true" caption="სურათი">
-      <dxi-validation-rule type="required"></dxi-validation-rule>
+      <!-- <dxi-validation-rule type="required"></dxi-validation-rule> -->
     </dxi-column>
+    <dxi-column dataField="coverImageUrl" cellTemplate="cellTemplate"  [allowEditing]="true" caption="ფონი"></dxi-column>
     <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true">
     </dxi-column>
     <dxi-column dataField="makeId" caption="მარკა" allowEditing="true">

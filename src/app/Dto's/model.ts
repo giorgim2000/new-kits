@@ -5,6 +5,7 @@ export class Model{
     modelName!: string;
     lineNum?:number;
     imageUrl?: string;
+    coverImageUrl?:string;
     makeId?:number;
     make?: Make;
     active?:boolean;
