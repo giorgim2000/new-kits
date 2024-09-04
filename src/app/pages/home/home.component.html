@@ -1,5 +1,10 @@
 <div class="main">
+    <div class="goldenLine" *ngIf="classReference.goldenLineVisible">
+        <p>1000₾-ზე მეტის შენაძენის შემთხვევაში თქვენ მიიღებთ უფასო მიტანის სერვისს!</p>
+        <dx-button icon="clear" (onClick)="clearGoldeLine()"></dx-button>
+    </div>
     <div class="coverDiv" [ngStyle]="{'background-image': 'url(' + coverImageUrl + ')'}">
+        
         <div class="textContainer">
             <div class="panel">
                 <h2>

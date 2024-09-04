@@ -41,6 +41,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   modelVisible = false;
   selectedModelId:number|undefined;
   coverImageUrl: string = '../../../assets/MainCover.jpg';
+  static goldenLineVisible = true;
+  public classReference = HomeComponent;
 
   constructor(private router:Router, private modelService:ModelService, private modelByYearService:ModelByYearService) { }
 
@@ -98,5 +100,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   modelByYearClick(id:number){
     this.router.navigate(['products'], {state: {modelId: this.selectedModelId, modelByYearId: id}})
+  }
+
+  clearGoldeLine(){
+    HomeComponent.goldenLineVisible = false;
   }
 }

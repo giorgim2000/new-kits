@@ -5,11 +5,9 @@ dx-toolbar{
     border-bottom: thin groove;
 }
 
-:root{
-    .dx-toolbar-items-container{
-        height: 100% !important;
-    }
-} 
+dx-toolbar > div{
+    height: 100% !important;
+}
 
 dxi-item{
     display: flex;
@@ -29,24 +27,53 @@ dxi-item:hover{
 }
 
 #logoItem{
-    margin: 9px 0 9px 20px !important;
+    margin: 17px 0 9px 40px !important;
     align-items: center;
 }
 
-// #logo{
-//     border-radius: 50%;
-// }
+.cart-icon {
+    position: relative;
+    display: inline-block;
+    z-index:2;
+    width: 36px;
+    margin-top: 6px;
+}
+
+.cart-icon dx-button{
+    position: absolute;
+    top: 14px;
+    right: 0px;
+}
+
+::ng-deep .cart-icon .dx-button-content .dx-icon {
+    font-size: 24px !important;
+  }
+
+#cart-count {
+    position: absolute;
+    top: 6px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 1px 7px;
+}
+
 
 .menuItem{
+    padding-top: 17px;
     font-weight: bold;
     font-size: 14px;
     text-transform: uppercase;
     font-family: "Nobel-Bold",arial,helvetica,san-serif;
 }
 
+.userItem{
+    padding-top: 22px !important;
+}
 
 .mainContent{
-    min-height: calc(100vh - 222px);
+    min-height: calc(100vh - 150px);
 }
 
 .footer{
@@ -196,7 +223,7 @@ dxi-item:hover{
     }
 
     #logo{
-        height: 44px !important;
+        height: 54px !important;
     }
     
     .footer{
@@ -243,7 +270,7 @@ dxi-item:hover{
 
 @media screen and (max-width: 448px){
     #logo{
-        height: 37px !important;
+        height: 44px !important;
     }
 
     .footer{

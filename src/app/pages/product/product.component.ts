@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import notify from 'devextreme/ui/notify';
 import { Product, ProductRestWithStores } from 'src/app/Dto\'s/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductRestService } from 'src/app/services/product-rest.service';
@@ -51,6 +52,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   addToCart(){
     this.cartService.addToCart({id:this.product.id!, finaId:this.product.finaId, name:this.product.productName!, discount:this.product.discount,customWarranty:this.product.warranty, price:this.product.price!, quantity: this.product.quantityInCart && this.product.quantityInCart > 0 ? this.product.quantityInCart : 1})
     this.updateCart();
+    notify("პროდუქტი დამატებულია კალათში", 'success');
   }
 
   updateCart(){

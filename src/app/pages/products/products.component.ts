@@ -105,18 +105,19 @@ export class ProductsComponent implements OnInit {
 
   getProducts(searchWord?:string, modelId?:number,modelByYearId?:number){
     this.isLoading = true;
+
     this.productService.getProducts(false, searchWord, modelId, modelByYearId).subscribe({
       next:(res)=>{
         this.displayProducts = res;
-        // this.displayProducts.sort((a,b) => {
-        //   return a.crDate.valueOf() - b.crDate.valueOf();
-        // });
         this.displayProducts.forEach((i : Product) => {
           i.quantityInCart = this.cartService.getProductQuantity(i.id!);
         });
         this.isLoading = false;
       },
       error:(err)=>{
+        this.isLoading = false;
+      },
+      complete: () => {
         this.isLoading = false;
       }
     })

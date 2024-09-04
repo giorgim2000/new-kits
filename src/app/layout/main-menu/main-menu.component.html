@@ -7,6 +7,7 @@ class="dx-theme-background-color"
     >
         <img src="../../../assets/Logo.png" (click)="goToHome()" height="66px" alt="" id="logo">
     </dxi-item>
+    
     <dxi-item
     *ngIf="!isSmall"
     location="after"
@@ -34,7 +35,7 @@ class="dx-theme-background-color"
     location="after"
     menuItemTemplate="menuItem"
     >
-        <div *dxTemplate="let data of 'item'">
+        <div *dxTemplate="let data of 'item'" class="userItem">
             <dx-button
             class="user-button authorization"
             width="fit-content"
@@ -47,7 +48,7 @@ class="dx-theme-background-color"
         </div>
         
     </dxi-item>
-    <div *dxTemplate="let data of 'menuItem'">
+    <div *dxTemplate="let data of 'menuItem'" class="userItem">
         <app-user-panel [username]="user" menuMode="list"></app-user-panel>
     </div>
     <dxi-item 
@@ -62,39 +63,23 @@ class="dx-theme-background-color"
     >
       <p class="menuItem" (click)="register()">რეგისტრაცია</p>
     </dxi-item>
-    <!-- <dxi-item
-    *ngIf="isSmall"
-    location="before"
-    menuItemTemplate="hamburgerMenu"
+    <dxi-item
+    location="after"
     >
-        <div *dxTemplate="let data of 'item'">
-            <dx-button
-            class="user-button authorization"
-            width="fit-content"
-            height="100%"
-            icon="listorientationvertical">
-                <div *dxTemplate="let data of 'content'">
-                    <app-hamburger-menu></app-hamburger-menu>
-                </div>
+        <div class="cart-icon">
+            <dx-button>
+                <img src="../../../assets/shopping-cart (1).png" alt="cart" style="width:18px;">
             </dx-button>
+            <span id="cart-count">{{5}}</span>
         </div>
     </dxi-item>
 
-    <div *dxTemplate="let data of 'hamburgerMenu'">
-        <app-hamburger-menu></app-hamburger-menu>
-    </div> -->
-
     <dxi-item *ngIf="isSmall" location="before">
-        <!-- <p (click)="hamburgerMenu.toggleMenu()">GGG</p> -->
         <dx-button (click)="hamburgerMenu.toggleMenu()" width="fit-content" height="100%">
             <img src="../../../assets/more.png" alt="menu" height="30">
         </dx-button>
     </dxi-item>
-    
-      
 </dx-toolbar>
-
-
 
 <dx-drawer>
     <div class="mainContent">
