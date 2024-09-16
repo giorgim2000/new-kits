@@ -107,8 +107,9 @@ export class TransferItemsComponent implements OnInit, OnDestroy{
   confirmStatus(){
     this.trService.updateTrItems({ids:this.selectedRowKeys, transferred: true}).subscribe({
       next: (res) => {
-        this.refreshGrid();
+        this.getTrItems();
         this.trGrid.instance.clearSelection();
+        this.trGrid.instance.reload();
         this.toastVisible = true;
       },
       error: (err) =>{

@@ -96,13 +96,10 @@ export class AuthService {
     
     const isGuarded = this.isAdminGuardedRoute(this.router.url);
 
-  if (isGuarded) {
-    // If the route is guarded, redirect to the login or home page
-    this.router.navigate(['/login-form']);
-  } else {
-    // If the route is not guarded, just reload the page
-    location.reload();
-  }
+    if (isGuarded)
+      this.router.navigate(['auth', 'signin']);
+    else 
+      location.reload();
   }
 
   private isAdminGuardedRoute(url: string): boolean {

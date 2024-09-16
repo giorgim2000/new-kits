@@ -35,6 +35,7 @@ import { TransferItemsComponent } from './pages/admin-panel/transfer-items/trans
 import { FinaSyncComponent } from './pages/admin-panel/fina-sync/fina-sync.component';
 import { CitiesComponent } from './pages/admin-panel/cities/cities.component';
 import { AddOrderComponent } from './components/add-order/add-order.component';
+import { ShowroomComponent } from './pages/showroom/showroom.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path:'about',
     component: AboutComponent
+  },
+  {
+    path:'showroom',
+    component: ShowroomComponent
   },
   {
     path: 'auth',
@@ -154,7 +159,7 @@ const routes: Routes = [
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
     MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, 
     ProductModelGridComponent,ProductImageGridComponent,CartComponent,StoresComponent, CheckoutComponent, CouriersComponent, MyOrdersComponent, UsersOrdersGridComponent,
-    TransferItemsComponent, FinaSyncComponent, CitiesComponent, AddOrderComponent
+    TransferItemsComponent, FinaSyncComponent, CitiesComponent, AddOrderComponent, ShowroomComponent
   ],
   providers:[AuthService, ScreenManagerService, ModelService, AuthGuardService]
 })

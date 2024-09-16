@@ -1,0 +1,99 @@
+.scrollerContainer ::-webkit-scrollbar{
+    width: 1em;
+}
+
+.scrollerContainer ::-webkit-scrollbar-track{
+    background: linear-gradient(to right,#917359, rgba(92, 112, 246, 0.9))!important;
+}
+
+.scrollerContainer ::-webkit-scrollbar-thumb{
+    background: hsl(52 80% 60% / 1);
+}
+
+.scrollerContainer{
+    inline-size: min(100% - 4rem, 90rem);
+    margin-inline: auto;
+    scroll-behavior: smooth;
+    transition: all .9s ease;
+    display: flex;
+    align-items: center;
+}
+
+.media-scroller{
+    display: grid;
+    gap: var(--size-3);
+    grid-auto-flow: column;
+    grid-auto-columns: 18%;
+    padding:var(--size-3) var(--size-3) var(--size-3);
+    background:transparent;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+    transition: all 0.8s ease-in-out;
+}
+
+.media-element{
+    display: grid;
+    place-items: center;
+    grid-template-rows: min-content;
+    gap: var(--size-5);
+    padding: var(--size-3);
+    background: var(--surface-2);
+    border-radius: var(--radius-2);
+    box-shadow: 3px 3px 3px;
+    background: whitesmoke;
+    transition: all 0.3s ease-in-out;
+}
+
+.media-element:hover{
+    cursor: pointer;
+    background: rgb(234, 233, 233);
+    scale: (1.05);
+}
+
+.media-element > img{
+    inline-size: 100%;
+    aspect-ratio: 5/4;
+    object-fit: contain;
+    transition: scale 0.5s ease-in-out;
+}
+
+.media-element > p{
+  font-weight: 600;
+}
+
+.snaps-inline{
+    scroll-snap-type: inline mandatory;
+    scroll-padding-inline: var(--size-3);
+}
+
+.snaps-inline > *{
+    scroll-snap-align: start;
+}
+
+*{
+  scroll-behavior: smooth !important;
+}
+
+
+.scroll-button {
+    font-size: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: scale 0.4s ease-in-out;
+}
+
+
+.left{
+    height: 50px;
+}
+
+.right{
+    height: 50px;
+}
+
+.scroll-button:hover{
+    scale: (1.2);
+}

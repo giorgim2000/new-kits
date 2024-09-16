@@ -67,6 +67,9 @@ export class UserPanelComponent implements OnInit {
     } else if (this.authService.loggedIn) {
       this.menuItems.splice(1, 0, this.myOrdersItem);
     }
+
+    if(!isAdmin && this.authService.getUsername()?.toLowerCase() == "admin")
+      this.authService.logout();
   });
   }
 }

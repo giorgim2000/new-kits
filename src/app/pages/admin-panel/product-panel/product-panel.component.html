@@ -48,7 +48,11 @@
             <dxi-item dataField="description"></dxi-item>
             <dxi-item dataField="active">
             </dxi-item>
-            <dxi-item dataField="finaCode"></dxi-item>
+            <dxi-item dataField="finaCode">
+              <dx-text-box (onFocusOut)="finaCodeFocusOut($event)">
+
+              </dx-text-box>
+            </dxi-item>
             <dxi-item dataField="barcode"></dxi-item>
             <dxi-item dataField="retailPrice"></dxi-item>
             <dxi-item dataField="retailDiscount"></dxi-item>

@@ -50,6 +50,7 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   }
 
   onChangesSaved(e:any){
+    console.log(e);
     if(e.changes.length > 0 && e.changes[0].type === 'insert'){
       this.productService.createProduct({ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
           retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
@@ -101,5 +102,10 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
 
   closeProductImagePopup(){
     this.imagesVisible = false;
+  }
+
+  finaCodeFocusOut(e:any){
+    console.log(e);
+    this.isLoading = true;
   }
 }

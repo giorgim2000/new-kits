@@ -132,35 +132,40 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   }
 
-  cellPrepared(e:any){
-    // console.log(e);
-    // if(e.rowType == 'data' && e.columnIndex == 5){
-    //   if(e.text == "Recieved")
-    //     e.cellElement.style.background = "white";
+  statusString_Customize(e:any){
+    if(e.value == "Recieved")
+      return "მიღებული";
+  
+    if(e.value.toLowerCase() == "confirmed")
+      return "დადასტურებული";
+  
+    if(e.value.toLowerCase() == "finished")
+      return "დასრულებული";
+  
+    if(e.value.toLowerCase() == "cancelled")
+      return "გაუქმებული";
 
-    //   if(e.text.toLowerCase() == "confirmed")
-    //     e.cellElement.style.background = "rgb(233, 233, 32)";
+    return e.value;
+  }
 
-    //   if(e.text.toLowerCase() == "finished")
-    //     e.cellElement.style.background = "rgb(22, 160, 22)";
+  paymentTypeString_Customize(e:any){
+    if(e.value == "Cash")
+      return "ნაღდი";
+  
+    if(e.value == "Transfer")
+      return "გადარიცხვა";
+  
+    if(e.value.toLowerCase() == "card")
+      return "ბარათი";
+  
+    if(e.value.toLowerCase() == "consig")
+      return "კონსიგნაცია";
 
-    //   if(e.text.toLowerCase() == "cancelled")
-    //     e.cellElement.style.background = "rgb(207, 207, 207)";
-    // }
+    return e.value;
+  }
 
-    // if(e.rowType == 'data' && e.columnIndex == 6){
-    //   if(e.text == "Cash")
-    //     e.displayValue = "ქეში";
-
-    //   if(e.text == "Transfer")
-    //     e.displayValue = "გადარიცხვა";
-
-    //   if(e.text.toLowerCase() == "card")
-    //     e.displayValue = "ბარათი";
-
-    //   if(e.text.toLowerCase() == "consig")
-    //     e.displayValue = "კონსიგნაცია";
-    // }
+  amount_Customize(e:any){
+    return e.value + "₾";
   }
 
   goToPdf = (e:any) => {

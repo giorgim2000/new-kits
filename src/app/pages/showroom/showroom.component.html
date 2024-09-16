@@ -1,1 +1,10 @@
-<p>showroom works!</p>
+<div class="scrollerContainer">
+    <img src="../../../assets/left-arrow.png" class="scroll-button left" (click)="scrollLeft()">
+    <div class="media-scroller snaps-inline" [@fadeInList] *ngIf="showMakes">
+        <div class="media-element" *ngFor="let item of makes" (click)="onMakeClick(item)">
+            <img [src]="item.imageUrl" [alt]="item.makeName">
+            <p class="title">{{item.makeName}}</p>
+        </div>
+    </div>
+    <img src="../../../assets/right-arrow.png" class="scroll-button right" (click)="scrollRight()">
+</div>

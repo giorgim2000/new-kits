@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { retry } from 'rxjs';
 import { IUserOrder } from 'src/app/Dto\'s/order';
 
 @Component({
@@ -25,6 +26,42 @@ export class UsersOrdersGridComponent implements OnInit, OnDestroy {
 
   getData(){
 
+  }
+
+  status_customize(e:any){
+    if(e.value == 0)
+      return "მიღებული";
+    
+    if(e.value == 1)
+      return "დადასტურებული";
+
+    if(e.value == 2)
+      return "დასრულებული";
+
+    if(e.value == 3)
+      return "გაუქმებული";
+
+    return e.value;
+  }
+
+  paymentType_customize(e:any){
+    if(e.value == 0)
+      return "ნაღდი";
+
+    if(e.value == 1)
+      return "გადარიცხვა";
+
+    if(e.value == 2)
+      return "ბარათი";
+
+    if(e.value == 3)
+      return "კონსიგნაცია";
+
+    return e.value;
+  }
+
+  sum_customize(e:any){
+    return e.value + "₾";
   }
 
   popupShown(){

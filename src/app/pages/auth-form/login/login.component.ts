@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DxFormModule, DxLoadIndicatorModule } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
+import { firstValueFrom } from 'rxjs';
+import { UserForAuthenticationDto } from 'src/app/Dto\'s/User';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -16,25 +18,51 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  onSubmit(e: Event) {
-    // e.preventDefault();
-    // const { email, password } = this.formData;
-    // this.loading = true;
+  // onSubmit(e: Event) {
+  //   e.preventDefault();
+  //   const { email, password } = this.formData;
+  //   this.loading = true;
 
-    // this.authService.logIn(email, password).subscribe({
-    //   next: (res) => {
-    //     if(res.isOk){
-    //       this.loading = false;
-    //       this.router.navigate(['home']);
-    //     }
-    //     this.loading = false;
-    //   },
-    //   error: (err) => {
-    //     console.log("CHUCHLIKA");
-    //   }
-    // });
+  //   this.authService.logIn(email, password).subscribe({
+  //     next: (res) => {
+  //       if(res.isOk){
+  //         this.loading = false;
+  //         this.router.navigate(['home']);
+  //       }
+  //       this.loading = false;
+  //     },
+  //     error: (err) => {
+  //       console.log("CHUCHLIKA");
+  //     }
+  //   });
+  //   console.log(this.formData);
+  // }
+
+  loginUser = async (loginFormValue: any) => {
+    console.log(loginFormValue);
+    const login = { ...loginFormValue };
     console.log(this.formData);
-  }
+    const userForAuth: UserForAuthenticationDto = {
+      username: this.formData.email,
+      password: this.formData.password
+    };
+    
+    this.loading = true;
+  
+    try {
+      const res = await firstValueFrom(this.authService.loginUser('api/accounts/login', userForAuth));
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('username', userForAuth.username.toLowerCase());
+      await this.authService.sendAuthStateChangeNotification(true);
+      this.router.navigate(["/home"]);
+    } catch (err) {
+      console.log(err);
+      //this.toastVisible = true;
+    } finally {
+      this.loading = false;
+    }
+  };
+
 
   onCreateAccountClick = () => {
     this.router.navigate(['auth', 'register']);
