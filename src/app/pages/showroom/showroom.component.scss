@@ -11,8 +11,10 @@
 }
 
 .scrollerContainer{
-    inline-size: min(100% - 4rem, 90rem);
-    margin-inline: auto;
+    inline-size: min(100% - 300px, 90rem);
+    padding: 15px;
+    // inline-size: min(100% - 4rem, 90rem);
+    // margin-inline: auto;
     scroll-behavior: smooth;
     transition: all .9s ease;
     display: flex;
@@ -32,6 +34,12 @@
     transition: all 0.8s ease-in-out;
 }
 
+.modelsByYear{
+    grid-auto-flow: row;
+    grid-auto-rows: 10%;
+    grid-auto-columns: 100%;
+}
+
 .media-element{
     display: grid;
     place-items: center;
@@ -48,7 +56,7 @@
 .media-element:hover{
     cursor: pointer;
     background: rgb(234, 233, 233);
-    scale: (1.05);
+    //scale: (1.05);
 }
 
 .media-element > img{
@@ -60,6 +68,7 @@
 
 .media-element > p{
   font-weight: 600;
+  color: black;
 }
 
 .snaps-inline{
@@ -97,3 +106,24 @@
 .scroll-button:hover{
     scale: (1.2);
 }
+
+.hover-content {
+    height: 90%;
+    overflow-y: scroll;
+    padding: 5px;
+    visibility: hidden;
+    width: 200px;
+    background-color:#333 ;
+    color: #f9f9f9;
+    text-align: center;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    transition: all 1s ease-in-out;
+  }
+  
+  .hover-content.visible {
+    visibility: visible;
+    opacity: 1;
+  }

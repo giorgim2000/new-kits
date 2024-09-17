@@ -1,10 +1,23 @@
-<div class="scrollerContainer">
-    <img src="../../../assets/left-arrow.png" class="scroll-button left" (click)="scrollLeft()">
-    <div class="media-scroller snaps-inline" [@fadeInList] *ngIf="showMakes">
-        <div class="media-element" *ngFor="let item of makes" (click)="onMakeClick(item)">
-            <img [src]="item.imageUrl" [alt]="item.makeName">
-            <p class="title">{{item.makeName}}</p>
+
+<div class="mainDiv">
+    <div class="scrollerContainer">
+        <img src="../../../assets/left-arrow.png" class="scroll-button left" (click)="scrollLeft()">
+        <div class="media-scroller snaps-inline" [@fadeInList]>
+            <div class="media-element" *ngFor="let item of models" (click)="onModelClick(item)">
+                <img [src]="item.imageUrl" [alt]="item.modelName">
+                <p class="title">{{item.modelName}}</p>
+            </div>
         </div>
+        <div class="hover-content" [ngClass]="{'visible': modelClicked}">
+            <img src="../../../assets/up.png" class="scroll-button left" (click)="scrollUp()">
+            <div class="media-scroller snaps-inline modelsByYear" [@fadeInList]>
+                <div class="media-element" *ngFor="let item of modelsByYear" (click)="onModelByYearClick(item)">
+                    <img [src]="item.imageUrl" [alt]="item.modelByYearName">
+                    <p class="title">{{item.modelByYearName}}</p>
+                </div>
+            </div>
+            <img src="../../../assets/down.png" class="scroll-button right" (click)="scrollDown()">
+        </div>
+        <img src="../../../assets/right-arrow.png" class="scroll-button right" (click)="scrollRight()">
     </div>
-    <img src="../../../assets/right-arrow.png" class="scroll-button right" (click)="scrollRight()">
 </div>

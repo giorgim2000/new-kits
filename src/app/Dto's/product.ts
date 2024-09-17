@@ -28,6 +28,7 @@ export class Product{
     isInCart?:boolean;
     quantityInCart?:number;
     crDate!:Date;
+    finaProductName?:string;
 }
 
 export class CreateProduct{

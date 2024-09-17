@@ -1,5 +1,10 @@
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Model } from 'src/app/Dto\'s/model';
+import { ModelByYear } from 'src/app/Dto\'s/modelByYear';
+import { ModelByYearService } from 'src/app/services/model-by-year.service';
+import { ModelService } from 'src/app/services/model.service';
+import { ShowroomService } from 'src/app/services/showroom.service';
 
 @Component({
   selector: 'app-showroom',
@@ -27,9 +32,44 @@ import { Component } from '@angular/core';
     ]),
   ]
 })
-export class ShowroomComponent {
+export class ShowroomComponent implements OnInit, OnDestroy {
+  modelClicked = false;
+  models : Model[] = [];
+  modelsByYear : ModelByYear[] = [];
 
-  constructor(){}
+  constructor(private modelService:ModelService, private modelByYearService:ModelByYearService, private showroomService:ShowroomService){}
+
+  ngOnInit(): void {
+    this.getModels();
+  }
+
+  ngOnDestroy(): void {
+    this.modelService.ngOnDestroy();
+    this.modelByYearService.ngOnDestroy();
+    
+  }
+
+
+  getModels(){
+    this.modelService.getModels().subscribe({
+      next:(res) => this.models = res,
+      error:(err)=> console.log(err)
+    })
+  }
+
+  onModelClick(e:any){
+    this.modelByYearService.getModelsByYear(undefined, e.id).subscribe({
+      next:(res) => {
+        this.modelsByYear = res;
+        this.modelClicked = true;
+      },
+      error:(err) => console.log(err)
+    })
+  }
+
+  onModelByYearClick(e:any){
+
+  }
 
   scrollLeft() {
     const container = document.querySelector('.media-scroller')!;
@@ -39,5 +79,15 @@ export class ShowroomComponent {
   scrollRight() {
     const container = document.querySelector('.media-scroller')!;
     container.scrollLeft += 900;
+  }
+
+  scrollUp(){
+    const container = document.querySelector('.modelsByYear')!;
+    container.scrollTop -= 900;
+  }
+
+  scrollDown(){
+    const container = document.querySelector('.modelsByYear')!;
+    container.scrollTop += 900;
   }
 }
