@@ -26,7 +26,7 @@
     <p id="cartTitle">კალათა</p>
   </div>
   <div class="shopping-cart">
-    <div class="cart-item">
+    <div class="cart-item headerRow">
       <div class="cart-item-details header">
         <div class="cart-item-name">დასახელება</div>
         <div class="cart-item-quantity">რაოდენობა</div>
@@ -62,7 +62,7 @@
     </div>
     <div class="cart-summary">
       <div style="margin-bottom: 18px;">ჯამი: {{ getTotalPrice() }}₾</div>
-      <dx-button text="შეძენა" (onClick)="checkout()" type="success" [disabled]="cart.length == 0"></dx-button>
+      <dx-button text="შეძენა" (onClick)="checkout()" type="success" [disabled]="cart.length == 0" width="130"></dx-button>
     </div>
   </div>
 </div>

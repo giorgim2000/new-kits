@@ -51,27 +51,27 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
 
   onChangesSaved(e:any){
     console.log(e);
-    if(e.changes.length > 0 && e.changes[0].type === 'insert'){
-      this.productService.createProduct({ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
-          retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
-          wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
-          comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: e.changes[0].data.finaCode, Barcode: e.changes[0].data.barcode
-      }).subscribe({
-        next:(res) => this.getProducts(),
-        error:(err)=>console.log(err)
-      });
-    }
+    // if(e.changes.length > 0 && e.changes[0].type === 'insert'){
+    //   this.productService.createProduct({ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
+    //       retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
+    //       wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
+    //       comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: e.changes[0].data.finaCode, Barcode: e.changes[0].data.barcode
+    //   }).subscribe({
+    //     next:(res) => this.getProducts(),
+    //     error:(err)=>console.log(err)
+    //   });
+    // }
 
-    if(e.changes.length > 0 && e.changes[0].type === 'update' && e.changes[0].data != undefined){
-      this.productService.updateProduct(e.changes[0].data.id, {ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
-        retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
-        wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
-        comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: e.changes[0].data.finaCode, Barcode: e.changes[0].data.barcode
-    }).subscribe({
-      next:(res) => this.getProducts(),
-      error:(err)=>console.log(err)
-    });
-    }
+    // if(e.changes.length > 0 && e.changes[0].type === 'update' && e.changes[0].data != undefined){
+    //   this.productService.updateProduct(e.changes[0].data.id, {ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
+    //     retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
+    //     wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
+    //     comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: e.changes[0].data.finaCode, Barcode: e.changes[0].data.barcode
+    // }).subscribe({
+    //   next:(res) => this.getProducts(),
+    //   error:(err)=>console.log(err)
+    // });
+    // }
   }
 
   removeProduct(e:any){

@@ -1,5 +1,6 @@
 .main{
   display: block;
+  background-color: whitesmoke;
 }
 
 .pageTitle{
@@ -32,6 +33,7 @@
   min-height: calc(100vh - 400px);
   overflow-y: auto;
   border: 1px groove;
+  background-color: #ffff;
 }
 
 .cart-item {
@@ -39,7 +41,12 @@
   align-items: center;
   margin-bottom: 20px;
   border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+  padding: 10px 0;
+  
+}
+
+.headerRow{
+  background: #e1dede;
 }
 
 .cart-item-image {
@@ -84,8 +91,10 @@
 
 .cart-summary {
   text-align: right;
-  margin-top: 20px;
+  margin-top: 14px;
   font-size: 18px;
+  background: white;
+  padding: 10px;
 }
 
 @media screen and (max-width:850px){

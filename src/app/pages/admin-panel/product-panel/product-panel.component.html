@@ -44,25 +44,49 @@
           <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
             <dxi-item dataField="productName">
               <dxi-validation-rule type="required"></dxi-validation-rule>
+              <dx-text-box></dx-text-box>
             </dxi-item>
-            <dxi-item dataField="description"></dxi-item>
+            <dxi-item dataField="description">
+              <dx-text-box></dx-text-box>
+            </dxi-item>
             <dxi-item dataField="active">
+              <dx-check-box></dx-check-box>
             </dxi-item>
             <dxi-item dataField="finaCode">
               <dx-text-box (onFocusOut)="finaCodeFocusOut($event)">
 
               </dx-text-box>
             </dxi-item>
-            <dxi-item dataField="barcode"></dxi-item>
-            <dxi-item dataField="retailPrice"></dxi-item>
-            <dxi-item dataField="retailDiscount"></dxi-item>
-            <dxi-item dataField="semiWholeSalePrice"></dxi-item>
-            <dxi-item dataField="semiWholeSaleDiscount"></dxi-item>
-            <dxi-item dataField="wholeSalePrice"></dxi-item>
-            <dxi-item dataField="wholeSaleDiscount"></dxi-item>
+            <dxi-item dataField="barcode">
+              <dx-text-box>
+
+              </dx-text-box>
+            </dxi-item>
+            <dxi-item dataField="retailPrice">
+              <dx-number-box></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="retailDiscount">
+              <dx-number-box></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="semiWholeSalePrice">
+              <dx-number-box></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="semiWholeSaleDiscount">
+              <dx-number-box></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="wholeSalePrice">
+              <dx-number-box></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="wholeSaleDiscount">
+              <dx-number-box></dx-number-box>
+            </dxi-item>
             <!-- <dxi-item dataField="inStockNumber"></dxi-item> -->
-            <dxi-item dataField="warranty"></dxi-item>
-            <dxi-item dataField="comingSoon"></dxi-item>
+            <dxi-item dataField="warranty">
+              <dx-number-box></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="comingSoon">
+              <dx-check-box></dx-check-box>
+            </dxi-item>
           </dxi-item>
         </dxo-form>
       </dxo-editing>
