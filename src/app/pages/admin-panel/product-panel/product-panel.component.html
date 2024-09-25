@@ -14,6 +14,10 @@
     (onRowRemoving)="removeProduct($event)"
     (onEditorPreparing)="onEditorPrep($event)"
     (onCellPrepared)="addPercentToNum($event)"
+    (onEditingStart)="editStart($event)"
+    (onEditCanceled)="cancel($event)"
+    (editingChange)="cancel1($event)"
+    (onEditCanceling)="cancel2($event)"
     noDataText="ცხრილი ცარიელია"
     >
       <!-- <dxo-toolbar>
@@ -29,6 +33,7 @@
       [allowAdding]="true"
       [allowUpdating]="true"
       [allowDeleting]="true"
+      [useIcons]="true"
       >
         <dxo-popup
           title="რედაქტირება"
@@ -39,55 +44,90 @@
           [closeOnOutsideClick]="true"
           [showCloseButton]="true"
         >
+        
         </dxo-popup>
-        <dxo-form>
-          <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+        <!-- <dxo-form>
+          <dxi-item itemType="group" [colCount]="1" [colSpan]="1" caption="ინფორმაცია">
             <dxi-item dataField="productName">
               <dxi-validation-rule type="required"></dxi-validation-rule>
-              <dx-text-box></dx-text-box>
+              <dx-text-box [(value)]="productName" maxLength="100"></dx-text-box>
             </dxi-item>
             <dxi-item dataField="description">
-              <dx-text-box></dx-text-box>
+              <dx-text-area [(value)]="description"></dx-text-area>
             </dxi-item>
-            <dxi-item dataField="active">
-              <dx-check-box></dx-check-box>
+            <dxi-item dataField="finaProductName">
+              <dx-text-box [(value)]="finaProductName"></dx-text-box>
             </dxi-item>
             <dxi-item dataField="finaCode">
-              <dx-text-box (onFocusOut)="finaCodeFocusOut($event)">
-
+              <dx-text-box [(value)]="finaCode" (onFocusOut)="finaCodeFocusOut($event)">
               </dx-text-box>
             </dxi-item>
             <dxi-item dataField="barcode">
-              <dx-text-box>
-
-              </dx-text-box>
+              <dx-text-box [(value)]="barCode"></dx-text-box>
             </dxi-item>
-            <dxi-item dataField="retailPrice">
-              <dx-number-box></dx-number-box>
-            </dxi-item>
-            <dxi-item dataField="retailDiscount">
-              <dx-number-box></dx-number-box>
-            </dxi-item>
-            <dxi-item dataField="semiWholeSalePrice">
-              <dx-number-box></dx-number-box>
-            </dxi-item>
-            <dxi-item dataField="semiWholeSaleDiscount">
-              <dx-number-box></dx-number-box>
-            </dxi-item>
-            <dxi-item dataField="wholeSalePrice">
-              <dx-number-box></dx-number-box>
-            </dxi-item>
-            <dxi-item dataField="wholeSaleDiscount">
-              <dx-number-box></dx-number-box>
-            </dxi-item>
-            <!-- <dxi-item dataField="inStockNumber"></dxi-item> -->
             <dxi-item dataField="warranty">
-              <dx-number-box></dx-number-box>
-            </dxi-item>
-            <dxi-item dataField="comingSoon">
-              <dx-check-box></dx-check-box>
+              <dx-number-box [(value)]="warranty"></dx-number-box>
             </dxi-item>
           </dxi-item>
+        
+          
+          <dxi-item itemType="group" [colCount]="1" colSpan="1" caption="ფასები">
+            <dxi-item dataField="retailPrice" [colSpan]="1">
+              <dx-number-box [(value)]="retailPrice"></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="retailDiscount" [colSpan]="1">
+              <dx-number-box [(value)]="retailDiscount"></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="semiWholeSalePrice" [colSpan]="1">
+              <dx-number-box [(value)]="semiWholeSalePrice"></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="semiWholeSaleDiscount" [colSpan]="1">
+              <dx-number-box [(value)]="semiWholeSaleDiscount"></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="wholeSalePrice" [colSpan]="1">
+              <dx-number-box [(value)]="wholeSalePrice"></dx-number-box>
+            </dxi-item>
+            <dxi-item dataField="wholeSaleDiscount" [colSpan]="1">
+              <dx-number-box [(value)]="wholeSaleDiscount"></dx-number-box>
+            </dxi-item>
+          </dxi-item>
+        
+          
+          <dxi-item itemType="group" [colCount]="2">
+            
+            <dxi-item dataField="active">
+              <dx-check-box [(value)]="active"></dx-check-box>
+            </dxi-item>
+            <dxi-item dataField="comingSoon">
+              <dx-check-box [(value)]="comingSoon"></dx-check-box>
+            </dxi-item>
+          </dxi-item>
+        </dxo-form> -->
+
+
+        <dxo-form>
+          <dxi-item itemType="group" [colCount]="1" [colSpan]="1" caption="ინფორმაცია">
+            <dxi-item dataField="productName">
+              <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="description"></dxi-item>
+            <dxi-item dataField="finaProductName"></dxi-item>
+            <dxi-item dataField="finaCode"></dxi-item>
+            <dxi-item dataField="barcode"></dxi-item>
+            <dxi-item dataField="warranty"></dxi-item>
+          </dxi-item>
+          
+          <dxi-item itemType="group" [colCount]="1" colSpan="1" caption="ფასები">
+            <dxi-item dataField="retailPrice"></dxi-item>
+            <dxi-item dataField="retailDiscount"></dxi-item>
+            <dxi-item dataField="semiWholeSalePrice"></dxi-item>
+            <dxi-item dataField="semiWholeSaleDiscount"></dxi-item>
+            <dxi-item dataField="wholeSalePrice"></dxi-item>
+            <dxi-item dataField="wholeSaleDiscount"></dxi-item>
+          </dxi-item>
+            <dxi-item dataField="active"></dxi-item>
+            <dxi-item dataField="comingSoon"></dxi-item>
+          
         </dxo-form>
       </dxo-editing>
 
@@ -95,7 +135,7 @@
 
       <dxi-column dataType="number" dataField="id" [visible]="false"></dxi-column>
       <dxi-column dataType="string" dataField="productName" caption="დასახელება" [allowEditing]="true" [minWidth]="100" ></dxi-column>
-      <dxi-column dataType="string" dataField="description" caption="აღწერა" [allowEditing]="true"></dxi-column>
+      <dxi-column dataType="string" dataField="description" caption="აღწერა" [allowEditing]="true" editCellTemplate="descTemp"></dxi-column>
       <dxi-column dataType="number" dataField="retailPrice" caption="საცალო ფასი" [allowEditing]="true"></dxi-column>
       <dxi-column dataType="number" dataField="retailDiscount" caption="საცალო ფასდაკლება" [allowEditing]="true"></dxi-column>
       <dxi-column dataType="number" dataField="semiWholeSalePrice" caption="ნახ-საბ. ფასი" [allowEditing]="true"></dxi-column>
@@ -111,11 +151,13 @@
       </dxi-column>
       <dxi-column dataType="boolean" dataField="comingSoon" caption="გზაშია" [allowEditing]="true" [visible]="false">
       </dxi-column>
-      <dxi-column dataType="string" dataField="finaCode" caption="კოდი" [allowEditing]="true">
+      <dxi-column dataType="string" dataField="finaCode" caption="კოდი" [allowEditing]="true" editCellTemplate="finaCodeTemp">
       </dxi-column>
       <dxi-column dataType="string" dataField="barcode" caption="შტრიხკოდი" [allowEditing]="true">
       </dxi-column>
       <dxi-column dataType="boolean" dataField="active" caption="აქტიური" [allowEditing]="true"></dxi-column>
+      <dxi-column dataType="string" dataField="finaProductName" caption="დასახელება ფინაში" [allowEditing]="true" editCellTemplate="finaNameTemp">
+      </dxi-column>
       <dxi-column type="buttons" width="70">
         <dxi-button
         hint="მოდელები"
@@ -129,18 +171,36 @@
         [onClick]="showImages"
         ></dxi-button>
       </dxi-column>
-      <!-- <dxi-column type="buttons" caption="სურათები" width="70">
-        
-      </dxi-column> -->
       <dxi-column type="buttons" width="70">
         <dxi-button name="edit" icon="edit"></dxi-button>
         <dxi-button name="delete" icon="trash"></dxi-button>
       </dxi-column>
-      <dx-load-indicator [visible]="isLoading"></dx-load-indicator>
+
+      <div *dxTemplate="let data of 'finaNameTemp'">
+        <dx-text-box [(value)]="data.value ?? finaProductName"></dx-text-box>
+      </div>
+      <div *dxTemplate="let data of 'finaCodeTemp'">
+        <dx-text-box [(value)]="data.value ?? finaCode" (onFocusOut)="finaCodeFocusOut($event)">
+        </dx-text-box>
+      </div>
+      <div *dxTemplate="let data of 'descTemp'">
+        <dx-text-area>
+        </dx-text-area>
+      </div>
+
+
     </dx-data-grid>
     
 </div>
 
+<dx-load-panel
+shadingColor="rgba(0,0,0,0.4)"
+[visible]="loading"
+[showIndicator]="true"
+[showPane]="true"
+[shading]="true"
+[hideOnOutsideClick]="false"
+></dx-load-panel>
 <app-product-model-grid [popupVisible]="productModelPopupVisible" [productId]="selectedProductId" (closePopup)="closeProductModelPopup()"></app-product-model-grid>
 <app-product-image-grid [imagePopupVisible]="imagesVisible" [productId]="selectedProductId!" (closePopup)="closeProductImagePopup()"></app-product-image-grid>
 

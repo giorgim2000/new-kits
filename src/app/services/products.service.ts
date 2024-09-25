@@ -42,6 +42,10 @@ export class ProductsService {
     )
   }
 
+  getProductsByFinaCode(code:string){
+    return this.http.get<string>(this.url + `/code/${code}`,{ responseType: 'text' as 'json' });
+  }
+
   createProduct(product:CreateProduct){
     let header = new HttpHeaders({
       'Content-Type': "application/json"

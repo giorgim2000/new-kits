@@ -8,7 +8,7 @@
     //gap: 20px;
 
     gap: 4px;
-    flex-direction: column;
+    //flex-direction: column;
     padding: 10px 4px;
 }
 
@@ -16,13 +16,6 @@
     border-top: 1px groove;
     padding: 5px 0px;
     width: 100%;
-}
-
-.dx-menu-horizontal{
-    ul{
-        display: flex !important;
-        flex-wrap: wrap !important;
-    }
 }
 
 @media (max-width: 796px) {

@@ -17,7 +17,22 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   selectedProductId : number | undefined;
   productModelPopupVisible = false;
   imagesVisible = false;
-  isLoading = false;
+  loading=false;
+
+  productName!:string;
+  description!:string;
+  finaProductName!:string;
+  finaCode!:string;
+  barCode!:string;
+  active:boolean = true;
+  retailPrice!:number;
+  retailDiscount!:number;
+  semiWholeSalePrice!:number;
+  semiWholeSaleDiscount!:number;
+  wholeSalePrice!:number;
+  wholeSaleDiscount!:number;
+  warranty!:number;
+  comingSoon!:boolean;
 
 
   constructor(private productService:ProductsService, private modelByYearService:ModelByYearService){}
@@ -32,13 +47,14 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   }
 
   getProducts(){
-    this.isLoading = true;
+    this.loading = true;
     this.productService.getProducts(true).subscribe({
       next:(res)=>{
         this.products = res;
         this.productGrid.instance.refresh();
-        this.isLoading = false;
-      }
+        this.loading = false;
+      },
+      error:(err)=>this.loading = false
     })
   }
 
@@ -49,8 +65,37 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
     return e.value;
   }
 
+  editStart(e:any){
+    this.productName = e.data.productName;
+    this.description = e.data.description;
+    //this.finaProductName = e.data.finaProductName;
+    this.finaCode = e.data.finaCode;
+    this.barCode = e.data.barcode;
+    this.warranty = e.data.warranty;
+    this.retailPrice = e.data.retailPrice;
+    this.retailDiscount = e.data.retailDiscount;
+    this.semiWholeSalePrice = e.data.semiWholeSalePrice;
+    this.semiWholeSaleDiscount = e.data.semiWholeSaleDiscount;
+    this.wholeSalePrice = e.data.wholeSalePrice;
+    this.wholeSaleDiscount = e.data.wholeSaleDiscount;
+    this.active = e.data.active;
+    this.comingSoon = e.data.comingSoon;
+    console.log(e);
+  }
+
+  cancel(e:any){
+    console.log(e);
+  }
+  cancel1(e:any){
+    console.log(e);
+  }
+  cancel2(e:any){
+    console.log(e);
+  }
+
   onChangesSaved(e:any){
     console.log(e);
+    console.log(this.productName);
     // if(e.changes.length > 0 && e.changes[0].type === 'insert'){
     //   this.productService.createProduct({ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
     //       retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
@@ -103,9 +148,35 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   closeProductImagePopup(){
     this.imagesVisible = false;
   }
-
+  
   finaCodeFocusOut(e:any){
-    console.log(e);
-    this.isLoading = true;
+    this.loading = true;
+    this.productService.getProductsByFinaCode(e.component._changedValue).subscribe({
+      next:(res) => {
+        this.finaProductName = res as string;
+        this.loading = false;
+      },
+      error:(err)=> 
+        {
+          console.log(err);
+          this.loading = false;
+        }
+    });
+  }
+
+  resetForm() {
+    this.productName = '';
+    this.description = '';
+    this.finaCode = '';
+    this.barCode = '';
+    this.warranty = 0;
+    this.retailPrice = 0;
+    this.retailDiscount = 0;
+    this.semiWholeSalePrice = 0;
+    this.semiWholeSaleDiscount = 0;
+    this.wholeSalePrice = 0;
+    this.wholeSaleDiscount = 0;
+    this.active = true;
+    this.comingSoon = false;
   }
 }
