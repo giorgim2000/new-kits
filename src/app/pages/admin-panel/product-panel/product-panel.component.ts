@@ -18,6 +18,8 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   productModelPopupVisible = false;
   imagesVisible = false;
   loading=false;
+  warningPopupVisible = false;
+  warningPopupText = "";
 
   productName!:string;
   description!:string;
@@ -83,16 +85,6 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
     console.log(e);
   }
 
-  cancel(e:any){
-    console.log(e);
-  }
-  cancel1(e:any){
-    console.log(e);
-  }
-  cancel2(e:any){
-    console.log(e);
-  }
-
   onChangesSaved(e:any){
     console.log(e);
     console.log(this.productName);
@@ -155,6 +147,7 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
       next:(res) => {
         this.finaProductName = res as string;
         this.loading = false;
+        this.warningPopupVisible = true;
       },
       error:(err)=> 
         {
@@ -162,6 +155,10 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
           this.loading = false;
         }
     });
+  }
+
+  warningPopupClosing(){
+    this.warningPopupVisible = false;
   }
 
   resetForm() {

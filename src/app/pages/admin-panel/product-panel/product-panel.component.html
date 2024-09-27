@@ -15,9 +15,6 @@
     (onEditorPreparing)="onEditorPrep($event)"
     (onCellPrepared)="addPercentToNum($event)"
     (onEditingStart)="editStart($event)"
-    (onEditCanceled)="cancel($event)"
-    (editingChange)="cancel1($event)"
-    (onEditCanceling)="cancel2($event)"
     noDataText="ცხრილი ცარიელია"
     >
       <!-- <dxo-toolbar>
@@ -192,6 +189,12 @@
     </dx-data-grid>
     
 </div>
+
+<dx-popup
+[visible]="warningPopupVisible"
+[textContent]="warningPopupText"
+(onHidden)="warningPopupClosing()"
+></dx-popup>
 
 <dx-load-panel
 shadingColor="rgba(0,0,0,0.4)"
