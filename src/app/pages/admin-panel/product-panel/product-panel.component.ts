@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { ModelByYear } from 'src/app/Dto\'s/modelByYear';
-import { Product, ProductModel } from 'src/app/Dto\'s/product';
+import { CreateProduct, Product, ProductModel } from 'src/app/Dto\'s/product';
 import { ModelByYearService } from 'src/app/services/model-by-year.service';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -19,22 +19,21 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   imagesVisible = false;
   loading=false;
   warningPopupVisible = false;
-  warningPopupText = "";
 
   productName!:string;
   description!:string;
   finaProductName!:string;
   finaCode!:string;
-  barCode!:string;
-  active:boolean = true;
-  retailPrice!:number;
-  retailDiscount!:number;
-  semiWholeSalePrice!:number;
-  semiWholeSaleDiscount!:number;
-  wholeSalePrice!:number;
-  wholeSaleDiscount!:number;
-  warranty!:number;
-  comingSoon!:boolean;
+  // barCode!:string;
+  // active:boolean = true;
+  // retailPrice!:number;
+  // retailDiscount!:number;
+  // semiWholeSalePrice!:number;
+  // semiWholeSaleDiscount!:number;
+  // wholeSalePrice!:number;
+  // wholeSaleDiscount!:number;
+  // warranty!:number;
+  // comingSoon!:boolean;
 
 
   constructor(private productService:ProductsService, private modelByYearService:ModelByYearService){}
@@ -68,47 +67,43 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   }
 
   editStart(e:any){
-    this.productName = e.data.productName;
     this.description = e.data.description;
-    //this.finaProductName = e.data.finaProductName;
+    this.finaProductName = e.data.finaProductName;
     this.finaCode = e.data.finaCode;
-    this.barCode = e.data.barcode;
-    this.warranty = e.data.warranty;
-    this.retailPrice = e.data.retailPrice;
-    this.retailDiscount = e.data.retailDiscount;
-    this.semiWholeSalePrice = e.data.semiWholeSalePrice;
-    this.semiWholeSaleDiscount = e.data.semiWholeSaleDiscount;
-    this.wholeSalePrice = e.data.wholeSalePrice;
-    this.wholeSaleDiscount = e.data.wholeSaleDiscount;
-    this.active = e.data.active;
-    this.comingSoon = e.data.comingSoon;
-    console.log(e);
+    this.productName = e.data.productName;
   }
 
   onChangesSaved(e:any){
-    console.log(e);
-    console.log(this.productName);
-    // if(e.changes.length > 0 && e.changes[0].type === 'insert'){
-    //   this.productService.createProduct({ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
-    //       retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
-    //       wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
-    //       comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: e.changes[0].data.finaCode, Barcode: e.changes[0].data.barcode
-    //   }).subscribe({
-    //     next:(res) => this.getProducts(),
-    //     error:(err)=>console.log(err)
-    //   });
-    // }
+    if(e.changes.length > 0 && e.changes[0].type === 'insert'){
+      var product : CreateProduct = {ProductName:this.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
+        retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
+        wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
+        comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: e.changes[0].data.finaCode, Barcode: e.changes[0].data.barcode,finaProductName: this.finaProductName
+      };
+      this.productService.createProduct(product).subscribe({
+        next:(res) => this.getProducts(),
+        error:(err)=>console.log(err)
+      });
+    }
 
-    // if(e.changes.length > 0 && e.changes[0].type === 'update' && e.changes[0].data != undefined){
-    //   this.productService.updateProduct(e.changes[0].data.id, {ProductName:e.changes[0].data.productName, description:e.changes[0].data.description, retailPrice:e.changes[0].data.retailPrice,
-    //     retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
-    //     wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
-    //     comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: e.changes[0].data.finaCode, Barcode: e.changes[0].data.barcode
-    // }).subscribe({
-    //   next:(res) => this.getProducts(),
-    //   error:(err)=>console.log(err)
-    // });
-    // }
+    if(e.changes.length > 0 && e.changes[0].type === 'update' && e.changes[0].data != undefined){
+      var editedProduct : CreateProduct = {ProductName:this.productName, description: this.description, retailPrice:e.changes[0].data.retailPrice,
+        retailDiscount:e.changes[0].data.retailDiscount, semiWholeSalePrice: e.changes[0].data.semiWholeSalePrice, semiWholeSaleDiscount:e.changes[0].data.semiWholeSaleDiscount,
+        wholeSalePrice: e.changes[0].data.wholeSalePrice, wholeSaleDiscount: e.changes[0].data.wholeSaleDiscount, warranty: e.changes[0].data.warranty,
+        comingSoon: e.changes[0].data.comingSoon, active: e.changes[0].data.active, FinaCode: this.finaCode, Barcode: e.changes[0].data.barcode, finaProductName: this.finaProductName
+      };
+      this.productService.updateProduct(e.changes[0].data.id, editedProduct).subscribe({
+      next:(res) => this.getProducts(),
+      error:(err)=>console.log(err)
+    });
+    }
+  }
+
+  onEditPopupHidden = (e:any) =>{
+    this.description = "";
+    this.finaCode = "";
+    this.finaProductName = "";
+    this.productName = "";
   }
 
   removeProduct(e:any){
@@ -143,9 +138,12 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
   
   finaCodeFocusOut(e:any){
     this.loading = true;
-    this.productService.getProductsByFinaCode(e.component._changedValue).subscribe({
-      next:(res) => {
-        this.finaProductName = res as string;
+    this.productService.getProductsByFinaCode(e.component._changedValue).subscribe({ 
+      next:(res : any) => {
+        console.log(res);
+        this.finaProductName = res.finaName;
+        if(res.Name != null)
+          this.productName = res.name;
         this.loading = false;
         this.warningPopupVisible = true;
       },
@@ -159,21 +157,5 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
 
   warningPopupClosing(){
     this.warningPopupVisible = false;
-  }
-
-  resetForm() {
-    this.productName = '';
-    this.description = '';
-    this.finaCode = '';
-    this.barCode = '';
-    this.warranty = 0;
-    this.retailPrice = 0;
-    this.retailDiscount = 0;
-    this.semiWholeSalePrice = 0;
-    this.semiWholeSaleDiscount = 0;
-    this.wholeSalePrice = 0;
-    this.wholeSaleDiscount = 0;
-    this.active = true;
-    this.comingSoon = false;
   }
 }

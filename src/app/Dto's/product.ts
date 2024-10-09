@@ -40,13 +40,14 @@ export class CreateProduct{
     semiWholeSaleDiscount?:number;
     wholeSalePrice?:number;
     wholeSaleDiscount?:number;
-    productImages?:File[];
-    modelsByYearIds?:number[];
+    //productImages?:File[];
+    //modelsByYearIds?:number[];
     warranty?:number;
     comingSoon?:boolean;
     active?:boolean;
     FinaCode?:string;
     Barcode?:string;
+    finaProductName?:string;
 }
 
 export class Store{

@@ -40,6 +40,7 @@
           minWidth="min(100%, 500px)"
           [closeOnOutsideClick]="true"
           [showCloseButton]="true"
+          [onHidden]="onEditPopupHidden"
         >
         
         </dxo-popup>
@@ -108,18 +109,28 @@
               <dxi-validation-rule type="required"></dxi-validation-rule>
             </dxi-item>
             <dxi-item dataField="description"></dxi-item>
-            <dxi-item dataField="finaProductName"></dxi-item>
-            <dxi-item dataField="finaCode"></dxi-item>
+            <dxi-item dataField="finaProductName">
+              <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="finaCode">
+              <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
             <dxi-item dataField="barcode"></dxi-item>
             <dxi-item dataField="warranty"></dxi-item>
           </dxi-item>
           
           <dxi-item itemType="group" [colCount]="1" colSpan="1" caption="ფასები">
-            <dxi-item dataField="retailPrice"></dxi-item>
+            <dxi-item dataField="retailPrice">
+              <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
             <dxi-item dataField="retailDiscount"></dxi-item>
-            <dxi-item dataField="semiWholeSalePrice"></dxi-item>
+            <dxi-item dataField="semiWholeSalePrice">
+              <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
             <dxi-item dataField="semiWholeSaleDiscount"></dxi-item>
-            <dxi-item dataField="wholeSalePrice"></dxi-item>
+            <dxi-item dataField="wholeSalePrice">
+              <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-item>
             <dxi-item dataField="wholeSaleDiscount"></dxi-item>
           </dxi-item>
             <dxi-item dataField="active"></dxi-item>
@@ -131,7 +142,7 @@
       <dxo-selection mode="single"></dxo-selection>
 
       <dxi-column dataType="number" dataField="id" [visible]="false"></dxi-column>
-      <dxi-column dataType="string" dataField="productName" caption="დასახელება" [allowEditing]="true" [minWidth]="100" ></dxi-column>
+      <dxi-column dataType="string" dataField="productName" caption="დასახელება" [allowEditing]="true" [minWidth]="100" editCellTemplate="productNameTemp"></dxi-column>
       <dxi-column dataType="string" dataField="description" caption="აღწერა" [allowEditing]="true" editCellTemplate="descTemp"></dxi-column>
       <dxi-column dataType="number" dataField="retailPrice" caption="საცალო ფასი" [allowEditing]="true"></dxi-column>
       <dxi-column dataType="number" dataField="retailDiscount" caption="საცალო ფასდაკლება" [allowEditing]="true"></dxi-column>
@@ -174,14 +185,17 @@
       </dxi-column>
 
       <div *dxTemplate="let data of 'finaNameTemp'">
-        <dx-text-box [(value)]="data.value ?? finaProductName"></dx-text-box>
+        <dx-text-area [(value)]="finaProductName"></dx-text-area>
+      </div>
+      <div *dxTemplate="let data of 'productNameTemp'">
+        <dx-text-box [(value)]="productName"></dx-text-box>
       </div>
       <div *dxTemplate="let data of 'finaCodeTemp'">
-        <dx-text-box [(value)]="data.value ?? finaCode" (onFocusOut)="finaCodeFocusOut($event)">
+        <dx-text-box [(value)]="finaCode" (onFocusOut)="finaCodeFocusOut($event)">
         </dx-text-box>
       </div>
       <div *dxTemplate="let data of 'descTemp'">
-        <dx-text-area>
+        <dx-text-area [(value)]="description">
         </dx-text-area>
       </div>
 
@@ -192,9 +206,19 @@
 
 <dx-popup
 [visible]="warningPopupVisible"
-[textContent]="warningPopupText"
 (onHidden)="warningPopupClosing()"
-></dx-popup>
+contentTemplate="popup-content"
+width="min(450px, 100%)"
+height="200px"
+title="შეტყობინება"
+>
+  <div *dxTemplate="let data of 'popup-content'" class="warningPopupDiv">
+    <p>
+      თქვენს მიერ შეყვანილი კოდი დაკავებულია - {{finaProductName}}
+    </p>
+    <dx-button (onClick)="warningPopupClosing()">დახურვა</dx-button>
+  </div>
+</dx-popup>
 
 <dx-load-panel
 shadingColor="rgba(0,0,0,0.4)"
