@@ -1,8 +1,35 @@
 
 <div class="prods">
-    <div class="cart-icon"  (click)="goToCart()">
-        <dx-button icon="cart"></dx-button>
+    <div class="cart-icon">
+        <dx-button icon="cart" id="cartIcon" #cartIcon (click)="onCartClick()"></dx-button>
         <span id="cart-count">{{cartProdNumber}}</span>
+        <div [@maximize]="contextState" class="cart-context" #cartContextDiv>
+            <div class="contextMainDiv">
+                <div class="cartTitle" style="display: flex;">
+                    <dx-button icon="cart" class="contextIcon"></dx-button>
+                    <p id="cartTitle">კალათა</p>
+                </div>
+                <div class="productList">
+                    <div *ngIf="products.length == 0">
+                        <p>კალათა ცარიელია</p>
+                    </div>
+                    <div *ngFor="let item of products" class="productListItem">
+                        <img [src]="item.imageUrls[0]!">
+                        <p>{{item.name}} (x{{item.quantity}}) - {{item.price}}₾</p>
+                        <div class="closeDiv" (click)="removeProduct(item.id)">
+                            <img src="../../../assets/x.png" alt="close" height="35px">
+                        </div>
+                    </div>
+                </div>
+                <div class="sumDiv">
+                    <p>სულ: {{cartTotalPrice}}₾</p>
+                </div>
+                <div class="contextBtnDiv">
+                    <dx-button (onClick)="goToCart()" type="default" width="180px">კალათის ნახვა</dx-button>
+                    <dx-button (onClick)="goToCheckout()" type="default" width="180px">ყიდვა</dx-button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="searchDiv">
         <div class="filterDiv">
@@ -57,10 +84,10 @@
         </div>
     </div>
     
-    <div class="product-grid" [@fadeInOut]>
+    <div class="product-grid">
         <p *ngIf="displayProducts.length == 0 && !isLoading" style="display: flex; width: 100%; justify-content: center; align-self: center;">პროდუქცია ვერ მოიძებნა...</p>
-        <div class="card" *ngFor="let product of displayProducts">
-            <div style="position: relative; height: 200px;">
+        <div class="card" *ngFor="let product of displayProducts" >
+            <div style="position: relative; height: 200px;" [@fadeInOut]>
                 <dx-gallery
                 [dataSource]="product.imageUrls!"
                 height="100%"
@@ -84,6 +111,10 @@
                 </div>
                 <div class="cardTitleDiv des" (click)="productsDetails(product)">
                     {{product.description}}
+                </div>
+                <div class="cardRestInfoDiv">
+                    <p>თბილისი</p>
+                    <p>ბათუმი</p>
                 </div>
                 <div class="priceDiv" (click)="productsDetails(product)">
                     <p class="card_price" *ngIf="product.discount" (click)="productsDetails(product)"><del>{{product.price}}₾</del>  {{product.price! * (1 - (product.discount / 100)) +'₾'}}</p>

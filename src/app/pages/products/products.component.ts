@@ -1,5 +1,5 @@
-import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Make } from 'src/app/Dto\'s/make';
 import { Model } from 'src/app/Dto\'s/model';
@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ModelByYearService } from 'src/app/services/model-by-year.service';
 import { ModelService } from 'src/app/services/model.service';
+import { ProductImageService } from 'src/app/services/product-image.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -19,7 +20,7 @@ import { ProductsService } from 'src/app/services/products.service';
     trigger('fadeInOut', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('900ms', style({ opacity: 1 })),
+        animate('700ms', style({ opacity: 1 })),
       ]),
       transition(':leave', [
         animate('0ms', style({ opacity: 0 })),
@@ -34,6 +35,20 @@ import { ProductsService } from 'src/app/services/products.service';
           ]),
         ], { optional: true })
       ])
+    ]),
+    trigger('maximize', [
+      state('hidden', style({
+        opacity: 0,
+        transform: 'scale(0)',
+        transformOrigin: 'top right' // Change to control origin point
+      })),
+      state('visible', style({
+        opacity: 1,
+        transform: 'scale(1)',
+        transformOrigin: 'top right'
+      })),
+      transition('hidden => visible', animate('300ms ease-out')),
+      transition('visible => hidden', animate('300ms ease-in'))
     ])
   ]
 })
@@ -54,19 +69,26 @@ export class ProductsComponent implements OnInit {
   toastType : any = "info";
   loadingText = 'Loading...';
   isAdmin = false;
-
   
+
+  showContext = false;
+  get contextState() {
+    return this.showContext ? 'visible' : 'hidden';
+  }
 
 
   //  CART
   cartProdNumber:number = 0;
+  cartTotalPrice = 0;
+  @ViewChild('cartContextDiv') cartContextDiv!: ElementRef;
+  @ViewChild('cartIcon') cartIcon!: any;
 
   //  POPUP
   notifyPopupVisible:boolean = false;
 
 
   constructor(private productService:ProductsService,private modelService:ModelService, private modelsByYearService:ModelByYearService, 
-      private authService:AuthService, private cartService:CartService, private router:Router){}
+      private authService:AuthService, private cartService:CartService, private router:Router, private productImageService:ProductImageService){}
 
   ngOnInit(): void {
     this.getModels();
@@ -85,6 +107,8 @@ export class ProductsComponent implements OnInit {
       this.getProducts(undefined, this.selectedModel, this.selectedmodelByYear);
     }else
       this.getProducts();
+
+    this.products = this.cartService.getCart();
   }
 
   getModels(){
@@ -123,8 +147,42 @@ export class ProductsComponent implements OnInit {
     })
   }
 
+  onCartClick(){
+    if(this.products.length > 0)
+      this.showContext = !this.showContext;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    const clickedInsideContext = this.cartContextDiv?.nativeElement?.contains(event.target);
+    const clickedOnIcon = this.cartIcon?.element.nativeElement?.contains(event.target);
+  
+    if (!clickedInsideContext && !clickedOnIcon) {
+      this.showContext = false;
+    }
+  }
+
   updateCart(){
     this.cartProdNumber = this.cartService.getCartProductNumber();
+    this.cartTotalPrice = this.cartService.getTotalPrice();
+    this.loadCart();
+  }
+
+  loadCart() {
+    this.products = this.cartService.getCart();
+    for (let index = 0; index < this.products.length; index++) {
+      this.productImageService.getProductImages(this.products[index].id!).subscribe({
+        next:(res:any)=>{
+          if(res){
+            this.products[index].imageUrls = [];
+            for (let i = 0; i < res.length; i++) {
+              this.products[index].imageUrls?.push(res[i].imageUrl);
+            }
+          };
+        },
+        error:(err)=> console.log(err)
+      })
+    }
   }
 
   modelValueChanged(e:any){
@@ -160,6 +218,11 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  removeProduct(item:any){
+    this.cartService.removeFromCart(item);
+    this.updateCart();
+  }
+
   notifyMe(product:any){
     this.notifyPopupVisible = true;
   }
@@ -175,6 +238,11 @@ export class ProductsComponent implements OnInit {
   goToCart(){
     if(this.cartService.getCartProductNumber() > 0)
       this.router.navigate(['cart']);
+  }
+
+  goToCheckout(){
+    if(this.cartService.getCartProductNumber() > 0)
+      this.router.navigate(['checkout']);
   }
 
   setupGalleryClickHandler(event:any) {

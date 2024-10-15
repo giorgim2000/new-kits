@@ -5,9 +5,10 @@
 
 .pageTitle{
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: center;
   padding: 18px;
+  padding-right: 40px;
   *{
     font-size: 30px;
   }
@@ -19,6 +20,17 @@
   dx-button{
     padding: 0px 5px;
   }
+}
+
+.cartTitle{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.minimize{
+  cursor: pointer;
+  margin-left: auto;
 }
 
 .shopping-cart {

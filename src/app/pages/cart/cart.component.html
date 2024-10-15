@@ -20,10 +20,16 @@
 
 
 <!-- shopping-cart.component.html -->
-<div class="main">
+<div class="main" @popupAnimation>
   <div class="pageTitle">
-    <dx-button icon="cart" style="background: transparent; border: 0;"></dx-button>
-    <p id="cartTitle">კალათა</p>
+    <div class="cartTitle" style="display: flex;">
+      <dx-button icon="cart" style="background: transparent; border: 0;"></dx-button>
+      <p id="cartTitle">კალათა</p>
+    </div>
+    
+    <div (click)="navigateBack()" class="minimize">
+      <img src="../../../assets/minimize-sign.png" height="50">
+    </div>
   </div>
   <div class="shopping-cart">
     <div class="cart-item headerRow">

@@ -22,6 +22,15 @@ export class CartService {
     return 0;
   }
 
+  getTotalPrice(){
+    var sum = 0;
+    var cart : any[] = JSON.parse(localStorage.getItem(this.storageKey)!);
+    if(cart.length > 0)
+      cart.forEach(i => sum += i.discount != null && i.discount > 0 ? (i.price! * (1 - i.discount! / 100)) * i.quantity! : (i.price! * i.quantity!));
+
+    return sum;
+  }
+
   addToCart(product:CartProduct) {
     let cart = this.getCart();
     var prod = cart.find((i:any) => i.id == product.id);

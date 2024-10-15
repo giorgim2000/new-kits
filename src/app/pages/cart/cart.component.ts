@@ -1,3 +1,4 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImageDto } from 'src/app/Dto\'s/image';
@@ -9,7 +10,22 @@ import { ScreenManagerService } from 'src/app/services/screen-manager.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss'
+  styleUrl: './cart.component.scss',
+  animations: [
+    trigger('popupAnimation', [
+      state('void', style({
+        transform: 'scale(0.5)',
+        opacity: 0
+      })),
+      state('*', style({
+        transform: 'scale(1)',
+        opacity: 1
+      })),
+      transition('void => *', [
+        animate('500ms ease-out')
+      ])
+    ])
+  ]
 })
 export class CartComponent {
   cart : CartProduct[] = [];
@@ -33,7 +49,6 @@ export class CartComponent {
             for (let i = 0; i < res.length; i++) {
               this.cart[index].imageUrls?.push(res[i].imageUrl);
             }
-            console.log(this.cart);
           };
         },
         error:(err)=> console.log(err)
@@ -43,6 +58,10 @@ export class CartComponent {
 
   updateScreen(){
     this.isLarge = this.screen.sizes['screen-large'] || this.screen.sizes['screen-medium'] || this.screen.sizes['screen-small'];
+  }
+
+  navigateBack(){
+    this.router.navigate(['products']);
   }
 
   getTotalPrice(){
