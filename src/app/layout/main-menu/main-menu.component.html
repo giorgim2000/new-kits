@@ -63,16 +63,18 @@ class="dx-theme-background-color"
     >
       <p class="menuItem" (click)="register()">რეგისტრაცია</p>
     </dxi-item>
-    <!-- <dxi-item
+    <dxi-item
     location="after"
+    menuItemTemplate="cartTemplate"
     >
-        <div class="cart-icon">
-            <dx-button>
-                <img src="../../../assets/shopping-cart (1).png" alt="cart" style="width:18px;">
-            </dx-button>
-            <span id="cart-count">{{5}}</span>
-        </div>
-    </dxi-item> -->
+    <div *dxTemplate="let data of 'cartTemplate'" class="cart-icon">
+        <dx-button>
+            <img src="../../../assets/cart.png" alt="cart" style="width:18px;">
+        </dx-button>
+        <span id="cart-count">{{5}}</span>
+    </div>
+    </dxi-item>
+    
 
     <dxi-item *ngIf="isSmall" location="before">
         <dx-button (click)="hamburgerMenu.toggleMenu()" width="fit-content" height="100%">

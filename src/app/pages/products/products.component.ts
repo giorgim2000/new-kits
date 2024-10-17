@@ -149,7 +149,7 @@ export class ProductsComponent implements OnInit {
 
   onCartClick(){
     if(this.products.length > 0)
-      this.showContext = !this.showContext;
+      this.showContext = !this.showContext; 
   }
 
   @HostListener('document:click', ['$event'])
