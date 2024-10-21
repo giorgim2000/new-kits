@@ -68,11 +68,14 @@ class="dx-theme-background-color"
     menuItemTemplate="cartTemplate"
     >
     <div *dxTemplate="let data of 'cartTemplate'" class="cart-icon">
+        <app-cart-icon></app-cart-icon>
+    </div>
+    <!-- <div *dxTemplate="let data of 'cartTemplate'" class="cart-icon">
         <dx-button>
             <img src="../../../assets/cart.png" alt="cart" style="width:18px;">
         </dx-button>
         <span id="cart-count">{{5}}</span>
-    </div>
+    </div> -->
     </dxi-item>
     
 

@@ -154,7 +154,7 @@ const routes: Routes = [
     DxContextMenuModule,DxScrollViewModule,DxFormModule, DxLoadIndicatorModule, CommonModule,
     FormsModule, DxSelectBoxModule, DxTextBoxModule,DxButtonModule,DxNumberBoxModule,DxPopupModule, BrowserAnimationsModule, DxMenuModule,
     DxFileUploaderModule, DxDataGridModule, ReactiveFormsModule, DxLoadPanelModule, DxToastModule,DxListModule, DxSwitchModule, DxDateBoxModule, DxCheckBoxModule,
-  DxDateRangeBoxModule, DxTextAreaModule],
+    DxDateRangeBoxModule, DxTextAreaModule],
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
     MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, 
