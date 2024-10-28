@@ -27,7 +27,7 @@
       <p id="cartTitle">კალათა</p>
     </div>
     
-    <div (click)="navigateBack()" class="minimize">
+    <div *ngIf="!inCheckout" (click)="navigateBack()" class="minimize">
       <img src="../../../assets/minimize-sign.png" height="50">
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImageDto } from 'src/app/Dto\'s/image';
 import { CartProduct } from 'src/app/Dto\'s/product';
@@ -15,21 +15,41 @@ import { ScreenManagerService } from 'src/app/services/screen-manager.service';
     trigger('popupAnimation', [
       state('void', style({
         transform: 'scale(0.5)',
-        opacity: 0
+        opacity: 0,
+        transformOrigin: 'top right'
       })),
       state('*', style({
         transform: 'scale(1)',
-        opacity: 1
+        opacity: 1,
+        transformOrigin: 'top right'
+      })),
+      state('hidden', style({
+        opacity: 0,
+        transform: 'scale(0)',
+        transformOrigin: 'top right' // Change to control origin point
+      })),
+      state('visible', style({
+        opacity: 1,
+        transform: 'scale(1)',
+        transformOrigin: 'top right'
       })),
       transition('void => *', [
         animate('500ms ease-out')
-      ])
+      ]),
+      transition('* => void',[
+        animate('500ms ease-in')
+      ]),
+      transition('hidden => visible', animate('300ms ease-out')),
+      transition('visible => hidden', animate('300ms ease-in'))
     ])
   ]
 })
 export class CartComponent {
   cart : CartProduct[] = [];
   isLarge = false;
+  @Input()inCheckout:boolean = false;
+  @Output()closeCart = new EventEmitter<boolean>();
+  
 
   constructor(private cartService: CartService, private productImageService:ProductImageService, private router:Router, private screen:ScreenManagerService) { }
 
@@ -61,7 +81,8 @@ export class CartComponent {
   }
 
   navigateBack(){
-    this.router.navigate(['products']);
+    this.closeCart.emit();
+    //this.router.navigate(['products']);
   }
 
   getTotalPrice(){

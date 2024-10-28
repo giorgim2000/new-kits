@@ -1,5 +1,6 @@
 
-<div class="prods">
+<app-cart *ngIf="showCart" [inCheckout]="false" (closeCart)="hideCart()" [@cartMaximize]="cartState"></app-cart>
+<div class="prods" [ngClass]="{'hidden-content': showCart}">
     <div class="cart-icon">
         <dx-button icon="cart" id="cartIcon" #cartIcon (click)="onCartClick()"></dx-button>
         <span id="cart-count">{{cartProdNumber}}</span>

@@ -1,10 +1,38 @@
-<div class="cartDiv">
-    <div class="cart-icon"  (click)="goToCart()">
-        <dx-button icon="cart"></dx-button>
+<app-cart *ngIf="showCart" [inCheckout]="false" (closeCart)="hideCart()" [@cartMaximize]="cartState"></app-cart>
+<div class="cartDiv" [ngClass]="{'hidden-content': showCart}">
+    <div class="cart-icon">
+        <dx-button icon="cart" id="cartIcon" #cartIcon (click)="onCartClick()"></dx-button>
         <span id="cart-count">{{cartProdNumber}}</span>
+        <div [@maximize]="contextState" class="cart-context" #cartContextDiv>
+            <div class="contextMainDiv">
+                <div class="cartTitle" style="display: flex;">
+                    <dx-button icon="cart" class="contextIcon"></dx-button>
+                    <p id="cartTitle">კალათა</p>
+                </div>
+                <div class="productList">
+                    <div *ngIf="products.length == 0">
+                        <p>კალათა ცარიელია</p>
+                    </div>
+                    <div *ngFor="let item of products" class="productListItem">
+                        <img [src]="item.imageUrls[0]!">
+                        <p>{{item.name}} (x{{item.quantity}}) - {{item.price}}₾</p>
+                        <div class="closeDiv" (click)="removeProduct(item.id)">
+                            <img src="../../../assets/x.png" alt="close" height="35px">
+                        </div>
+                    </div>
+                </div>
+                <div class="sumDiv">
+                    <p>სულ: {{cartTotalPrice}}₾</p>
+                </div>
+                <div class="contextBtnDiv">
+                    <dx-button (onClick)="goToCart()" type="default" width="180px">კალათის ნახვა</dx-button>
+                    <dx-button (onClick)="goToCheckout()" type="default" width="180px">ყიდვა</dx-button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<div class="mainDiv">
+<div class="mainDiv" [ngClass]="{'hidden-content': showCart}">
     <div class="backDiv">
         <dx-button
         icon="back"

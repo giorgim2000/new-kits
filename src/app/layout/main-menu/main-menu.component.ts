@@ -1,3 +1,4 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -13,7 +14,23 @@ import { ScreenManagerService } from 'src/app/services/screen-manager.service';
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
-  styleUrls: ['./main-menu.component.scss']
+  styleUrls: ['./main-menu.component.scss'],
+  animations:[
+    trigger('maximize', [
+      state('hidden', style({
+        opacity: 0,
+        transform: 'scale(0)',
+        transformOrigin: 'top right' // Change to control origin point
+      })),
+      state('visible', style({
+        opacity: 1,
+        transform: 'scale(1)',
+        transformOrigin: 'top right'
+      })),
+      transition('hidden => visible', animate('300ms ease-out')),
+      transition('visible => hidden', animate('300ms ease-in'))
+    ])
+  ]
 })
 export class MainMenuComponent implements OnInit {
   @ViewChild(DxDrawerComponent, { static: false }) drawer?: DxDrawerComponent;
@@ -41,18 +58,11 @@ export class MainMenuComponent implements OnInit {
   isSmall = false;
   isXSmall : any;
   islarge= true;
-  // navigation = [
-  //   { id: 1, text: 'Products' },
-  //   { id: 2, text: 'Sales' },
-  //   { id: 3, text: 'Customers' },
-  //   { id: 4, text: 'Employees' },
-  //   { id: 5, text: 'Reports' },
-  // ];
 
   mapWidth = 650;
   marker:Marker[]=[{
     location: `41.776281, 44.778695`
-  }]
+  }];
 
   constructor(private router:Router, private screen:ScreenManagerService, private authService:AuthService) {}
 

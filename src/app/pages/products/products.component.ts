@@ -49,6 +49,20 @@ import { ProductsService } from 'src/app/services/products.service';
       })),
       transition('hidden => visible', animate('300ms ease-out')),
       transition('visible => hidden', animate('300ms ease-in'))
+    ]),
+    trigger('cartMaximize', [
+      state('hidden', style({
+        opacity: 0,
+        transform: 'scale(0)',
+        transformOrigin: 'top right' // Change to control origin point
+      })),
+      state('visible', style({
+        opacity: 1,
+        transform: 'scale(1)',
+        transformOrigin: 'top right'
+      })),
+      transition('hidden => visible', animate('300ms ease-out')),
+      transition('visible => hidden', animate('300ms ease-in'))
     ])
   ]
 })
@@ -70,7 +84,10 @@ export class ProductsComponent implements OnInit {
   loadingText = 'Loading...';
   isAdmin = false;
   
-
+  showCart = false;
+  get cartState(){
+    return this.showCart ? 'visible' : 'hidden';
+  }
   showContext = false;
   get contextState() {
     return this.showContext ? 'visible' : 'hidden';
@@ -236,8 +253,14 @@ export class ProductsComponent implements OnInit {
   }
 
   goToCart(){
-    if(this.cartService.getCartProductNumber() > 0)
-      this.router.navigate(['cart']);
+    // if(this.cartService.getCartProductNumber() > 0)
+    //   this.router.navigate(['cart']);
+    this.showCart = true;
+  }
+
+  hideCart(){
+    console.log("shemovida");
+    this.showCart = false;
   }
 
   goToCheckout(){
