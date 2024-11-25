@@ -69,3 +69,8 @@ export class OrderService {
     return this.http.delete(this.url + `/api/Orders/${id}`);
   }
 }
+
+export interface IOrderResponse{
+  ObjectData?:string;
+  ErrorMessage?:string;
+}

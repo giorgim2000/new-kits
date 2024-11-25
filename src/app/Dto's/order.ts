@@ -23,6 +23,8 @@ export class Order {
     storeId?: number;
     amount?: number;
     invoiceId?:number;
+    comment?:string;
+    paid?:boolean;
 }
 
 export class OrderDto{
@@ -42,6 +44,9 @@ export class OrderDto{
     invoiceUrl?:string;
     statusString?:string;
     paymentTypeString?:string;
+    paid?:boolean;
+    comment?:string;
+    removed?:boolean;
 }
 
 export interface OrderProductDto{
@@ -67,6 +72,8 @@ export class CreateOrderDto {
     DeliveryDate?: Date | null;
     WithDelivery?: boolean | null;
     StoreId?: number | null;
+    Paid?: boolean | null;
+    Comment?: string | null;
     OrderProducts?: CreateOrderProductDto[] | null;
     Delivery?: OrderDeliveryDto | null;
 }
@@ -78,6 +85,7 @@ export interface UpdateOrderDto{
     delivery?:OrderDeliveryDto;
     withDelivery?:boolean;
     storeId?:number;
+    removed?:boolean;
     orderProducts?:CreateOrderProductDto[];
 }
 

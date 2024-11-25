@@ -1,7 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, EventEmitter, Input, input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { ImageDto } from 'src/app/Dto\'s/image';
+import { interval, take } from 'rxjs';
 import { CartProduct } from 'src/app/Dto\'s/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductImageService } from 'src/app/services/product-image.service';

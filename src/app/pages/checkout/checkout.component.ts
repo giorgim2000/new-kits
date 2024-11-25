@@ -7,7 +7,7 @@ import { Store } from 'src/app/Dto\'s/product';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CityService } from 'src/app/services/city.service';
-import { OrderService } from 'src/app/services/order.service';
+import { IOrderResponse, OrderService } from 'src/app/services/order.service';
 import { StoresService } from 'src/app/services/stores.service';
 
 
@@ -183,6 +183,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     }
     
     this.order.StoreId = this.selectedStore!.id;
+    this.order.Paid = false;
     this.order.PaymentType = this.selectedPaymentType;
     this.order.OrderProducts = this.selectedProducts.map(i => ({
       ProductId: i.id, FinaId: i.finaId, Quantity: i.quantity, Price:i.price,Discount:i.discount, CustomWarranty:i.customWarranty
@@ -198,15 +199,31 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.order.Delivery = null;
     
     this.orderService.postOrder(this.order).subscribe({
-      next:(res) =>{
-        if(res == false)
-          this.showCheckoutPopup("შეკვეთის გაკეთება ვერ მოხერხდა!", "default");
-        else
-          this.showCheckoutPopup("შეკვეთა წარმატებით განხორციელდა, დაელოდეთ ინვოისს, რომელიც მოგივათ სმს-ის სახით ...", "success");
+      next:(res : IOrderResponse) =>{
+        if(res.ObjectData){
+          this.showCheckoutPopup("შეკვეთა წარმატებით განხორციელდა, ინვოისის გადახდის შემდეგ დადასტურდება თქვენი შეკვეთა...", "success");
+          setTimeout(() => {
+            window.open(res.ObjectData, '_blank');
+          }, 2000);
+        }
+        else{
+          this.showCheckoutPopup(res.ErrorMessage!, "default");
+          setTimeout(() => {
+            this.router.navigate(['/products']);
+          }, 2000);
+          
+        }
+          
+        //   this.showCheckoutPopup("შეკვეთის გაკეთება ვერ მოხერხდა!", "default");
+        // else
+        //   this.showCheckoutPopup("შეკვეთა წარმატებით განხორციელდა, დაელოდეთ ინვოისს, რომელიც მოგივათ სმს-ის სახით ...", "success");
       },
       error:(err)=>{
         console.log(err);
-        this.showCheckoutPopup("შეკვეთის გაკეთება ვერ მოხერხდა!", "default");
+        this.showCheckoutPopup(err, "default");
+        setTimeout(() => {
+          this.router.navigate(['/products']);
+        }, 2000);
       }
     });
   }
