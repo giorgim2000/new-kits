@@ -18,6 +18,12 @@
         [editorOptions]="{ text: 'დამახსოვრება', elementAttr: { class: 'form-text' } }">
         <dxo-label [visible]="false"></dxo-label>
       </dxi-item>
+
+      <dxi-item itemType="text">
+        <div *ngIf="showErrorMessage" class="error-message">
+          მომხმარებელი ან პაროლი არასწორია!
+        </div>
+      </dxi-item>
   
       <dxi-item itemType="button">
         <dxo-button-options width="100%" type="default" [useSubmitBehavior]="true" [template]="'signInTemplate'">

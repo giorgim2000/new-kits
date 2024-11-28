@@ -7,8 +7,6 @@ import { UrlS } from 'src/assets/config';
   providedIn: 'root'
 })
 export class UserService {
-  //url = "http://91.239.207.195:5000";
-  //url = "https://localhost:7210";
   url = UrlS.url2;
   private unsubscribe$ = new Subject<void>();
 

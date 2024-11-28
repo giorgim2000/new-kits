@@ -13,23 +13,8 @@ export class CreateAccountComponent {
   loading = false;
   formData: any = {};
   isCompany = false;
+  showErrorMessage = false;
   constructor(private authService: AuthService, private router: Router) { }
-
-  // async onSubmit(e: Event) {
-  //   e.preventDefault();
-  //   this.loading = true;
-  //   const data = this.formData;
-  //   const result = await this.authService.createAccount(data);
-  //   this.loading = false;
-
-
-  //   if (result.isOk) {
-  //     notify("თქვენ წარმატებით გაიარეთ რეგისტრაცია!", 'success', 2000);
-  //     this.router.navigate(['auth', '/login']);
-  //   } else {
-  //     notify(result.message, 'error', 2000);
-  //   }
-  // }
 
   async onSubmit(e: Event) {
     e.preventDefault();
@@ -41,15 +26,38 @@ export class CreateAccountComponent {
     this.loading = false;
 
     if (result.isOk) {
-      await notify("თქვენ წარმატებით გაიარეთ რეგისტრაცია!", 'success', 2000);
-      this.router.navigate(['auth', 'signin']);
+      notify("თქვენ წარმატებით გაიარეთ რეგისტრაცია!", 'success', 2000);
+      setTimeout(() => {
+        this.router.navigate(['auth', 'signin']);
+      }, 1800);
     } else {
+      this.showErrorMessage = true;
       notify("დაფიქსირდა შეცდომა!", 'error', 2000);
     }
   }
 
   confirmPassword = (e: ValidationCallbackData) => {
     return e.value === this.formData!.Password;
+  }
+
+  checkUsername = (e: any) =>{
+
+  }
+
+  checkEmail = (e:any) =>{
+
+  }
+
+  checkPhoneNumber = (e:any)=>{
+
+  }
+
+  checkCompanyCode = (e:any)=>{
+
+  }
+
+  checkUserIdNumber = (e:any)=>{
+    
   }
 
   switchChange(e:any){

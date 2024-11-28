@@ -15,6 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent {
   loading = false;
   formData: any = {};
+  showErrorMessage = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -39,6 +40,7 @@ export class LoginComponent {
   // }
 
   loginUser = async (loginFormValue: any) => {
+    loginFormValue.preventDefault();
     console.log(loginFormValue);
     const login = { ...loginFormValue };
     console.log(this.formData);
@@ -53,11 +55,11 @@ export class LoginComponent {
       const res = await firstValueFrom(this.authService.loginUser('api/accounts/login', userForAuth));
       localStorage.setItem('token', res.token);
       localStorage.setItem('username', userForAuth.username.toLowerCase());
-      await this.authService.sendAuthStateChangeNotification(true);
+      this.authService.sendAuthStateChangeNotification(true);
       this.router.navigate(["/home"]);
     } catch (err) {
       console.log(err);
-      //this.toastVisible = true;
+      this.showErrorMessage = true;
     } finally {
       this.loading = false;
     }
