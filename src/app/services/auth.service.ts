@@ -43,6 +43,28 @@ export class AuthService {
     return this.http.get<boolean>(this.url + "/api/Role");
   }
 
+  checkAvailability(username:string|null, idNumber:string|null, companyCode:string|null, phoneNumber:string|null, email:string|null){
+    var url = `${this.url}/check`;
+    
+    if(username != null)
+      url += `?username=${username}`;
+    if(idNumber != null)
+      url += `?idNumber=${idNumber}`;
+
+    if(companyCode != null)
+      url += `?companyCode=${companyCode}`;
+
+    if(phoneNumber != null)
+      url += `?phoneNumber=${phoneNumber}`;
+
+    if(email != null)
+      url += `?email=${email}`;
+
+    return this.http.get<boolean>(url).pipe(map(res => {
+      return res;
+    }));
+  }
+
   async createAccount(user: any) {
     try {
       let header = new HttpHeaders({

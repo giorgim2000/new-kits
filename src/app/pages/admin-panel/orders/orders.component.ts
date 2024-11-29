@@ -164,8 +164,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
     return e.value;
   }
 
-  amount_Customize(e:any){
-    return e.value + "₾";
+  amount_Customize(cellInfo:any){
+    return `${cellInfo.value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}₾`;
   }
 
   goToPdf = (e:any) => {

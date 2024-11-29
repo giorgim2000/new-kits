@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ValidationCallbackData } from 'devextreme/common';
 import notify from 'devextreme/ui/notify';
+import { firstValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -40,16 +41,25 @@ export class CreateAccountComponent {
     return e.value === this.formData!.Password;
   }
 
-  checkUsername = (e: any) =>{
+   checkUsername = async (e: any)=>{
+    // var res = await firstValueFrom(this.authService.checkAvailability(e.value, null, null, null, null));
+    // return res;
+    console.log(e);
+    this.loading = true;
+    var result = await this.authService.checkAvailability(e.value, null, null, null, null).subscribe((res) => {
+      this.loading = false;
+      return res;
+    });
 
+    return result;
   }
 
   checkEmail = (e:any) =>{
-
+    return true;
   }
 
   checkPhoneNumber = (e:any)=>{
-
+    return false;
   }
 
   checkCompanyCode = (e:any)=>{
