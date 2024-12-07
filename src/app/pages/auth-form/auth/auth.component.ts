@@ -65,17 +65,40 @@ export class AuthComponent {
     
     this.loading = true;
   
-    try {
-      const res = await firstValueFrom(this.authService.loginUser('api/accounts/login', userForAuth));
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('username', userForAuth.username.toLowerCase());
-      await this.authService.sendAuthStateChangeNotification(true);
-      this.router.navigate([this.returnUrl]);
-    } catch (err) {
-      console.log(err);
-      this.toastVisible = true;
-    } finally {
-      this.loading = false;
-    }
+    // try {
+    //   const res = await firstValueFrom(this.authService.loginUser('api/accounts/login', userForAuth));
+    //   localStorage.setItem('token', res.token);
+    //   localStorage.setItem('username', userForAuth.username.toLowerCase());
+    //   await this.authService.sendAuthStateChangeNotification(true);
+    //   this.router.navigate([this.returnUrl]);
+    // } catch (err) {
+    //   console.log(err);
+    //   this.toastVisible = true;
+    // } finally {
+    //   this.loading = false;
+    // }
+
+    this.authService.loginUser('api/accounts/login', userForAuth).subscribe({
+      next:(res)=>{
+        if(res.isAuthSuccessful){
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('username', userForAuth.username.toLowerCase());
+          this.authService.sendAuthStateChangeNotification(true);
+          this.router.navigate(["/home"]);
+        }
+        this.loading = false;
+      },
+      error:(err)=>{
+        if(err.status == 404)
+          this.toastMessage = "თქვენს მიერ შეყვანილი მომხმარებელი არ არსებობს!";
+        else if(err.status == 401)
+          this.toastMessage = "შეყვანილი პაროლი არასწორია!";
+        else
+          this.toastMessage = "დაფიქსირდა შეცდომა! შეამოწმეთ ინტერნეტთან წვდომა!";
+
+        this.toastVisible = true;
+        this.loading = false;
+      }
+    })
   };
 }

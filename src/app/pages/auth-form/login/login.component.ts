@@ -16,6 +16,7 @@ export class LoginComponent {
   loading = false;
   formData: any = {};
   showErrorMessage = false;
+  errorMessage = "მომხმარებელი ან პაროლი არასწორია!";
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -41,28 +42,49 @@ export class LoginComponent {
 
   loginUser = async (loginFormValue: any) => {
     loginFormValue.preventDefault();
-    console.log(loginFormValue);
     const login = { ...loginFormValue };
-    console.log(this.formData);
+    console.log(login);
     const userForAuth: UserForAuthenticationDto = {
       username: this.formData.email,
       password: this.formData.password
     };
     
     this.loading = true;
+    this.authService.loginUser('api/accounts/login', userForAuth).subscribe({
+      next:(res)=>{
+        console.log(res);
+        if(res.isAuthSuccessful){
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('username', userForAuth.username.toLowerCase());
+          this.authService.sendAuthStateChangeNotification(true);
+          this.router.navigate(["/home"]);
+        }else{
+          this.errorMessage = "მომხმარებელი ან პაროლი არასწორია!";
+          this.showErrorMessage = true;
+        }
+        this.loading = false;
+      },
+      error:(err)=>{
+        console.log(err);
+        this.errorMessage = "დაფიქსირდა შეცდომა! შეამოწმეთ ინტერნეტთან წვდომა!";
+        this.showErrorMessage = true;
+        this.loading = false;
+      }
+    })
   
-    try {
-      const res = await firstValueFrom(this.authService.loginUser('api/accounts/login', userForAuth));
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('username', userForAuth.username.toLowerCase());
-      this.authService.sendAuthStateChangeNotification(true);
-      this.router.navigate(["/home"]);
-    } catch (err) {
-      console.log(err);
-      this.showErrorMessage = true;
-    } finally {
-      this.loading = false;
-    }
+    //try {
+      //const res = await firstValueFrom(this.authService.loginUser('api/accounts/login', userForAuth));
+      //localStorage.setItem('token', res.token);
+      //localStorage.setItem('username', userForAuth.username.toLowerCase());
+      //this.authService.sendAuthStateChangeNotification(true);
+      //this.router.navigate(["/home"]);
+    // } catch (err) {
+    //   console.log(err);
+    //   this.errorMessage = "მომხმარებელი ან პაროლი არასწორია!";
+    //   this.showErrorMessage = true;
+    // } finally {
+    //   this.loading = false;
+    // }
   };
 
 
