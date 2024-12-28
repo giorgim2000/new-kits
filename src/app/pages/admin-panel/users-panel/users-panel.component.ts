@@ -19,6 +19,7 @@ export class UsersPanelComponent implements OnInit, OnDestroy {
   userOrdersPopupVisible = false;
   selectedUserId : number | undefined;
   selectedUserOrders: IUserOrder[] = [];
+  isCompany = false;
   
   constructor(private userService:UserService){}
 
@@ -56,7 +57,7 @@ export class UsersPanelComponent implements OnInit, OnDestroy {
   }
 
   onEditorPrep(e:any){
-    
+    console.log(e);
   }
 
   updateUser(e:any){

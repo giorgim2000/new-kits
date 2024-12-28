@@ -2,8 +2,18 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ValidationCallbackData } from 'devextreme/common';
 import notify from 'devextreme/ui/notify';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+
+
+export const sendRequest = function (obs: Observable<boolean>) {
+  return new Promise(async(resolve) => {
+    var val = await firstValueFrom(obs);
+    setTimeout(() => {
+      resolve(val);
+    }, 1000);
+  });
+};
 
 @Component({
   selector: 'app-create-account',
@@ -38,37 +48,20 @@ export class CreateAccountComponent {
   }
 
   confirmPassword = (e: ValidationCallbackData) => {
-    return e.value === this.formData!.Password;
+    return new Promise((resolve) =>{
+      resolve(e.value === this.formData!.Password);
+    })
   }
 
-   checkUsername = async (e: any)=>{
-    // var res = await firstValueFrom(this.authService.checkAvailability(e.value, null, null, null, null));
-    // return res;
-    console.log(e);
-    this.loading = true;
-    var result = await this.authService.checkAvailability(e.value, null, null, null, null).subscribe((res) => {
-      this.loading = false;
-      return res;
-    });
+  checkUsername = (params: ValidationCallbackData) => sendRequest(this.authService.checkAvailability(params.value, null, null, null, null));
 
-    return result;
-  }
+  checkEmail = (params: ValidationCallbackData) => sendRequest(this.authService.checkAvailability(null, null, null, null, params.value));
 
-  checkEmail = (e:any) =>{
-    return true;
-  }
+  checkPhoneNumber = (params: ValidationCallbackData) => sendRequest(this.authService.checkAvailability(null, null, null, params.value, null));
 
-  checkPhoneNumber = (e:any)=>{
-    return false;
-  }
+  checkCompanyCode = (params: ValidationCallbackData) => sendRequest(this.authService.checkAvailability(null, null, params.value, null, null));
 
-  checkCompanyCode = (e:any)=>{
-
-  }
-
-  checkUserIdNumber = (e:any)=>{
-    
-  }
+  checkUserIdNumber = (params: ValidationCallbackData) => sendRequest(this.authService.checkAvailability(null, params.value, null, null, null));
 
   switchChange(e:any){
     this.isCompany = e.value;

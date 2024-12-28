@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
-import { map, catchError, of, BehaviorSubject, Subject, Observable } from 'rxjs';
+import { map, catchError, of, BehaviorSubject, Subject, Observable, timeout } from 'rxjs';
 import { AuthResponseDto, IUserClaim, UserForAuthenticationDto } from '../Dto\'s/User';
 import { UrlS } from 'src/assets/config';
 import { CartService } from './cart.service';
@@ -63,6 +63,7 @@ export class AuthService {
     return this.http.get<boolean>(url).pipe(map(res => {
       return res;
     }));
+    
   }
 
   async createAccount(user: any) {

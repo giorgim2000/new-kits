@@ -71,6 +71,6 @@ export class OrderService {
 }
 
 export interface IOrderResponse{
-  ObjectData?:string;
-  ErrorMessage?:string;
+  objectData?:string;
+  errorMessage?:string;
 }

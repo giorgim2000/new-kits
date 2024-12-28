@@ -14,13 +14,17 @@
                 <div>
                     <dx-text-box
                     [visible]="!isCompany"
-                     label="სახელი" 
-                     labelMode="outside"
+                     label="სახელი"
                      [(value)]="firstName"
                      width="48%"
                      height="2.5rem"
                      [readOnly]="authService.loggedIn"
-                     ></dx-text-box>
+                     >
+                        <dx-validator>
+                            <dxi-validation-rule type="required"></dxi-validation-rule>
+                            <dxi-validation-rule type="stringLength" [min]="2" [max]="40"></dxi-validation-rule>
+                        </dx-validator>
+                    </dx-text-box>
                     <dx-text-box
                     [visible]="!isCompany"
                      label="გვარი" 
@@ -193,4 +197,13 @@ title="შეკვეთა"
 </dx-popup>
 
 <dx-toast [message]="toastMessage" [(visible)]="toastVisible" [type]="toastType"></dx-toast>
+
+<dx-load-panel
+shadingColor="rgba(0,0,0,0.4)"
+[visible]="loading"
+[showIndicator]="true"
+[showPane]="true"
+[shading]="true"
+[hideOnOutsideClick]="false">
+</dx-load-panel>
 

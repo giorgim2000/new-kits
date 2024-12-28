@@ -33,6 +33,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   toastMessage:string = "შეკვეთა წარმატებით განხორციელდა!";
   toastVisible:boolean = false;
   toastType : any= "info";
+  loading = false;
   //deliveryPrices = deliveryPrice;
   selectedStore : Store | undefined;
   firstName = "";
@@ -77,6 +78,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   getUserInfo(){
     this.authService.getUserInfo().toPromise().then((res:any) =>{
       if(res.length > 0){
+        console.log(res);
         this.order.User = this.order.User || {};
         this.userInfo = res;
         this.order.User!.Registered = true;
@@ -165,6 +167,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   confirmOrder(){
+    this.loading = true;
     if(!this.authService.loggedIn){
       this.order.User = this.order.User || {};
       this.order.User.Registered = false;
@@ -200,18 +203,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     
     this.orderService.postOrder(this.order).subscribe({
       next:(res : IOrderResponse) =>{
-        if(res.ObjectData){
+        console.log(res);
+        if(res.objectData){
           this.showCheckoutPopup("შეკვეთა წარმატებით განხორციელდა, ინვოისის გადახდის შემდეგ დადასტურდება თქვენი შეკვეთა...", "success");
           setTimeout(() => {
-            window.open(res.ObjectData, '_blank');
+            this.loading = false;
+            window.open(res.objectData, '_blank');
           }, 2000);
+          this.router.navigate(['/home']);
         }
         else{
-          this.showCheckoutPopup(res.ErrorMessage!, "default");
+          this.showCheckoutPopup(res.errorMessage!, "default");
           setTimeout(() => {
             this.router.navigate(['/products']);
-          }, 2000);
-          
+          }, 3000);
         }
           
         //   this.showCheckoutPopup("შეკვეთის გაკეთება ვერ მოხერხდა!", "default");
@@ -220,7 +225,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       },
       error:(err)=>{
         console.log(err);
-        this.showCheckoutPopup(err, "default");
+        this.showCheckoutPopup(err.error.ErrorMessage, "default");
         setTimeout(() => {
           this.router.navigate(['/products']);
         }, 2000);

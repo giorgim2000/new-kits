@@ -1,4 +1,5 @@
 <app-cart *ngIf="showCart" [inCheckout]="false" (closeCart)="hideCart()" [@cartMaximize]="cartState"></app-cart>
+
 <div class="cartDiv" [ngClass]="{'hidden-content': showCart}">
     <div class="cart-icon">
         <dx-button icon="cart" id="cartIcon" #cartIcon (click)="onCartClick()"></dx-button>

@@ -14,12 +14,14 @@
                   
                   <dxi-item [visible]="!isCompany" dataField="FirstName" editorType="dxTextBox"
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'სახელი', mode: 'text' }">
+                    <dxi-validation-rule type="stringLength" message="სახელი უნდა შედგებოდეს მინიმუმ 2 სიმბოლოსგან" [min]="2" [max]="30"></dxi-validation-rule>
                     <dxi-validation-rule type="required" message="შეიყვანეთ თქვენი სახელი"></dxi-validation-rule>
                     <dxo-label text="სახელი"></dxo-label>
                   </dxi-item>
               
                   <dxi-item [visible]="!isCompany" dataField="LastName" editorType="dxTextBox"
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'გვარი', mode: 'text' }">
+                    <dxi-validation-rule type="stringLength" message="გვარი უნდა შედგებოდეს მინიმუმ 2 სიმბოლოსგან" [min]="2" [max]="30"></dxi-validation-rule>
                     <dxi-validation-rule type="required" message="შეიყვანეთ თქვენი გვარი"></dxi-validation-rule>
                     <dxo-label text="გვარი"></dxo-label>
                   </dxi-item>
@@ -28,36 +30,39 @@
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'პირადი ნომერი', mode: 'numeric' }"
                     >
                     <dxi-validation-rule type="required" message="შეიყვანეთ პირადი ნომერი"></dxi-validation-rule>
+                    <dxi-validation-rule type="stringLength" message="პირადი ნომერი უნდა შედგებოდეს 11 სიმბოლოსგან" [min]="11" [max]="11"></dxi-validation-rule>
                     <dxi-validation-rule type="numeric" message="შეიყვანეთ მხოლოდ ციფრები"></dxi-validation-rule>
-                    <dxi-validation-rule type="custom" message="შეყვანილი პირადი ნომრით უკვე რეგისტრირებულია მომხმარებელი!" [validationCallback]="checkUserIdNumber"></dxi-validation-rule>
+                    <dxi-validation-rule type="async" [reevaluate]="false" message="შეყვანილი პირადი ნომრით უკვე რეგისტრირებულია მომხმარებელი!" [validationCallback]="checkUserIdNumber"></dxi-validation-rule>
                     <dxo-label text="პირადი ნომერი"></dxo-label>
                   </dxi-item>
 
                   <dxi-item [visible]="isCompany" dataField="CompanyCode" editorType="dxTextBox"
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'კომპანიის კოდი', mode: 'numeric' }">
+                    <dxi-validation-rule type="stringLength" message="კომპანიის კოდი უნდა შედგებოდეს მინიმუმ 3 სიმბოლოსგან" [min]="3" [max]="20"></dxi-validation-rule>
                     <dxi-validation-rule type="required" message="შეიყვანეთ კომპანიის კოდი"></dxi-validation-rule>
                     <dxi-validation-rule type="numeric" message="შეიყვანეთ მხოლოდ ციფრები"></dxi-validation-rule>
-                    <dxi-validation-rule type="custom" message="შეყვანილი კოდით უკვე რეგისტრირებულია მომხმარებელი!" [validationCallback]="checkCompanyCode"></dxi-validation-rule>
+                    <dxi-validation-rule type="async" [reevaluate]="false" message="შეყვანილი კოდით უკვე რეგისტრირებულია მომხმარებელი!" [validationCallback]="checkCompanyCode"></dxi-validation-rule>
                     <dxo-label text="კომპანიის კოდი"></dxo-label>
                   </dxi-item>
 
                   <dxi-item [visible]="isCompany" dataField="CompanyName" editorType="dxTextBox"
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'კომპანიის დასახელება', mode: 'text' }">
+                    <dxi-validation-rule type="stringLength" message="კომპანიის დასახელება უნდა შედგებოდეს მინიმუმ 2 სიმბოლოსგან" [min]="3" [max]="80"></dxi-validation-rule>
                     <dxi-validation-rule type="required" message="შეიყვანეთ კომპანიის დასახელება"></dxi-validation-rule>
                     <dxo-label text="კომპანიის დასახელება"></dxo-label>
                   </dxi-item>
 
                   <dxi-item dataField="Address" editorType="dxTextBox"
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'მისამართი', mode: 'text' }">
-                    <dxi-validation-rule type="required" message="შეიყვანეთ თქვენი მისამართი"></dxi-validation-rule>
                     <dxo-label text="მისამართი"></dxo-label>
                   </dxi-item>
               
                   <dxi-item dataField="PhoneNumber" editorType="dxTextBox"
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'ტელეფონი', mode: 'numeric' }">
                     <dxi-validation-rule type="required" message="შეიყვანეთ ტელეფონის ნომერი"></dxi-validation-rule>
+                    <dxi-validation-rule type="stringLength" message="ტელეფონის ნომერი უნდა შედგებოდეს 9 სიმბოლოსგან" [min]="9" [max]="9"></dxi-validation-rule>
                     <dxi-validation-rule type="numeric" message="შეიყვანეთ მხოლოდ ციფრები"></dxi-validation-rule>
-                    <dxi-validation-rule type="custom" message="შეყვანილი ნომრით უკვე რეგისტრირებულია მომხმარებელი!" [validationCallback]="checkPhoneNumber"></dxi-validation-rule>
+                    <dxi-validation-rule type="async" [reevaluate]="false" message="შეყვანილი ნომრით უკვე რეგისტრირებულია მომხმარებელი!" [validationCallback]="checkPhoneNumber"></dxi-validation-rule>
                     <dxo-label text="ტელეფონი"></dxo-label>
                   </dxi-item>
               
@@ -65,27 +70,30 @@
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'ელფოსტა', mode: 'email' }">
                     <dxi-validation-rule type="required" message="შეიყვანეთ ელფოსტა"></dxi-validation-rule>
                     <dxi-validation-rule type="email" message="ელფოსტა არასწორია"></dxi-validation-rule>
-                    <dxi-validation-rule type="custom" message="შეყვანილი ელ-ფოსტით უკვე რეგისტრირებულია მომხმარებელი!" [validationCallback]="checkEmail"></dxi-validation-rule>
+                    <dxi-validation-rule type="async" [reevaluate]="false" message="შეყვანილი ელ-ფოსტით უკვე რეგისტრირებულია მომხმარებელი!" [validationCallback]="checkEmail"></dxi-validation-rule>
                     <dxo-label text="ელფოსტა"></dxo-label>
                   </dxi-item>
               
                   <dxi-item dataField="UserName" editorType="dxTextBox"
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'მომხმარებელი', mode: 'text' }">
                     <dxi-validation-rule type="required" message="შეიყვანეთ მომხმარებლის სახელი"></dxi-validation-rule>
-                    <dxi-validation-rule type="custom" message="შეყვანილი სახელი დაკავებულია!" [validationCallback]="checkUsername"></dxi-validation-rule>
+                    <dxi-validation-rule type="stringLength" message="მომხმარებლის სახელი უნდა შედგებოდეს მინიმუმ 2 სიმბოლოსგან" [min]="2" [max]="40"></dxi-validation-rule>
+                    <dxi-validation-rule type="async" [reevaluate]="false" message="შეყვანილი სახელი დაკავებულია!" [validationCallback]="checkUsername"></dxi-validation-rule>
                     <dxo-label text="მომხმარებელი"></dxo-label>
                   </dxi-item>
               
                   <dxi-item dataField="Password" editorType="dxTextBox"
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'პაროლი', mode: 'password' }">
                     <dxi-validation-rule type="required" message="შეიყვანეთ პაროლი"></dxi-validation-rule>
+                    <dxi-validation-rule type="stringLength" message="პაროლი უნდა შედგებოდეს მინიმუმ 6 სიმბოლოსგან" [min]="6" [max]="50"></dxi-validation-rule>
                     <dxo-label text="პაროლი"></dxo-label>
                   </dxi-item>
               
                   <dxi-item dataField="confirmedPassword" editorType="dxTextBox"
                     [editorOptions]="{ stylingMode: 'filled', placeholder: 'გაიმეორე პაროლი', mode: 'password' }">
                     <dxi-validation-rule type="required" message="შეიყვანეთ პაროლი"></dxi-validation-rule>
-                    <dxi-validation-rule type="custom" message="პაროლები ერთმანეთს არ ემთხვევა" [validationCallback]="confirmPassword"></dxi-validation-rule>
+                    <dxi-validation-rule type="stringLength" message="პაროლი უნდა შედგებოდეს მინიმუმ 6 სიმბოლოსგან" [min]="6" [max]="50"></dxi-validation-rule>
+                    <dxi-validation-rule type="async" [reevaluate]="false" message="პაროლები ერთმანეთს არ ემთხვევა" [validationCallback]="confirmPassword"></dxi-validation-rule>
                     <dxo-label text="გაიმეორე პაროლი"></dxo-label>
                   </dxi-item>
               

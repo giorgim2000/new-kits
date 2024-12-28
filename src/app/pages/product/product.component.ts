@@ -50,7 +50,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   notifyMeBtnDisabled = false;
   restPopupVisible:boolean = false;
   productRestInfo: ProductRestWithStores[] = [];
-  showCart = false;
+  showCart = true;
   products : any[] = [];
   cartTotalPrice = 0;
   showContext = false;

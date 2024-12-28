@@ -1,33 +1,11 @@
-<!-- <div *ngIf="cart.length === 0">Your cart is empty.</div>
-
-<div class="list-container">
-  <dx-list [dataSource]="cart" height="100%" [showSelectionControls]="true" [title]="'კალათა'">
-    <div *dxTemplate="let item of 'item'">
-      <div class="product">
-        <dx-gallery
-        [dataSource]="item.imageUrls!"
-        [showNavButtons]="true"
-        [showIndicator]="true"
-        width="130"
-        height="100%"
-        ></dx-gallery>
-        <div class="name">{{ item.name }}</div>
-        <div class="price">{{item.price}}₾</div>
-      </div>
-    </div>
-  </dx-list>
-</div> -->
-
-
-<!-- shopping-cart.component.html -->
 <div class="main" @popupAnimation>
-  <div class="pageTitle">
+  <div class="pageTitle" *ngIf="!inCheckout">
     <div class="cartTitle" style="display: flex;">
       <dx-button icon="cart" style="background: transparent; border: 0;"></dx-button>
       <p id="cartTitle">კალათა</p>
     </div>
     
-    <div *ngIf="!inCheckout" (click)="navigateBack()" class="minimize">
+    <div (click)="navigateBack()" class="minimize">
       <img src="../../../assets/minimize-sign.png" height="50">
     </div>
   </div>
@@ -68,7 +46,7 @@
     </div>
     <div class="cart-summary">
       <div style="margin-bottom: 18px;">ჯამი: {{ getTotalPrice() }}₾</div>
-      <dx-button text="შეძენა" (onClick)="checkout()" type="success" [disabled]="cart.length == 0" width="130"></dx-button>
+      <dx-button *ngIf="!inCheckout" text="შეძენა" (onClick)="checkout()" type="success" [disabled]="cart.length == 0" width="130"></dx-button>
     </div>
   </div>
 </div>

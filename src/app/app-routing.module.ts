@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ScreenManagerService } from './services/screen-manager.service';
-import { DxButtonModule, DxCheckBoxModule, DxContextMenuModule, DxDataGridModule, DxDateBoxModule, DxDateRangeBoxModule, DxFileUploaderModule, DxFormModule, DxGalleryModule, DxListModule, DxLoadIndicatorModule, DxLoadPanelModule, DxMapModule, DxMenuModule, DxNumberBoxModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxSwitchModule, DxTextAreaModule, DxTextBoxModule, DxToastModule, DxTreeListModule, DxTreeViewModule } from 'devextreme-angular';
+import { DxButtonModule, DxCheckBoxModule, DxContextMenuModule, DxDataGridModule, DxDateBoxModule, DxDateRangeBoxModule, DxFileUploaderModule, DxFormModule, DxGalleryModule, DxListModule, DxLoadIndicatorModule, DxLoadPanelModule, DxMapModule, DxMenuModule, DxNumberBoxModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxSwitchModule, DxTextAreaModule, DxTextBoxModule, DxToastModule, DxTreeListModule, DxTreeViewModule, DxValidatorModule } from 'devextreme-angular';
 import { AuthFormComponent } from './pages/auth-form/auth-form.component';
 import { LoginComponent } from './pages/auth-form/login/login.component';
 import { CreateAccountComponent } from './pages/auth-form/create-account/create-account.component';
@@ -154,7 +154,7 @@ const routes: Routes = [
     DxContextMenuModule,DxScrollViewModule,DxFormModule, DxLoadIndicatorModule, CommonModule,
     FormsModule, DxSelectBoxModule, DxTextBoxModule,DxButtonModule,DxNumberBoxModule,DxPopupModule, BrowserAnimationsModule, DxMenuModule,
     DxFileUploaderModule, DxDataGridModule, ReactiveFormsModule, DxLoadPanelModule, DxToastModule,DxListModule, DxSwitchModule, DxDateBoxModule, DxCheckBoxModule,
-    DxDateRangeBoxModule, DxTextAreaModule],
+    DxDateRangeBoxModule, DxTextAreaModule, DxValidatorModule],
   exports: [RouterModule],
   declarations: [HomeComponent, AuthFormComponent, LoginComponent, CreateAccountComponent, ChangePasswordComponent, ProductsComponent, AdminPanelComponent,
     MakesComponent,ModelsComponent,ModelsByYearComponent,ProductPanelComponent,OrdersComponent,UsersPanelComponent, ProductComponent, AuthComponent, 
