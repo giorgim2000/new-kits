@@ -3,6 +3,7 @@ dx-toolbar{
     background: whitesmoke;
     padding-right: 10px;
     border-bottom: thin groove;
+    z-index: 9999 !important;
 }
 
 dx-toolbar > div{

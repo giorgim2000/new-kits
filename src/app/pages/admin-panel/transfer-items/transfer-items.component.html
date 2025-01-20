@@ -23,6 +23,11 @@
         [allowUpdating]="false"
         [allowDeleting]="true"
         >
+            <dxo-texts
+            saveRowChanges="შენახვა"
+            cancelRowChanges="გამოსვლა"
+            deleteRow="წაშლა"
+            ></dxo-texts>
         </dxo-editing>
 
         <dxo-toolbar [className]="'toolbarDiv'">
@@ -64,6 +69,7 @@
             >
                 <dx-select-box
                 [dataSource]="stores"
+                [(value)]="storeId"
                 valueExpr="id"
                 displayExpr="name"
                 label="მაღაზია"

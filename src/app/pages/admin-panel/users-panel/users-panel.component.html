@@ -12,7 +12,6 @@
     [repaintChangesOnly]="true"
     (onSaved)="onChangesSaved($event)"
     (onRowRemoving)="removeUser($event)"
-    (onEditorPreparing)="onEditorPrep($event)"
     noDataText="ცხრილი ცარიელია"
     >
       <dxo-paging [pageSize]="50"></dxo-paging>
@@ -22,7 +21,14 @@
       [allowUpdating]="true"
       [allowDeleting]="true"
       >
-      <dxo-popup
+        <dxo-texts
+        saveRowChanges="შენახვა"
+        cancelRowChanges="გამოსვლა"
+        confirmDeleteMessage="დარწმუნებული ხართ რომ გსურთ მომხმარებლის წაშლა?"
+        confirmDeleteTitle="მომხმარებლის წაშლა"
+        ></dxo-texts>
+
+        <dxo-popup
           title="რედაქტირება"
           [showTitle]="true"
           [width]="700"
@@ -31,6 +37,7 @@
           [showCloseButton]="true"
         >
         </dxo-popup>
+
         <dxo-form>
           <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
               <dxi-item dataField="firstName">

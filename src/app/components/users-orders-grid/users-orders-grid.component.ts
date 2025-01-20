@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { retry } from 'rxjs';
-import { IUserOrder } from 'src/app/Dto\'s/order';
+import { AddOrderColors, IUserOrder, OrderPaymentTypeTransformation, TransformOrderStatus } from 'src/app/Dto\'s/order';
 
 @Component({
   selector: 'app-users-orders-grid',
@@ -28,40 +28,20 @@ export class UsersOrdersGridComponent implements OnInit, OnDestroy {
 
   }
 
+  rowPrepared(e:any){
+    AddOrderColors(e);
+  }
+
   status_customize(e:any){
-    if(e.value == 0)
-      return "მიღებული";
-    
-    if(e.value == 1)
-      return "დადასტურებული";
-
-    if(e.value == 2)
-      return "დასრულებული";
-
-    if(e.value == 3)
-      return "გაუქმებული";
-
-    return e.value;
+    return TransformOrderStatus(e);
   }
 
   paymentType_customize(e:any){
-    if(e.value == 0)
-      return "ნაღდი";
-
-    if(e.value == 1)
-      return "გადარიცხვა";
-
-    if(e.value == 2)
-      return "ბარათი";
-
-    if(e.value == 3)
-      return "კონსიგნაცია";
-
-    return e.value;
+    return OrderPaymentTypeTransformation(e);
   }
 
   sum_customize(e:any){
-    return e.value + "₾";
+    return `${e.value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}₾`;
   }
 
   popupShown(){

@@ -78,7 +78,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   getUserInfo(){
     this.authService.getUserInfo().toPromise().then((res:any) =>{
       if(res.length > 0){
-        console.log(res);
         this.order.User = this.order.User || {};
         this.userInfo = res;
         this.order.User!.Registered = true;
@@ -93,11 +92,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         }else{
           this.firstName = this.userInfo.find(i => i.claimType == "Firstname")!.claimValue;
           this.lastName = this.userInfo.find(i => i.claimType == "Lastname")!.claimValue;
-          this.userIdNumber = this.userInfo[3].claimValue;
+          this.userIdNumber = this.userInfo.find(i => i.claimType == "IdNumber")!.claimValue;
         }
         this.setBoxWidth();
         if(Number(this.userInfo.find(i => i.claimType == "consigDays")?.claimValue) > 0)
-          this.paymentTypes.push({id:3,name:"კონსიგნაცია"});
+          this.paymentTypes.push({id:3, name:"კონსიგნაცია"});
       }
     })
   }
@@ -189,7 +188,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.order.Paid = false;
     this.order.PaymentType = this.selectedPaymentType;
     this.order.OrderProducts = this.selectedProducts.map(i => ({
-      ProductId: i.id, FinaId: i.finaId, Quantity: i.quantity, Price:i.price,Discount:i.discount, CustomWarranty:i.customWarranty
+      ProductId: i.id, FinaId: i.finaId, Name: i.name, Quantity: i.quantity, Price:i.price,Discount:i.discount, CustomWarranty:i.customWarranty
     }));
 
     if(this.order.WithDelivery){
@@ -204,13 +203,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.orderService.postOrder(this.order).subscribe({
       next:(res : IOrderResponse) =>{
         console.log(res);
-        if(res.objectData){
+        if(res.objectData != null){
           this.showCheckoutPopup("შეკვეთა წარმატებით განხორციელდა, ინვოისის გადახდის შემდეგ დადასტურდება თქვენი შეკვეთა...", "success");
           setTimeout(() => {
             this.loading = false;
             window.open(res.objectData, '_blank');
           }, 2000);
-          this.router.navigate(['/home']);
+          //this.router.navigate(['/home']);
         }
         else{
           this.showCheckoutPopup(res.errorMessage!, "default");

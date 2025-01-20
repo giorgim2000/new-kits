@@ -1,9 +1,14 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
+import { ValidationCallbackData } from 'devextreme/common';
 import { ModelByYear } from 'src/app/Dto\'s/modelByYear';
 import { CreateProduct, Product, ProductModel } from 'src/app/Dto\'s/product';
 import { ModelByYearService } from 'src/app/services/model-by-year.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { sendRequest } from '../../auth-form/create-account/create-account.component';
+import { firstValueFrom, Observable } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-product-panel',
@@ -140,7 +145,6 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.productService.getProductsByFinaCode(e.component._changedValue).subscribe({ 
       next:(res : any) => {
-        console.log(res);
         this.finaProductName = res.finaName;
         if(res.Name != null)
           this.productName = res.name;
@@ -155,7 +159,63 @@ export class ProductPanelComponent implements OnInit, OnDestroy {
     });
   }
 
+  // sendFinaRequest = (obs: Observable<IFinaRequestResponse>): Promise<boolean | IFinaRequestResponse> => {
+  //   return new Promise(async (resolve) => {
+  //     let finaN = "";
+  //     setTimeout(() => {
+  //       obs.subscribe({
+  //         next:(val) =>{
+  //           if(val.Name != null)
+  //             this.productName = val.Name;
+  
+  //           if(val.FinaName != null)
+  //             this.finaProductName = val.FinaName;
+
+  //           finaN = val.FinaName;
+  //         },
+  //         error:(err)=> {return false;}
+  //       })
+  //     }, 1000);
+  //     console.log(finaN);
+  //     resolve(finaN != null);
+  //   });
+  // };
+
+  //checkFinaCode = (params: ValidationCallbackData) => this.sendFinaRequest(this.productService.getProductsByFinaCode(params.value));
+
+
+  sendFinaRequest = (obs: Observable<IFinaRequestResponse>): Promise<boolean> => {
+    return new Promise((resolve) => {
+      obs.subscribe({
+        next: (val) => {
+          if (val.name != null) {
+            this.productName = val.name;
+          }
+          if (val.finaName != null) {
+            this.finaProductName = val.finaName;
+          }
+          this.warningPopupVisible = true;
+          resolve(val.finaName != null);
+        },
+        error: (err) => {
+          this.productName = "";
+          this.finaProductName = "";
+          resolve(true);
+        },
+      });
+    });
+  };
+
+  checkFinaCode = (params: ValidationCallbackData) => {
+    return this.sendFinaRequest(this.productService.getProductsByFinaCode(params.value));
+  };
+
   warningPopupClosing(){
     this.warningPopupVisible = false;
   }
+}
+
+export interface IFinaRequestResponse{
+  finaName:string;
+  name?:string;
 }

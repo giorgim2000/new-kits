@@ -21,7 +21,7 @@
       <dxo-editing
       mode="popup"
       [allowAdding]="true"
-      [allowUpdating]="false"
+      [allowUpdating]="true"
       [allowDeleting]="false"
       >
         
@@ -72,10 +72,10 @@
       <dxi-column dataType="string" dataField="customerCode" caption="შემკვეთის N" minWidth="130"></dxi-column>
       <dxi-column dataType="string" dataField="customerPhone" caption="მობილური" minWidth="130"></dxi-column>
       <dxi-column dataType="boolean" dataField="paid" caption="გადახდილი" minWidth="130"></dxi-column>
-      <dxi-column dataType="string" dataField="statusString" caption="სტატუსი" [customizeText]="statusString_Customize" minWidth="150"></dxi-column>
-      <dxi-column dataType="number" dataField="status" [visible]="false"></dxi-column>
-      <dxi-column dataType="string" dataField="paymentTypeString" caption="გადახდა" [customizeText]="paymentTypeString_Customize" minWidth="150"></dxi-column>
-      <dxi-column dataType="number" dataField="paymentType" [visible]="false"></dxi-column>
+      <!-- <dxi-column dataType="string" dataField="statusString" caption="სტატუსი" [customizeText]="statusString_Customize" minWidth="150"></dxi-column> -->
+      <dxi-column dataType="string" dataField="status" caption="სტატუსი" [customizeText]="statusString_Customize" minWidth="150"></dxi-column>
+      <!-- <dxi-column dataType="string" dataField="paymentTypeString" caption="გადახდა" [customizeText]="paymentTypeString_Customize" minWidth="150"></dxi-column> -->
+      <dxi-column dataType="number" dataField="paymentType" caption="გადახდა" [customizeText]="paymentTypeString_Customize" minWidth="150"></dxi-column>
       <dxi-column dataType="number" dataField="amount" caption="თანხა" [customizeText]="amount_Customize" minWidth="75" [format]="{ type: 'fixedPoint', precision: 2 }"></dxi-column>
       <dxi-column dataType="boolean" dataField="withDelivery" caption="მიტანა" minWidth="130"></dxi-column>
       <dxi-column dataType="string" dataField="storeName" caption="საწყობი" minWidth="100"></dxi-column>
@@ -127,40 +127,39 @@ title="კურიერის მიმაგრება"
 </dx-popup>
 
 <dx-popup
-              [visible]="productsPopupVisible"
-              (onHidden)="popupHidden()"
-              width="90%"
-              height="80%"
-              [closeOnOutsideClick]="true"
-              >
-                  <dx-data-grid
-                  [dataSource]="selectedProducts"
-                  [showBorders]="true"
-                  
-                  >
-                      <dxo-editing
-                      mode="cell"
-                      [allowAdding]="true"
-                      [allowUpdating]="true"
-                      [allowDeleting]="false"
-                      ></dxo-editing>
+    [visible]="productsPopupVisible"
+    (onHidden)="popupHidden()"
+    width="90%"
+    height="80%"
+    [closeOnOutsideClick]="true"
+    >
+        <dx-data-grid
+        [dataSource]="selectedProducts"
+        [showBorders]="true"  
+        >
+            <dxo-editing
+            mode="cell"
+            [allowAdding]="true"
+            [allowUpdating]="true"
+            [allowDeleting]="false"
+            ></dxo-editing>
 
-                      <dxi-column dataField="name" caption="დასახელება" [allowEditing]="false"></dxi-column>
-                      <dxi-column dataField="price" caption="ფასი" [allowEditing]="true" [calculateDisplayValue]="priceCell"></dxi-column>
-                      <dxi-column dataField="discount" [allowEditing]="true" caption="ფასდაკლება" [calculateDisplayValue]="percentCell"></dxi-column>
-                      <dxi-column dataField="quantity" [allowEditing]="true" caption="რაოდენობა"></dxi-column>
-                      <dxi-column caption="სულ" [calculateDisplayValue]="sumCell"></dxi-column>
-                  </dx-data-grid>
+            <dxi-column dataField="name" caption="დასახელება" [allowEditing]="false"></dxi-column>
+            <dxi-column dataField="price" caption="ფასი" [allowEditing]="true" [calculateDisplayValue]="priceCell"></dxi-column>
+            <dxi-column dataField="discount" [allowEditing]="true" caption="ფასდაკლება" [calculateDisplayValue]="percentCell"></dxi-column>
+            <dxi-column dataField="quantity" [allowEditing]="true" caption="რაოდენობა"></dxi-column>
+            <dxi-column caption="სულ" [calculateDisplayValue]="sumCell"></dxi-column>
+        </dx-data-grid>
 </dx-popup>
 
 <app-add-order [addOrderPopupVisible]="addOrderPopup" (closePopup)="closeAddOrderPopup()"></app-add-order>
 <dx-toast [message]="toastMessage" [(visible)]="toastVisible" [type]="toastType"></dx-toast>
 
 <dx-load-panel
-              shadingColor="rgba(0,0,0,0.4)"
-              [visible]="loading"
-              [showIndicator]="true"
-              [showPane]="true"
-              [shading]="true"
-              [hideOnOutsideClick]="false"
-              ></dx-load-panel>
+shadingColor="rgba(0,0,0,0.4)"
+[visible]="loading"
+[showIndicator]="true"
+[showPane]="true"
+[shading]="true"
+[hideOnOutsideClick]="false"
+></dx-load-panel>

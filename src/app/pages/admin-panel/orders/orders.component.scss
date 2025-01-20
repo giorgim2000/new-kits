@@ -24,3 +24,19 @@
     display: flex;
     gap: 8px;
   }
+
+  ::ng-deep .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):not(.dx-row-removed).yellow > td {
+    background-color:rgb(255, 247, 210)
+}
+
+::ng-deep .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):not(.dx-row-removed).green > td {
+    background-color: hsl(121, 40%, 73%)
+}
+
+::ng-deep .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):not(.dx-row-removed).white > td {
+  background-color:rgb(227, 225, 225)
+}
+
+::ng-deep .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):not(.dx-row-removed).grey > td {
+  background-color:rgb(181, 181, 181)
+}

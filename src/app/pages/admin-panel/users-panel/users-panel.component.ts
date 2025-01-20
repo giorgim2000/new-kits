@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { firstValueFrom, switchMap } from 'rxjs';
 import { User } from 'src/app/Dto\'s/User';
 import { IUserOrder } from 'src/app/Dto\'s/order';
 import { Role } from 'src/app/Dto\'s/role';
@@ -48,7 +49,7 @@ export class UsersPanelComponent implements OnInit, OnDestroy {
   }
 
   onChangesSaved(e:any){
-    if(e.changes.length > 0){
+    if(e.changes.length > 0 && e.changes[0].type != "remove"){
       this.userService.updateUser(e.changes[0].data).subscribe({
         next:(res) => this.getUsers(),
         error:(err) => console.error(err)
@@ -56,17 +57,9 @@ export class UsersPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  onEditorPrep(e:any){
-    console.log(e);
-  }
-
-  updateUser(e:any){
-
-  }
-
   removeUser(e:any){
-    this.userService.removeUser(e.key).subscribe({
-      next:(res) => this.getUsers()
+    this.userService.removeUser(e.key).subscribe().add(()=>{
+      this.getUsers();
     })
   }
 

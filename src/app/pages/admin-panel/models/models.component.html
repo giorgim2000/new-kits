@@ -23,14 +23,20 @@
     [allowUpdating]="true"
     [allowDeleting]="true"
     >
+      <dxo-texts
+      saveRowChanges="შენახვა"
+      cancelRowChanges="გამოსვლა"
+      confirmDeleteMessage="დარწმუნებული ხართ რომ გსურთ მოდელის წაშლა?"
+      confirmDeleteTitle="მოდელის წაშლა"
+      ></dxo-texts>
       <dxo-popup
-        title="რედაქტირება"
-        [showTitle]="true"
-        width="min(880,100%)"
-        height="min(600, 100%)"
-        [onHidden]="onPopupHidden"
-        [closeOnOutsideClick]="true"
-        [showCloseButton]="true"
+      title="რედაქტირება"
+      [showTitle]="true"
+      width="min(880,100%)"
+      height="min(600, 100%)"
+      [onHidden]="onPopupHidden"
+      [closeOnOutsideClick]="true"
+      [showCloseButton]="true"
       >
       </dxo-popup>
       <dxo-form>
@@ -48,6 +54,7 @@
                 [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
                 uploadMode="useForm"
                 (onValueChanged)="fileChanged($event)"
+                selectButtonText="აირჩიეთ სურათი"
               >
               </dx-file-uploader>
             </div>
@@ -61,6 +68,7 @@
                 [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
                 uploadMode="useForm"
                 (onValueChanged)="coverFileChanged($event)"
+                selectButtonText="აირჩიეთ სურათი"
               >
               </dx-file-uploader>
             </div>

@@ -26,14 +26,14 @@
                     <p>სულ: {{cartTotalPrice}}₾</p>
                 </div>
                 <div class="contextBtnDiv">
-                    <dx-button (onClick)="goToCart()" type="default" width="180px">კალათის ნახვა</dx-button>
-                    <dx-button (onClick)="goToCheckout()" type="default" width="180px">ყიდვა</dx-button>
+                    <dx-button (onClick)="goToCart()" type="default" width="180px" [disabled]="cartBtnsDisabled">კალათის ნახვა</dx-button>
+                    <dx-button (onClick)="goToCheckout()" type="default" width="180px" [disabled]="cartBtnsDisabled">ყიდვა</dx-button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="mainDiv" [ngClass]="{'hidden-content': showCart}">
+<div class="mainDiv">
     <div class="backDiv">
         <dx-button
         icon="back"

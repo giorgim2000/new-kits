@@ -117,12 +117,11 @@ export class ModelsByYearComponent implements OnInit, OnDestroy {
     if(modelId != null)
       formData.append('ModelId', String(modelId));
 
-    if(lineNum != null)
-      formData.append('LineNum', String(lineNum));
-
     if(file != null)
       formData.append('Image', file, file.name);
 
+    formData.append('LineNum', String(lineNum));
+    
     this.modelByYearService.putModelByYear(id, formData).subscribe({
       next:(res)=>{
         this.getModelsByYear();

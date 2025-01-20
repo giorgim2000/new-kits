@@ -56,7 +56,6 @@ export class MakesComponent {
   }
 
   onChangesSaved(e: any) {
-    console.log(e);
     if(e.changes.length > 0 && e.changes[0].type === 'insert'){
       this.makeName = e.changes[0].data.makeName;
       this.createMake(this.selectedFile!);
@@ -96,16 +95,6 @@ export class MakesComponent {
         console.error(err);
       }
     })
-  }
-
-  onsave(e:any,i?:any){
-    console.log(e);
-    console.log(i);
-  }
-
-  clic(e:any){
-    console.log("BTNCLICK");
-    console.log(e);
   }
 
   fileChange(e:any){

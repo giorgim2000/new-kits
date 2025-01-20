@@ -255,11 +255,12 @@ body{
 }
   
 .cart-icon {
+  width: 36px;
   position: relative;
   display: inline-block;
   z-index:2;
   left: 95%;
-  top: 13px;
+  top: -18px;
 }
 
 .cart-icon #cartIcon{
@@ -399,7 +400,7 @@ body{
   .cartDiv{
     .cart-icon{
       left: 94%;
-      top: 10px;
+      top: -18px;
       margin-left: -28px;
     }
   }
@@ -411,7 +412,7 @@ body{
     .backDiv{
       padding-left: 25px;
       position: relative;
-      top: -22px;
+      top: -15px;
 
       dx-button{
         width: 36px !important;

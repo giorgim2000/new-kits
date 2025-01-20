@@ -36,6 +36,15 @@ export class ShowroomComponent implements OnInit, OnDestroy {
   modelClicked = false;
   models : Model[] = [];
   modelsByYear : ModelByYear[] = [];
+  loading = false;
+  // public get loading(){
+  //   return this._loading;
+  // }
+
+  // public set loading(value:boolean){
+  //   if(value)
+  //     document.getElementById('loading-spinner').style.display = 'flex';
+  // }
 
   constructor(private modelService:ModelService, private modelByYearService:ModelByYearService, private showroomService:ShowroomService){}
 
@@ -90,4 +99,21 @@ export class ShowroomComponent implements OnInit, OnDestroy {
     const container = document.querySelector('.modelsByYear')!;
     container.scrollTop += 900;
   }
+
+
+
+  // testVal = "";
+  // confirmVal = "";
+  // cancelVal = "";
+  // testVisible = false;
+
+  confirmation(){
+    this.loading = true;
+  }
+
+  // testClose(e:any){
+  //   this.testVisible = false;
+  //   console.log(e);
+  //   alert(e);
+  // }
 }

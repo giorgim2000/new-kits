@@ -126,8 +126,8 @@ export class ModelsComponent implements OnInit, OnDestroy {
     else
       formData.append('CoverImage', 'null');
 
-    if(lineNum != null)
-      formData.append('lineNum', String(lineNum));
+    
+    formData.append('lineNum', String(lineNum));
 
     this.modelService.putModel(id, formData).subscribe({
       next:(res)=>{

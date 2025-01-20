@@ -20,4 +20,17 @@
         </div>
         <img src="../../../assets/right-arrow.png" class="scroll-button right" (click)="scrollRight()">
     </div>
+    <div id="loading-spinner" [style.display]="loading ? 'flex' : 'none'">
+        <div class="spinner"></div>
+    </div>
 </div>
+
+
+<dx-button (onClick)="confirmation()">popup</dx-button>
+<!-- <dx-text-box [(value)]="testVal"></dx-text-box>
+<dx-text-box [(value)]="confirmVal"></dx-text-box>
+<dx-text-box [(value)]="cancelVal"></dx-text-box>
+<dx-button (onClick)="confirmation()">popup</dx-button>
+<app-confirmation-popup
+ [questionText]="testVal" [confirmBtnText]="confirmVal" [cancelBtnText]="cancelVal" [confirmPopupVisible]="testVisible" (closePopup)="testClose($event)"
+ ></app-confirmation-popup> -->

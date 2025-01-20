@@ -1,0 +1,18 @@
+<dx-popup
+[visible]="confirmPopupVisible"
+contentTemplate="popup-content"
+width="min(450px, 100%)"
+height="fit-content"
+title="შეტყობინება"
+[closeOnOutsideClick]="false"
+>
+  <div *dxTemplate="let data of 'popup-content'" class="confirmPopupDiv">
+    <p>
+      {{questionText}}
+    </p>
+    <div class="confirmPopupBtnDiv">
+        <dx-button (onClick)="close(true)" type="success" height="35px" width="120px">{{confirmBtnText}}</dx-button>
+        <dx-button (onClick)="close(false)" type="default" height="35px" width="120px">{{cancelBtnText}}</dx-button>
+    </div>
+  </div>
+</dx-popup>

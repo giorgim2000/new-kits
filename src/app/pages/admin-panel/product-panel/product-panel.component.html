@@ -32,6 +32,10 @@
       [allowDeleting]="true"
       [useIcons]="true"
       >
+        <dxo-texts
+        saveRowChanges="შენახვა"
+        cancelRowChanges="გამოსვლა"
+        ></dxo-texts>
         <dxo-popup
           title="რედაქტირება"
           [showTitle]="true"
@@ -114,6 +118,7 @@
             </dxi-item>
             <dxi-item dataField="finaCode">
               <dxi-validation-rule type="required"></dxi-validation-rule>
+              <dxi-validation-rule type="async" [reevaluate]="false" message="შეყვანილი კოდი უკვე რეგისტრირებულია ბაზაში" [validationCallback]="checkFinaCode"></dxi-validation-rule>
             </dxi-item>
             <dxi-item dataField="barcode"></dxi-item>
             <dxi-item dataField="warranty"></dxi-item>
@@ -159,7 +164,7 @@
       </dxi-column>
       <dxi-column dataType="boolean" dataField="comingSoon" caption="გზაშია" [allowEditing]="true" [visible]="false">
       </dxi-column>
-      <dxi-column dataType="string" dataField="finaCode" caption="კოდი" [allowEditing]="true" editCellTemplate="finaCodeTemp">
+      <dxi-column dataType="string" dataField="finaCode" caption="კოდი" [allowEditing]="true">
       </dxi-column>
       <dxi-column dataType="string" dataField="barcode" caption="შტრიხკოდი" [allowEditing]="true">
       </dxi-column>
@@ -190,10 +195,10 @@
       <div *dxTemplate="let data of 'productNameTemp'">
         <dx-text-box [(value)]="productName"></dx-text-box>
       </div>
-      <div *dxTemplate="let data of 'finaCodeTemp'">
+      <!-- <div *dxTemplate="let data of 'finaCodeTemp'">
         <dx-text-box [(value)]="finaCode" (onFocusOut)="finaCodeFocusOut($event)">
         </dx-text-box>
-      </div>
+      </div> -->
       <div *dxTemplate="let data of 'descTemp'">
         <dx-text-area [(value)]="description">
         </dx-text-area>
@@ -216,7 +221,7 @@ title="შეტყობინება"
     <p>
       თქვენს მიერ შეყვანილი კოდი დაკავებულია - {{finaProductName}}
     </p>
-    <dx-button (onClick)="warningPopupClosing()">დახურვა</dx-button>
+    <dx-button (onClick)="warningPopupClosing()" type="default" height="35px">დახურვა</dx-button>
   </div>
 </dx-popup>
 

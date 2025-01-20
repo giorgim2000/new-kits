@@ -96,11 +96,16 @@ export class TransferItemsComponent implements OnInit, OnDestroy{
   }
 
   rowPrepared(e:any){
+    console.log(e);
     if(e.rowType == "data"){
-      if(e.data.transferred)
+      if(e.data.transferred){
         e.rowElement.style.background = "rgb(92, 184, 92)";
-      else
-        e.rowElement.style.background = "rgb(233, 233, 32)";
+        e.rowElement.classList.add('green');
+      }
+      else{
+        e.rowElement.style.background = "rgb(248, 239, 165)";
+        e.rowElement.classList.add('yellow');
+      }
     }
   }
 

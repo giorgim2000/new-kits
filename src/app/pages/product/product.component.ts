@@ -50,9 +50,10 @@ export class ProductComponent implements OnInit, OnDestroy {
   notifyMeBtnDisabled = false;
   restPopupVisible:boolean = false;
   productRestInfo: ProductRestWithStores[] = [];
-  showCart = true;
+  showCart = false;
   products : any[] = [];
   cartTotalPrice = 0;
+  cartBtnsDisabled = false;
   showContext = false;
   get contextState() {
     return this.showContext ? 'visible' : 'hidden';
@@ -120,8 +121,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   onCartClick(){
-    if(this.products.length > 0)
-      this.showContext = !this.showContext; 
+    this.cartBtnsDisabled = this.products.length <= 0;
+    this.showContext = !this.showContext; 
   }
 
   loadCart() {

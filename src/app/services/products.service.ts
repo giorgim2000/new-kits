@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject, catchError, map, of, timeout } from 'rxjs';
 import { CreateProduct } from '../Dto\'s/product';
 import { UrlS } from 'src/assets/config';
+import { IFinaRequestResponse } from '../pages/admin-panel/product-panel/product-panel.component';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class ProductsService {
   }
 
   getProductsByFinaCode(code:string){
-    return this.http.get(this.url + `/code/${code}`);
+    return this.http.get<IFinaRequestResponse>(this.url + `/code/${code}`);
   }
 
   createProduct(product:CreateProduct){

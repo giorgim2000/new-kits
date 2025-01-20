@@ -118,6 +118,7 @@ export interface OrderUserDto {
 
 export interface CreateOrderProductDto {
     ProductId?: number | null;
+    Name?: string | null;
     FinaId?: number | null;
     Quantity?: number | null;
     Discount?: number | null;
@@ -174,4 +175,63 @@ export interface IUserOrder{
     status?:OrderStatus;
     paymentType?:PaymentType;
     sum?:number;
+}
+
+export function AddOrderColors(e:any){
+    if(e.rowType == "data"){
+        if(e.data.status == 0){
+          e.rowElement.style.background = "white";
+          e.rowElement.classList.add("white");
+        }
+          
+  
+        if(e.data.status == 1){
+          e.rowElement.style.background = "rgb(233, 233, 32)";
+          e.rowElement.classList.add("yellow");
+        }
+          
+  
+        if(e.data.status == 2){
+          e.rowElement.style.background = "rgb(22, 160, 22)";
+          e.rowElement.classList.add("green");
+        }
+         
+  
+        if(e.data.status == 3){
+          e.rowElement.style.background = "rgb(207, 207, 207)";
+          e.rowElement.classList.add("grey");
+        }
+      }
+}
+
+export function TransformOrderStatus(e:any){
+    if(e.value == 0)
+        return "მიღებული";
+    
+      if(e.value == 1)
+        return "დადასტურებული";
+    
+      if(e.value == 2)
+        return "დასრულებული";
+    
+      if(e.value == 3)
+        return "გაუქმებული";
+  
+      return e.value;
+}
+
+export function OrderPaymentTypeTransformation(e:any){
+    if(e.value == 0)
+        return "ნაღდი";
+    
+      if(e.value == 1)
+        return "გადარიცხვა";
+    
+      if(e.value == 2)
+        return "ბარათი";
+    
+      if(e.value == 3)
+        return "კონსიგნაცია";
+  
+      return e.value;
 }

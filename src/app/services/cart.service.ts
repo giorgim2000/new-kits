@@ -25,7 +25,7 @@ export class CartService {
   getTotalPrice(){
     var sum = 0;
     var cart : any[] = JSON.parse(localStorage.getItem(this.storageKey)!);
-    if(cart.length > 0)
+    if(cart != null && cart.length > 0)
       cart.forEach(i => sum += i.discount != null && i.discount > 0 ? (i.price! * (1 - i.discount! / 100)) * i.quantity! : (i.price! * i.quantity!));
 
     return sum;

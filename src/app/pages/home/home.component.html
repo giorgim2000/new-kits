@@ -49,7 +49,7 @@
             </div>
             <ul>
                 <li *ngFor="let item of modelsDataSource" [@fadeInOut]>
-                    <a (click)="item.modelName != null ? modelClick(item.id!, item.modelName, item.coverImageUrl) : modelByYearClick(item.id)">
+                    <a (click)="item.modelName != null ? modelClick(item.id!, item.modelName, item.coverImageUrl) : modelByYearClick(item.id)" title="{{item.modelName ?? item.modelByYearName}}">
                         <img src="{{item.imageUrl}}" alt="{{item.modelName ?? item.modelByYearName}}">
                         <div>{{item.modelName ?? item.modelByYearName}}</div>
                     </a>

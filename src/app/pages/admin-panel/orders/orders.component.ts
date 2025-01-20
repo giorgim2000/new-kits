@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { CreateOrderDto, OrderDeliveryDto, OrderDto, OrderStatus, PaymentType, UpdateOrderDto } from 'src/app/Dto\'s/order';
+import { AddOrderColors, CreateOrderDto, OrderDeliveryDto, OrderDto, OrderPaymentTypeTransformation, OrderStatus, PaymentType, TransformOrderStatus, UpdateOrderDto } from 'src/app/Dto\'s/order';
 import { CourierService } from 'src/app/services/courier.service';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -117,51 +117,15 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   rowPrepared(e:any){
-    if(e.rowType == "data"){
-      if(e.data.status == 0)
-        e.rowElement.style.background = "white";
-
-      if(e.data.status == 1)
-        e.rowElement.style.background = "rgb(233, 233, 32)";
-
-      if(e.data.status == 2)
-        e.rowElement.style.background = "rgb(22, 160, 22)";
-
-      if(e.data.status == 3)
-        e.rowElement.style.background = "rgb(207, 207, 207)";
-    }
+    AddOrderColors(e);
   }
 
   statusString_Customize(e:any){
-    if(e.value == "Recieved")
-      return "მიღებული";
-  
-    if(e.value.toLowerCase() == "confirmed")
-      return "დადასტურებული";
-  
-    if(e.value.toLowerCase() == "finished")
-      return "დასრულებული";
-  
-    if(e.value.toLowerCase() == "cancelled")
-      return "გაუქმებული";
-
-    return e.value;
+    return TransformOrderStatus(e);
   }
 
   paymentTypeString_Customize(e:any){
-    if(e.value == "Cash")
-      return "ნაღდი";
-  
-    if(e.value == "Transfer")
-      return "გადარიცხვა";
-  
-    if(e.value.toLowerCase() == "card")
-      return "ბარათი";
-  
-    if(e.value.toLowerCase() == "consig")
-      return "კონსიგნაცია";
-
-    return e.value;
+    return OrderPaymentTypeTransformation(e);
   }
 
   amount_Customize(cellInfo:any){

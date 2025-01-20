@@ -83,6 +83,7 @@ export class ProductsComponent implements OnInit {
   toastType : any = "info";
   loadingText = 'Loading...';
   isAdmin = false;
+  cartBtnsDisabled = false;
   
   showCart = false;
   get cartState(){
@@ -116,6 +117,7 @@ export class ProductsComponent implements OnInit {
     });
     
     const state = window.history.state;
+
     if (state.modelId && state.modelByYearId) {
       this.selectedModel = state.modelId;
       this.selectedmodelByYear = state.modelByYearId;
@@ -146,7 +148,6 @@ export class ProductsComponent implements OnInit {
 
   getProducts(searchWord?:string, modelId?:number,modelByYearId?:number){
     this.isLoading = true;
-
     this.productService.getProducts(false, searchWord, modelId, modelByYearId).subscribe({
       next:(res)=>{
         this.displayProducts = res;
@@ -165,8 +166,8 @@ export class ProductsComponent implements OnInit {
   }
 
   onCartClick(){
-    if(this.products.length > 0)
-      this.showContext = !this.showContext; 
+    this.cartBtnsDisabled = this.products.length <= 0;
+    this.showContext = !this.showContext; 
   }
 
   @HostListener('document:click', ['$event'])
